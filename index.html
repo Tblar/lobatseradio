@@ -909,13 +909,13 @@
             <!-- Payment Details Tabs -->
             <div id="orange" class="payment-method active-method">
                 <h3 style="color: var(--neon-green); margin-bottom: 1rem;">Orange Money</h3>
-                <p>Send your contribution directly via Orange Money to:<br><strong style="font-size: 1.2rem; color: #fff; display: block; margin-top: 0.5rem;">+267 7X XXX XXX</strong></p>
+                <p>Send your contribution directly via Orange Money to:<br><strong style="font-size: 1.2rem; color: #fff; display: block; margin-top: 0.5rem;">+267 72960417</strong></p>
                 <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-muted);">Please use your name as the reference.</p>
             </div>
 
             <div id="myzaka" class="payment-method">
                 <h3 style="color: var(--neon-green); margin-bottom: 1rem;">Mascom MyZaka</h3>
-                <p>Send your contribution directly via MyZaka to:<br><strong style="font-size: 1.2rem; color: #fff; display: block; margin-top: 0.5rem;">+267 7X XXX XXX</strong></p>
+                <p>Send your contribution directly via MyZaka to:<br><strong style="font-size: 1.2rem; color: #fff; display: block; margin-top: 0.5rem;">+267 74547439</strong></p>
                 <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-muted);">Please use your name as the reference.</p>
             </div>
 
@@ -924,8 +924,8 @@
                 <p style="line-height: 1.8;">
                     <strong>Bank:</strong> FNB Botswana<br>
                     <strong>Account Name:</strong> Lobatse Radio<br>
-                    <strong>Account Number:</strong> XXXXXXXXXXX<br>
-                    <strong>Branch Code:</strong> 28XXXX
+                    <strong>Account Number:</strong> 625-122-697-64<br>
+                    <strong>Branch Code:</strong> 281767
                 </p>
             </div>
 
@@ -1036,20 +1036,18 @@
             dropdown.classList.toggle('show');
         }
 
-        // Program Data
+        // Updated Program Data
         const programs = [
-            { title: "Morning Drive", time: "06:00 - 09:00", presenter: "Presenter 1", image: "WhatsApp Image 2026-10-05 at 14.23.54.jpeg" },
-            { title: "Mid-Morning Chat", time: "09:00 - 12:00", presenter: "Presenter 2", image: "WhatsApp Image 2026-10-05 at 14.25.21.jpeg" },
-            { title: "Lunch Hour Jam", time: "12:00 - 15:00", presenter: "Presenter 3", image: "WhatsApp Image 2026-10-05 at 14.26.24.jpeg" },
-            { title: "The Afternoon Drive", time: "15:00 - 18:00", presenter: "Presenter 4", image: "WhatsApp Image 2026-10-05 at 15.47.38 (1).jpeg" },
-            { title: "Evening Talk", time: "18:00 - 21:00", presenter: "Presenter 5", image: "WhatsApp Image 2026-10-05 at 15.47.38.jpeg" },
-            { title: "Night Owls", time: "21:00 - 00:00", presenter: "Presenter 6", image: "WhatsApp Image 2026-10-05 at 14.27.13.jpeg" },
-            { title: "Midnight Mix", time: "00:00 - 02:00", presenter: "Presenter 7", image: "WhatsApp Image 2026-10-05 at 15.43.16.jpeg" },
-            { title: "Early Risers", time: "02:00 - 04:00", presenter: "Presenter 8", image: "https://via.placeholder.com/100" },
-            { title: "Pre-Dawn Prep", time: "04:00 - 06:00", presenter: "Presenter 9", image: "https://via.placeholder.com/100" },
-            { title: "Weekend Breakfast", time: "Sat 06:00 - 10:00", presenter: "Presenter 10", image: "https://via.placeholder.com/100" },
-            { title: "Top 40 Countdown", time: "Sat 10:00 - 14:00", presenter: "Presenter 11", image: "https://via.placeholder.com/100" },
-            { title: "Sunday Soul", time: "Sun 08:00 - 12:00", presenter: "Presenter 12", image: "https://via.placeholder.com/100" }
+            { title: "Ease Hour", time: "Sundays 5pm-7pm", presenter: "Temo", image: "WhatsApp Image 2026-10-05 at 14.23.54.jpeg" },
+            { title: "Sowing Seeds", time: "Saturdays 11am-1pm", presenter: "Nosipho", image: "WhatsApp Image 2026-10-05 at 14.25.21.jpeg" },
+            { title: "Hurt & Heal", time: "Sundays 12pm-2pm", presenter: "DJ Mo Gee", image: "WhatsApp Image 2026-10-05 at 15.47.38 (1).jpeg" },
+            { title: "Bumpy Cruise", time: "Saturdays 3pm-5pm", presenter: "MC SPONKIE", image: "WhatsApp Image 2026-10-05 at 15.47.38.jpeg" },
+            { title: "ChooseDay Live", time: "Tuesdays 1pm-3pm", presenter: "Motswedi", image: "WhatsApp Image 2026-10-05 at 14.27.13.jpeg" },
+            { title: "Afro Diamonds", time: "Thursdays 2pm-4pm", presenter: "LEANO KGASWANE", image: "WhatsApp Image 2026-10-05 at 15.43.16.jpeg" },
+            { title: "Voice Up", time: "Mondays 10am-12pm", presenter: "Mpheme Mmolai", image: "https://via.placeholder.com/100" },
+            { title: "Kasi 2 Kasi Top10", time: "Wednesdays 4pm-6pm", presenter: "DJ Vic", image: "https://via.placeholder.com/100" },
+            { title: "Prayer Walk / Southern Africa Sound", time: "Various Times", presenter: "TT", image: "https://via.placeholder.com/100" },
+            { title: "Stand-in Presenter", time: "Various Times", presenter: "Guest / Stand-in", image: "WhatsApp Image 2026-10-05 at 14.26.24.jpeg" }
         ];
 
         // News Data
@@ -1179,14 +1177,13 @@
 
 
     <!-- ============================================== -->
-    <!-- FIREBASE LIVE CHAT LOGIC (v10.13.1 Modular)    -->
+    <!-- FIREBASE LIVE CHAT LOGIC                       -->
     <!-- ============================================== -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-analytics.js";
         import { getDatabase, ref, push, onChildAdded, serverTimestamp, query, limitToLast } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
 
-        // Your exact Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyBdLuCGZWVKtyfLhr1vaB6bydGF7NiK29o",
             authDomain: "lobatse-radio.firebaseapp.com",
@@ -1198,36 +1195,29 @@
             measurementId: "G-1TF1MTPHL8"
         };
 
-        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
         const db = getDatabase(app);
 
-        // Chat Elements
         const chatForm = document.getElementById('chat-form');
         const chatMessages = document.getElementById('chat-messages');
         
-        // Clear placeholder text
         chatMessages.innerHTML = '';
         let colorIndex = 3; 
 
-        // Helper to format time
         function getCurrentTime() {
             return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         }
 
-        // Auto-scroll chat to bottom
         function scrollToBottom() {
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
-        // SEND MESSAGE TO FIREBASE
         chatForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const name = document.getElementById('chat-name').value;
             const message = document.getElementById('chat-message').value;
 
-            // Push to real-time database
             push(ref(db, 'shoutouts'), {
                 name: name,
                 message: message,
@@ -1236,23 +1226,19 @@
                 timestamp: serverTimestamp()
             });
 
-            // Cycle colors and clear input
             colorIndex = colorIndex >= 5 ? 1 : colorIndex + 1;
             document.getElementById('chat-message').value = '';
         });
 
-        // LISTEN FOR NEW MESSAGES & ENFORCE 30-MIN AUTO-DELETE
         const recentShoutouts = query(ref(db, 'shoutouts'), limitToLast(50));
         
         onChildAdded(recentShoutouts, (snapshot) => {
             const data = snapshot.val();
             const now = new Date().getTime();
             
-            // Fallback for immediate local render before server confirms timestamp
             const msgTime = data.timestamp || now; 
             const messageAge = now - msgTime;
 
-            // Only show message if it is less than 30 minutes old (1,800,000 milliseconds)
             if (messageAge < 1800000) {
                 const newItem = document.createElement('div');
                 newItem.className = 'chat-message';
@@ -1264,11 +1250,9 @@
                     <div class="chat-bubble">${data.message}</div>
                 `;
 
-                // Add to board
                 chatMessages.appendChild(newItem);
                 scrollToBottom();
 
-                // Calculate exact time left before auto-deletion
                 const timeLeft = 1800000 - messageAge;
                 
                 setTimeout(() => {
