@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lobatse Radio - Where Talent Lives</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --bg-darker: #050505;
+            --neon-green: #39ff14;
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            --card-bg: #111111;
+            --card-border: #222222;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            padding-bottom: 80px;
+        }
+
+        .neon-text {
+            color: var(--neon-green);
+            text-shadow: 0 0 10px rgba(57, 255, 20, 0.2);
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background-color: rgba(10, 10, 10, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #222;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--neon-green);
+        }
+
+        .btn-donate-nav {
+            background-color: var(--neon-green);
+            color: #000 !important;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 5%;
+            text-align: center;
+        }
+
+        .bg-darker {
+            background-color: var(--bg-darker);
+        }
+
+        .section-header {
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Hero */
+        .hero {
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('Gemini_Generated_Image_cjl1bicjl1bicjl1.jpeg') center/cover;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            padding: 2rem 5%;
+            background-color: var(--bg-darker);
+        }
+
+        .stat-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: left;
+        }
+
+        .stat-number {
+            color: var(--neon-green);
+            font-size: 2.5rem;
+            font-weight: 900;
+            font-style: italic;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        /* Grids and Cards */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid var(--card-border);
+            transition: transform 0.3s, border-color 0.3s;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            border-color: #333;
+        }
+
+        /* Program Styles */
+        .presenter-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1rem;
+            border: 2px solid var(--neon-green);
+            display: block;
+        }
+
+        /* News Card Styles */
+        .news-date {
+            color: var(--neon-green);
+            font-size: 0.9rem;
+            font-family: monospace;
+            margin-bottom: 1rem;
+        }
+
+        .news-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .news-excerpt {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 2rem;
+            flex-grow: 1;
+        }
+
+        .news-read-more {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .news-read-more:hover {
+            color: var(--neon-green);
+        }
+
+        /* Shop Styles */
+        .item-img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+
+        .btn-buy {
+            background-color: transparent;
+            color: var(--neon-green);
+            border: 1px solid var(--neon-green);
+            padding: 0.4rem 1rem;
+            border-radius: 15px;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: all 0.3s;
+            font-weight: bold;
+            align-self: flex-start;
+        }
+
+        .btn-buy:hover {
+            background-color: var(--neon-green);
+            color: #000;
+        }
+
+        /* Donate Section Styles */
+        .donate-container {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 4rem 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .donate-icon {
+            color: var(--neon-green);
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .donate-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .donate-text {
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.6;
+        }
+
+        .donate-amounts {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .amount-btn {
+            background: transparent;
+            border: 1px solid #444;
+            color: #fff;
+            padding: 0.6rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        .amount-btn:hover, .amount-btn.active {
+            border-color: var(--neon-green);
+            color: var(--neon-green);
+        }
+
+        .payment-method {
+            display: none;
+            background: rgba(57, 255, 20, 0.05);
+            border: 1px solid var(--neon-green);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .payment-method.active-method {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Toggle Buttons & Hidden Content */
+        .hidden-content {
+            display: none !important;
+        }
+
+        .btn-toggle {
+            background-color: transparent;
+            color: var(--neon-green);
+            border: 1px solid var(--neon-green);
+            padding: 0.6rem 2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 3rem;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .btn-toggle:hover {
+            background-color: var(--neon-green);
+            color: #000;
+        }
+
+        /* About Section Styles */
+        .about-text {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: left;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .about-text h3 {
+            color: var(--neon-green);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .about-text ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .about-text li {
+            margin-bottom: 0.8rem;
+        }
+
+        /* Footer & Socials */
+        .footer {
+            text-align: center;
+            padding: 4rem 5% 7rem; /* Extra padding at bottom for audio player */
+            border-top: 1px solid var(--card-border);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-icon {
+            color: #fff;
+            background: #222;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 1.3rem;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            background: var(--neon-green);
+            color: #000;
+            transform: translateY(-5px);
+        }
+
+        .whatsapp-icon {
+            background: #25D366; 
+            color: #fff;
+        }
+
+        .whatsapp-icon:hover {
+            background: #1ebe57;
+            color: #fff;
+        }
+
+        /* Persistent Audio Player */
+        .audio-player {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #000;
+            border-top: 1px solid #222;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .now-playing {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .live-indicator {
+            background-color: var(--neon-green);
+            color: black;
+            font-size: 0.7rem;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 4px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .play-btn {
+            background-color: transparent;
+            color: #fff;
+            border: 1px solid #444;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .play-btn:hover {
+            border-color: var(--neon-green);
+            color: var(--neon-green);
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        input[type=range] {
+            accent-color: var(--neon-green);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            LOBATSE <span class="neon-text">RADIO</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#programs">Programs</a></li>
+            <li><a href="#news">News</a></li>
+            <li><a href="#shop">Shop</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#donate" class="btn-donate-nav">Donate</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="home" class="hero">
+        <div class="hero-content">
+            <h1>Where Talent <span class="neon-text">Lives</span></h1>
+            <p>Broadcasting the best sounds, news, and entertainment.</p>
+        </div>
+    </header>
+
+    <!-- Stats Section -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-number">24/7</div>
+            <div class="stat-label">LIVE STREAMING</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">50+</div>
+            <div class="stat-label">LOCAL ARTISTS</div>
+        </div>
+    </div>
+
+    <!-- Programs Section -->
+    <section id="programs" class="section">
+        <div class="section-header">Our <span class="neon-text">Programs</span></div>
+        <div class="grid-container" id="program-grid">
+            <!-- Programs injected via JavaScript -->
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section id="news" class="section bg-darker">
+        <div class="section-header" style="color: var(--neon-green);">
+            <i class="far fa-newspaper"></i> LATEST NEWS
+        </div>
+        <div class="grid-container" id="news-grid">
+            <!-- News injected via JavaScript -->
+        </div>
+        <button id="news-toggle-btn" class="btn-toggle" onclick="toggleSection('news-item', 'news-toggle-btn')">See More <i class="fas fa-chevron-down"></i></button>
+    </section>
+
+    <!-- Shop Section -->
+    <section id="shop" class="section">
+        <div class="section-header">Mini <span class="neon-text">Shop</span></div>
+        <div class="grid-container" id="shop-grid">
+            <!-- Shop items injected via JavaScript -->
+        </div>
+        <button id="shop-toggle-btn" class="btn-toggle" onclick="toggleSection('shop-item', 'shop-toggle-btn')">See More <i class="fas fa-chevron-down"></i></button>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section bg-darker">
+        <div class="section-header">About <span class="neon-text">Us</span></div>
+        <div class="about-text">
+            <h3 style="text-align: center; font-size: 1.8rem; margin-top: 0; color: #fff;">The Pulse of Lobatse, Broadcasting to the World.</h3>
+            <p style="text-align: center; color: #a0a0a0; margin-bottom: 2.5rem; font-style: italic;">Bringing local culture, breaking music, and community voices to your screens and speakers, wherever you are.</p>
+            
+            <p>Lobatse Online Radio is a digital broadcasting platform dedicated to amplifying the voice of our community. We bridge the gap between traditional radio and modern streaming, proving that you don't need an FM license to deliver a high-quality, professional, and deeply local radio experience.</p>
+            
+            <div id="about-more" class="hidden-content">
+                <h3>What We Do</h3>
+                <ul>
+                    <li><strong>Champion Local Talent:</strong> We are an incubator for rising broadcasters, DJs, and artists. From Afropop to underground beats, we give creators the platform they deserve to be heard.</li>
+                    <li><strong>Connect the Community:</strong> We go beyond music. LOR is a hub for local stories, cultural pride, and conversations that matter to the people of Lobatse and our diaspora.</li>
+                    <li><strong>Global Reach, Local Heart:</strong> Through accessible online streaming, our listeners can tune in from a smartphone or computer anywhere in the world, staying connected to home.</li>
+                </ul>
+                
+                <h3>Partner With Us</h3>
+                <p>Reach a highly engaged, loyal audience that supports local. We offer accessible, modern advertising and sponsorship packages for businesses looking to grow their brand alongside ours.</p>
+            </div>
+            
+            <div style="text-align: center;">
+                <button id="about-toggle-btn" class="btn-toggle" onclick="toggleAbout()">Read More <i class="fas fa-chevron-down"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Donate Section -->
+    <section id="donate" class="section">
+        <div class="donate-container">
+            <i class="far fa-heart donate-icon"></i>
+            <h2 class="donate-title">Support the Station</h2>
+            <p class="donate-text">Your contributions help us maintain equipment, support local talent, and keep the music playing completely ad-free.</p>
+            
+            <div class="donate-amounts">
+                <button class="amount-btn active" onclick="showPayment('orange', this)">Orange Money</button>
+                <button class="amount-btn" onclick="showPayment('myzaka', this)">MyZaka</button>
+                <button class="amount-btn" onclick="showPayment('bank', this)">Bank Transfer</button>
+                <button class="amount-btn" onclick="showPayment('paypal', this)">PayPal</button>
+            </div>
+            
+            <!-- Payment Details Tabs -->
+            <div id="orange" class="payment-method active-method">
+                <h3 style="color: var(--neon-green); margin-bottom: 1rem;">Orange Money</h3>
+                <p>Send your contribution directly via Orange Money to:<br><strong style="font-size: 1.2rem; color: #fff; display: block; margin-top: 0.5rem;">+267 7X XXX XXX</strong></p>
+                <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-muted);">Please use your name as the reference.</p>
+            </div>
+
+            <div id="myzaka" class="payment-method">
+                <h3 style="color: var(--neon-green); margin-bottom: 1rem;">Mascom MyZaka</h3>
+                <p>Send your contribution directly via MyZaka to:<br><strong style="font-size: 1.2rem; color: #fff; display: block; margin-top: 0.5rem;">+267 7X XXX XXX</strong></p>
+                <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-muted);">Please use your name as the reference.</p>
+            </div>
+
+            <div id="bank" class="payment-method">
+                <h3 style="color: var(--neon-green); margin-bottom: 1rem;">Bank Transfer</h3>
+                <p style="line-height: 1.8;">
+                    <strong>Bank:</strong> FNB Botswana<br>
+                    <strong>Account Name:</strong> Lobatse Radio<br>
+                    <strong>Account Number:</strong> XXXXXXXXXXX<br>
+                    <strong>Branch Code:</strong> 28XXXX
+                </p>
+            </div>
+
+            <div id="paypal" class="payment-method">
+                <h3 style="color: var(--neon-green); margin-bottom: 1rem;">PayPal</h3>
+                <p>Support us globally via PayPal's secure network.</p>
+                <a href="#" class="btn-buy" style="display: inline-block; margin-top: 1rem; text-decoration: none;">Go to PayPal.me</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer & Socials -->
+    <footer class="footer bg-darker">
+        <h2>Connect With <span class="neon-text">Us</span></h2>
+        <div class="social-links">
+            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon whatsapp-icon"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        <p style="margin-top: 2rem; color: var(--text-muted); font-size: 0.9rem;">&copy; 2026 Lobatse Radio. All rights reserved.</p>
+    </footer>
+
+    <!-- Persistent Bottom Audio Player -->
+    <div class="audio-player">
+        <div class="now-playing">
+            <div class="live-indicator">LIVE</div>
+            <div>
+                <h4 style="margin: 0; font-size: 0.9rem;">Lobatse Radio</h4>
+                <p style="margin: 0; font-size: 0.8rem; color: var(--text-muted);">On Air</p>
+            </div>
+        </div>
+        <div class="controls">
+            <button id="play-pause-btn" class="play-btn">
+                <i class="fas fa-play"></i>
+            </button>
+        </div>
+        <div class="volume-control">
+            <i class="fas fa-volume-up" style="color: #666; font-size: 0.8rem;"></i>
+            <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.8">
+        </div>
+    </div>
+
+    <script>
+      // 1. Program Data (12 Slots)
+        const programs = [
+            { title: "Morning Drive", time: "06:00 - 09:00", presenter: "Presenter 1", image: "WhatsApp Image 2026-10-05 at 14.23.54.jpeg" },
+            { title: "Mid-Morning Chat", time: "09:00 - 12:00", presenter: "Presenter 2", image: "WhatsApp Image 2026-10-05 at 14.25.21.jpeg" },
+            { title: "Lunch Hour Jam", time: "12:00 - 15:00", presenter: "Presenter 3", image: "WhatsApp Image 2026-10-05 at 14.26.24.jpeg" },
+            { title: "The Afternoon Drive", time: "15:00 - 18:00", presenter: "Presenter 4", image: "WhatsApp Image 2026-10-05 at 15.47.38 (1).jpeg" },
+            { title: "Evening Talk", time: "18:00 - 21:00", presenter: "Presenter 5", image: "WhatsApp Image 2026-10-05 at 15.47.38.jpeg" },
+            { title: "Night Owls", time: "21:00 - 00:00", presenter: "Presenter 6", image: "WhatsApp Image 2026-10-05 at 14.27.13.jpeg" },
+            { title: "Midnight Mix", time: "00:00 - 02:00", presenter: "Presenter 7", image: "WhatsApp Image 2026-10-05 at 15.43.16.jpeg" },
+            { title: "Early Risers", time: "02:00 - 04:00", presenter: "Presenter 8", image: "https://via.placeholder.com/100" },
+            { title: "Pre-Dawn Prep", time: "04:00 - 06:00", presenter: "Presenter 9", image: "https://via.placeholder.com/100" },
+            { title: "Weekend Breakfast", time: "Sat 06:00 - 10:00", presenter: "Presenter 10", image: "https://via.placeholder.com/100" },
+            { title: "Top 40 Countdown", time: "Sat 10:00 - 14:00", presenter: "Presenter 11", image: "https://via.placeholder.com/100" },
+            { title: "Sunday Soul", time: "Sun 08:00 - 12:00", presenter: "Presenter 12", image: "https://via.placeholder.com/100" }
+        ];
+
+        // 2. News Data
+        const newsData = [
+            { title: "Local Talent Showcase this Weekend", date: "Oct 12, 2026", excerpt: "Join us at the town square as we broadcast live from the annual local talent showcase." },
+            { title: "New Studio Upgrades", date: "Oct 10, 2026", excerpt: "We are thrilled to announce state-of-the-art upgrades to the Lobatse Radio broadcastin..." },
+            { title: "Top 10 Countdown Resumes", date: "Oct 08, 2026", excerpt: "Your favorite weekly countdown is back! Tune in this Friday to hear who made the number on..." },
+            { title: "Community Drive Success", date: "Oct 05, 2026", excerpt: "Thanks to all who donated to the recent local shelter initiative. We raised a record amount." },
+            { title: "DJ Competition Winners", date: "Oct 02, 2026", excerpt: "Meet the new talent joining our late-night roster after an intense weekend of mixing." },
+            { title: "Cultural Festival Highlights", date: "Sep 28, 2026", excerpt: "A look back at the amazing performances and cultural displays from last week's festival." }
+        ];
+
+        // 3. Shop Data
+        const shopData = [
+            { name: "Lobatse Radio T-Shirt", price: "P150.00", image: "https://via.placeholder.com/200" },
+            { name: "Neon Logo Hoodie", price: "P350.00", image: "https://via.placeholder.com/200" },
+            { name: "Studio Coffee Mug", price: "P80.00", image: "https://via.placeholder.com/200" },
+            { name: "Classic Snapback Cap", price: "P120.00", image: "https://via.placeholder.com/200" },
+            { name: "Lanyard & ID Holder", price: "P45.00", image: "https://via.placeholder.com/200" },
+            { name: "Wireless Earbuds", price: "P250.00", image: "https://via.placeholder.com/200" },
+            { name: "Phone Case (All Models)", price: "P90.00", image: "https://via.placeholder.com/200" },
+            { name: "Premium Water Bottle", price: "P110.00", image: "https://via.placeholder.com/200" }
+        ];
+
+        // Inject Programs
+        const programGrid = document.getElementById('program-grid');
+        programs.forEach(prog => {
+            programGrid.innerHTML += `
+                <div class="card" style="text-align: center;">
+                    <img src="${prog.image}" alt="${prog.presenter}" class="presenter-img">
+                    <div style="color: #39ff14; margin-bottom: 0.5rem; font-size: 0.9rem;">${prog.time}</div>
+                    <h3 style="margin-bottom: 0.5rem;">${prog.title}</h3>
+                    <p style="color: #a0a0a0; font-size: 0.9rem;">Hosted by ${prog.presenter}</p>
+                </div>
+            `;
+        });
+
+        // Inject News
+        const newsGrid = document.getElementById('news-grid');
+        newsData.forEach((item, index) => {
+            let hideClass = index > 2 ? "hidden-content news-item" : "news-item";
+            newsGrid.innerHTML += `
+                <div class="card ${hideClass}">
+                    <div class="news-date">${item.date}</div>
+                    <h3 class="news-title">${item.title}</h3>
+                    <p class="news-excerpt">${item.excerpt}</p>
+                    <a href="#" class="news-read-more">Read More <i class="fas fa-chevron-right" style="font-size: 0.8rem;"></i></a>
+                </div>
+            `;
+        });
+
+        // Inject Shop
+        const shopGrid = document.getElementById('shop-grid');
+        shopData.forEach((item, index) => {
+            let hideClass = index > 3 ? "hidden-content shop-item" : "shop-item";
+            shopGrid.innerHTML += `
+                <div class="card ${hideClass}">
+                    <img src="${item.image}" alt="${item.name}" class="item-img" style="height: 200px; object-fit: contain; background: #fff;">
+                    <h3 style="margin: 1rem 0 0.5rem;">${item.name}</h3>
+                    <div style="color: #39ff14; font-weight: bold; font-size: 1.1rem;">${item.price}</div>
+                    <button class="btn-buy">Buy Now</button>
+                </div>
+            `;
+        });
+
+        // Dropdown Toggle Logic for Grids
+        function toggleSection(itemClass, btnId) {
+            const items = document.querySelectorAll(`.${itemClass}`);
+            const btn = document.getElementById(btnId);
+            let isHidden = false;
+            
+            const threshold = itemClass === 'news-item' ? 2 : 3;
+
+            items.forEach((item, index) => {
+                if (index > threshold) {
+                    item.classList.toggle('hidden-content');
+                    if (item.classList.contains('hidden-content')) {
+                        isHidden = true;
+                    }
+                }
+            });
+
+            if (isHidden) {
+                btn.innerHTML = 'See More <i class="fas fa-chevron-down"></i>';
+            } else {
+                btn.innerHTML = 'See Less <i class="fas fa-chevron-up"></i>';
+            }
+        }
+
+        // Dropdown Toggle Logic for About Section
+        function toggleAbout() {
+            const aboutMore = document.getElementById('about-more');
+            const btn = document.getElementById('about-toggle-btn');
+            
+            aboutMore.classList.toggle('hidden-content');
+            
+            if (aboutMore.classList.contains('hidden-content')) {
+                btn.innerHTML = 'Read More <i class="fas fa-chevron-down"></i>';
+            } else {
+                btn.innerHTML = 'Read Less <i class="fas fa-chevron-up"></i>';
+            }
+        }
+
+        // Payment Methods Toggle Logic
+        function showPayment(methodId, btn) {
+            const buttons = document.querySelectorAll('.amount-btn');
+            buttons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const methods = document.querySelectorAll('.payment-method');
+            methods.forEach(m => m.classList.remove('active-method'));
+            document.getElementById(methodId).classList.add('active-method');
+        }
+
+        // Audio Player Setup
+        const audio = new Audio('https://stream.zeno.fm/yhspijyzxp8vv');
+        const playBtn = document.getElementById('play-pause-btn');
+        const volumeSlider = document.getElementById('volume-slider');
+
+        let isPlaying = false;
+
+        playBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                audio.pause();
+                playBtn.innerHTML = '<i class="fas fa-play"></i>';
+            } else {
+                audio.play();
+                playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            }
+            isPlaying = !isPlaying;
+        });
+
+        volumeSlider.addEventListener('input', (e) => {
+            audio.volume = e.target.value;
+        });
+    </script>
+</body>
+</html>
