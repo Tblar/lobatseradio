@@ -440,6 +440,7 @@
             .chat-input-area { flex-direction: column; }
             .chat-input-name { width: 100%; }
             .chat-btn { padding: 0.8rem; }
+            .hidden-mobile { display: none !important; }
         }
 
         /* News Card Styles */
@@ -773,6 +774,7 @@
             <i class="fas fa-times" style="cursor: pointer; color: var(--text-muted);" onclick="toggleLiveVideo(event)"></i>
         </div>
         <div class="video-wrapper">
+            <!-- Replace YOUR_CHANNEL_ID when live -->
             <iframe src="https://www.youtube.com/embed/live_stream?channel=YOUR_CHANNEL_ID" frameborder="0" allowfullscreen></iframe>
         </div>
         <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 1rem; text-align: center;">Feed active during scheduled live shows.</p>
@@ -832,7 +834,7 @@
         <div class="chat-container">
             <!-- Messages Area -->
             <div id="chat-messages" class="chat-messages">
-                <div style="color: #666; font-style: italic; text-align: center; padding: 2rem;">Connecting to live chat...</div>
+                <!-- Messages will populate here via Firebase -->
             </div>
             
             <!-- Input Area -->
@@ -955,7 +957,7 @@
                 <h4 style="margin: 0; font-size: 0.9rem;">Lobatse Radio</h4>
                 <p style="margin: 0; font-size: 0.8rem; color: var(--text-muted);">On Air</p>
             </div>
-            <!-- Listener Count Base: 1000 + Simulated Fluctuations -->
+            <!-- Listener Count -->
             <div class="listener-count hidden-mobile">
                 <i class="fas fa-headphones"></i> <span id="listener-number">1,024</span>
             </div>
@@ -1177,12 +1179,12 @@
 
 
     <!-- ============================================== -->
-    <!-- FIREBASE LIVE CHAT LOGIC (v13 Modular SDK)     -->
+    <!-- FIREBASE LIVE CHAT LOGIC (v10.13.1 Modular)    -->
     <!-- ============================================== -->
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-analytics.js";
-        import { getDatabase, ref, push, onChildAdded, serverTimestamp, query, limitToLast } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-database.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-analytics.js";
+        import { getDatabase, ref, push, onChildAdded, serverTimestamp, query, limitToLast } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
 
         // Your exact Firebase configuration
         const firebaseConfig = {
