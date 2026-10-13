@@ -14,6 +14,13 @@
             --text-muted: #a0a0a0;
             --card-bg: #111111;
             --card-border: #222222;
+            
+            /* Minimal Colors from Dumma Branding Reference */
+            --color-1: #FF1D58;
+            --color-2: #F75990;
+            --color-3: #FFF685;
+            --color-4: #00DDFF;
+            --color-5: #0049B7;
         }
 
         * {
@@ -56,7 +63,7 @@
         .nav-links {
             list-style: none;
             display: flex;
-            gap: 2rem;
+            gap: 1.5rem;
             align-items: center;
         }
 
@@ -77,6 +84,59 @@
             padding: 0.5rem 1.2rem;
             border-radius: 20px;
             font-weight: bold;
+        }
+
+        .btn-live-video {
+            background-color: transparent;
+            border: 1px solid red;
+            color: red !important;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-live-video:hover {
+            background-color: red;
+            color: white !important;
+        }
+
+        /* Live Video Dropdown */
+        .video-dropdown {
+            position: fixed;
+            top: 80px;
+            right: 5%;
+            background: var(--card-bg);
+            border: 1px solid var(--neon-green);
+            border-radius: 12px;
+            padding: 1rem;
+            z-index: 99;
+            width: 350px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            display: none;
+            flex-direction: column;
+        }
+
+        .video-dropdown.show {
+            display: flex;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            background: #000;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
         }
 
         /* Sections */
@@ -107,7 +167,7 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('Gemini_Generated_Image_cjl1bicjl1bicjl1.jpeg') center/cover;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=2070&auto=format&fit=crop') center/cover;
         }
 
         .hero h1 {
@@ -177,6 +237,70 @@
             margin: 0 auto 1rem;
             border: 2px solid var(--neon-green);
             display: block;
+        }
+
+        /* Shoutouts Section */
+        .shoutout-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .shoutout-form {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .shoutout-form input {
+            flex: 1;
+            padding: 1rem;
+            background: transparent;
+            border: 1px solid #444;
+            color: #fff;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .shoutout-form input:focus {
+            outline: none;
+            border-color: var(--neon-green);
+        }
+
+        .shoutout-board {
+            display: flex;
+            flex-direction: column;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        }
+
+        .shoutout-item {
+            padding: 2rem;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .shoutout-item.color-1 { background-color: var(--color-1); color: #fff; }
+        .shoutout-item.color-2 { background-color: var(--color-2); color: #fff; }
+        .shoutout-item.color-3 { background-color: var(--color-3); color: #000; }
+        .shoutout-item.color-4 { background-color: var(--color-4); color: #000; }
+        .shoutout-item.color-5 { background-color: var(--color-5); color: #fff; }
+
+        .shoutout-message {
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .shoutout-author {
+            font-size: 0.9rem;
+            font-weight: 500;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         /* News Card Styles */
@@ -365,7 +489,7 @@
         /* Footer & Socials */
         .footer {
             text-align: center;
-            padding: 4rem 5% 7rem; /* Extra padding at bottom for audio player */
+            padding: 4rem 5% 7rem;
             border-top: 1px solid var(--card-border);
         }
 
@@ -469,6 +593,22 @@
         input[type=range] {
             accent-color: var(--neon-green);
         }
+        
+        .btn-donate-large {
+            background-color: var(--neon-green);
+            color: #000;
+            border: none;
+            padding: 1rem 3rem;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .btn-donate-large:hover {
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body>
@@ -481,12 +621,26 @@
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
             <li><a href="#programs">Programs</a></li>
+            <li><a href="#shoutouts">Shout-Outs</a></li>
             <li><a href="#news">News</a></li>
             <li><a href="#shop">Shop</a></li>
-            <li><a href="#about">About</a></li>
             <li><a href="#donate" class="btn-donate-nav">Donate</a></li>
+            <li><a href="#" onclick="toggleLiveVideo(event)" class="btn-live-video">🔴 Live Video</a></li>
         </ul>
     </nav>
+
+    <!-- Live Video Dropdown Panel -->
+    <div id="live-video-dropdown" class="video-dropdown">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h3 style="color: #fff; font-size: 1.1rem;"><span style="color: red;">🔴</span> Broadcasting Live</h3>
+            <i class="fas fa-times" style="cursor: pointer; color: var(--text-muted);" onclick="toggleLiveVideo(event)"></i>
+        </div>
+        <div class="video-wrapper">
+            <!-- Replace 'YOUR_VIDEO_URL' with your Facebook or TikTok embed link when live -->
+            <iframe src="https://www.youtube.com/embed/live_stream?channel=YOUR_CHANNEL_ID" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 1rem; text-align: center;">Feed active during scheduled live shows.</p>
+    </div>
 
     <!-- Hero Section -->
     <header id="home" class="hero">
@@ -508,8 +662,44 @@
         </div>
     </div>
 
+    <!-- Shout-Outs Section (Minimal Colors Theme) -->
+    <section id="shoutouts" class="section">
+        <div class="section-header">Live <span class="neon-text">Shout-Outs</span></div>
+        <div class="shoutout-container">
+            <form id="shoutout-form" class="shoutout-form">
+                <input type="text" id="so-name" placeholder="Your Name" required>
+                <input type="text" id="so-message" placeholder="Type your shout-out here..." required>
+                <button type="submit" class="btn-donate-large" style="border-radius: 8px;">Send</button>
+            </form>
+            
+            <div id="shoutout-board" class="shoutout-board">
+                <!-- Pre-loaded Shoutouts showcasing the Minimal Colors Theme -->
+                <div class="shoutout-item color-1">
+                    <div class="shoutout-message">"Big up to the Mid-Morning Chat team! Keep the vibes coming."</div>
+                    <div class="shoutout-author">— Tshepo M.</div>
+                </div>
+                <div class="shoutout-item color-2">
+                    <div class="shoutout-message">"Listening all the way from Gabs! Loving the local music selection today."</div>
+                    <div class="shoutout-author">— Sarah Katlego</div>
+                </div>
+                <div class="shoutout-item color-3">
+                    <div class="shoutout-message">"Can't wait for the weekend Top 40 countdown. You guys rock!"</div>
+                    <div class="shoutout-author">— DJ K</div>
+                </div>
+                <div class="shoutout-item color-4">
+                    <div class="shoutout-message">"Shout out to my family tuning in. Lobatse Radio is the best."</div>
+                    <div class="shoutout-author">— Neo</div>
+                </div>
+                <div class="shoutout-item color-5">
+                    <div class="shoutout-message">"Great interview with the local artists today. So inspiring."</div>
+                    <div class="shoutout-author">— Kagiso</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Programs Section -->
-    <section id="programs" class="section">
+    <section id="programs" class="section bg-darker">
         <div class="section-header">Our <span class="neon-text">Programs</span></div>
         <div class="grid-container" id="program-grid">
             <!-- Programs injected via JavaScript -->
@@ -517,7 +707,7 @@
     </section>
 
     <!-- News Section -->
-    <section id="news" class="section bg-darker">
+    <section id="news" class="section">
         <div class="section-header" style="color: var(--neon-green);">
             <i class="far fa-newspaper"></i> LATEST NEWS
         </div>
@@ -528,7 +718,7 @@
     </section>
 
     <!-- Shop Section -->
-    <section id="shop" class="section">
+    <section id="shop" class="section bg-darker">
         <div class="section-header">Mini <span class="neon-text">Shop</span></div>
         <div class="grid-container" id="shop-grid">
             <!-- Shop items injected via JavaScript -->
@@ -537,7 +727,7 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="section bg-darker">
+    <section id="about" class="section">
         <div class="section-header">About <span class="neon-text">Us</span></div>
         <div class="about-text">
             <h3 style="text-align: center; font-size: 1.8rem; margin-top: 0; color: #fff;">The Pulse of Lobatse, Broadcasting to the World.</h3>
@@ -564,7 +754,7 @@
     </section>
 
     <!-- Donate Section -->
-    <section id="donate" class="section">
+    <section id="donate" class="section bg-darker">
         <div class="donate-container">
             <i class="far fa-heart donate-icon"></i>
             <h2 class="donate-title">Support the Station</h2>
@@ -609,7 +799,7 @@
     </section>
 
     <!-- Footer & Socials -->
-    <footer class="footer bg-darker">
+    <footer class="footer">
         <h2>Connect With <span class="neon-text">Us</span></h2>
         <div class="social-links">
             <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
@@ -641,7 +831,47 @@
     </div>
 
     <script>
-      // 1. Program Data (12 Slots)
+        // Shout-Outs Logic (Rotates through the 5 minimal colors)
+        const shoutoutForm = document.getElementById('shoutout-form');
+        const shoutoutBoard = document.getElementById('shoutout-board');
+        let colorIndex = 1;
+
+        shoutoutForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('so-name').value;
+            const message = document.getElementById('so-message').value;
+
+            const newItem = document.createElement('div');
+            newItem.className = `shoutout-item color-${colorIndex}`;
+            newItem.innerHTML = `
+                <div class="shoutout-message">"${message}"</div>
+                <div class="shoutout-author">— ${name}</div>
+            `;
+
+            // Insert at top of board
+            shoutoutBoard.insertBefore(newItem, shoutoutBoard.firstChild);
+
+            // Keep only latest 5 visually stacked
+            if (shoutoutBoard.children.length > 5) {
+                shoutoutBoard.removeChild(shoutoutBoard.lastChild);
+            }
+
+            // Cycle colors 1 to 5
+            colorIndex = colorIndex >= 5 ? 1 : colorIndex + 1;
+            
+            // Clear form
+            document.getElementById('so-name').value = '';
+            document.getElementById('so-message').value = '';
+        });
+
+        // Live Video Dropdown Toggle
+        function toggleLiveVideo(e) {
+            e.preventDefault();
+            const dropdown = document.getElementById('live-video-dropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        // 1. Program Data (12 Slots with your specific WhatsApp images)
         const programs = [
             { title: "Morning Drive", time: "06:00 - 09:00", presenter: "Presenter 1", image: "WhatsApp Image 2026-10-05 at 14.23.54.jpeg" },
             { title: "Mid-Morning Chat", time: "09:00 - 12:00", presenter: "Presenter 2", image: "WhatsApp Image 2026-10-05 at 14.25.21.jpeg" },
