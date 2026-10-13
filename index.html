@@ -306,74 +306,140 @@
             display: block;
         }
 
-        /* Shoutouts Section */
-        .shoutout-container {
+        /* Live Chat Section */
+        .chat-container {
             max-width: 800px;
             margin: 0 auto;
-        }
-
-        .shoutout-form {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .shoutout-form input {
-            flex: 1;
-            padding: 1rem;
-            background: transparent;
-            border: 1px solid #444;
-            color: #fff;
-            border-radius: 8px;
-            font-size: 1rem;
-        }
-
-        .shoutout-form input:focus {
-            outline: none;
-            border-color: var(--neon-green);
-        }
-
-        .shoutout-board {
-            display: flex;
-            flex-direction: column;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-            transition: all 0.3s ease;
-        }
-
-        .shoutout-item {
-            padding: 2rem;
-            text-align: left;
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
-            transition: opacity 0.5s ease-out;
+            height: 500px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
         }
 
-        .shoutout-item.fade-out {
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            scroll-behavior: smooth;
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 8px;
+        }
+        .chat-messages::-webkit-scrollbar-track {
+            background: var(--bg-darker);
+        }
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        .chat-messages::-webkit-scrollbar-thumb:hover {
+            background: var(--neon-green);
+        }
+
+        .chat-message {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            animation: slideIn 0.3s ease-out;
+            transition: opacity 0.5s ease-out;
+        }
+        
+        .chat-message.fade-out {
             opacity: 0;
         }
 
-        .shoutout-item.color-1 { background-color: var(--color-1); color: #fff; }
-        .shoutout-item.color-2 { background-color: var(--color-2); color: #fff; }
-        .shoutout-item.color-3 { background-color: var(--color-3); color: #000; }
-        .shoutout-item.color-4 { background-color: var(--color-4); color: #000; }
-        .shoutout-item.color-5 { background-color: var(--color-5); color: #fff; }
-
-        .shoutout-message {
-            font-size: 1.5rem;
-            font-weight: 700;
-            line-height: 1.3;
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .shoutout-author {
-            font-size: 0.9rem;
-            font-weight: 500;
-            opacity: 0.8;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .chat-header {
+            font-size: 0.85rem;
+            margin-bottom: 0.3rem;
+            font-weight: bold;
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .chat-time {
+            font-size: 0.7rem;
+            color: #666;
+            font-weight: normal;
+        }
+
+        .chat-bubble {
+            background: #222;
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            border-top-left-radius: 2px;
+            font-size: 0.95rem;
+            color: #fff;
+            max-width: 85%;
+            word-wrap: break-word;
+            text-align: left;
+            line-height: 1.4;
+        }
+
+        /* Minimal Colors for Usernames */
+        .color-1-text { color: var(--color-1); }
+        .color-2-text { color: var(--color-2); }
+        .color-3-text { color: var(--color-3); }
+        .color-4-text { color: var(--color-4); }
+        .color-5-text { color: var(--color-5); }
+
+        .chat-input-area {
+            display: flex;
+            padding: 1rem;
+            background: var(--bg-darker);
+            border-top: 1px solid var(--card-border);
+            gap: 0.5rem;
+        }
+
+        .chat-input-area input[type="text"] {
+            background: #222;
+            border: 1px solid #444;
+            color: #fff;
+            padding: 0.8rem 1.2rem;
+            border-radius: 25px;
+            outline: none;
+            font-size: 0.95rem;
+        }
+
+        .chat-input-area input[type="text"]:focus {
+            border-color: var(--neon-green);
+        }
+
+        .chat-input-name { width: 150px; }
+        .chat-input-msg { flex: 1; }
+
+        .chat-btn {
+            background: var(--neon-green);
+            color: #000;
+            border: none;
+            padding: 0 1.5rem;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .chat-btn:hover {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 600px) {
+            .chat-input-area { flex-direction: column; }
+            .chat-input-name { width: 100%; }
+            .chat-btn { padding: 0.8rem; }
         }
 
         /* News Card Styles */
@@ -383,13 +449,11 @@
             font-family: monospace;
             margin-bottom: 1rem;
         }
-
         .news-title {
             font-size: 1.3rem;
             margin-bottom: 1rem;
             line-height: 1.4;
         }
-
         .news-excerpt {
             color: var(--text-muted);
             font-size: 0.95rem;
@@ -397,7 +461,6 @@
             margin-bottom: 2rem;
             flex-grow: 1;
         }
-
         .news-read-more {
             color: #fff;
             text-decoration: none;
@@ -408,10 +471,7 @@
             gap: 0.5rem;
             transition: color 0.3s;
         }
-
-        .news-read-more:hover {
-            color: var(--neon-green);
-        }
+        .news-read-more:hover { color: var(--neon-green); }
 
         /* Shop MODAL Styles */
         .shop-modal {
@@ -429,11 +489,7 @@
             justify-content: center;
             backdrop-filter: blur(5px);
         }
-
-        .shop-modal.show {
-            display: flex;
-        }
-
+        .shop-modal.show { display: flex; }
         .shop-modal-content {
             background: var(--bg-darker);
             padding: 3rem;
@@ -446,7 +502,6 @@
             margin-bottom: 6rem;
             box-shadow: 0 0 50px rgba(57, 255, 20, 0.1);
         }
-
         .close-shop-modal {
             position: absolute;
             top: 1.5rem;
@@ -457,10 +512,7 @@
             transition: color 0.3s;
             line-height: 1;
         }
-
-        .close-shop-modal:hover {
-            color: var(--neon-green);
-        }
+        .close-shop-modal:hover { color: var(--neon-green); }
 
         .item-img {
             width: 100%;
@@ -469,7 +521,6 @@
             border-radius: 5px;
             margin-bottom: 1rem;
         }
-
         .btn-buy {
             background-color: transparent;
             color: var(--neon-green);
@@ -482,7 +533,6 @@
             font-weight: bold;
             align-self: flex-start;
         }
-
         .btn-buy:hover {
             background-color: var(--neon-green);
             color: #000;
@@ -497,25 +547,21 @@
             max-width: 800px;
             margin: 0 auto;
         }
-
         .donate-icon {
             color: var(--neon-green);
             font-size: 3rem;
             margin-bottom: 1.5rem;
         }
-
         .donate-title {
             font-size: 2rem;
             margin-bottom: 1rem;
         }
-
         .donate-text {
             color: var(--text-muted);
             max-width: 600px;
             margin: 0 auto 2.5rem;
             line-height: 1.6;
         }
-
         .donate-amounts {
             display: flex;
             justify-content: center;
@@ -523,7 +569,6 @@
             margin-bottom: 1.5rem;
             flex-wrap: wrap;
         }
-
         .amount-btn {
             background: transparent;
             border: 1px solid #444;
@@ -534,12 +579,10 @@
             font-size: 1rem;
             transition: all 0.2s;
         }
-
         .amount-btn:hover, .amount-btn.active {
             border-color: var(--neon-green);
             color: var(--neon-green);
         }
-
         .payment-method {
             display: none;
             background: rgba(57, 255, 20, 0.05);
@@ -549,11 +592,7 @@
             margin-top: 1rem;
             animation: fadeIn 0.3s ease-in-out;
         }
-
-        .payment-method.active-method {
-            display: block;
-        }
-
+        .payment-method.active-method { display: block; }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -561,7 +600,6 @@
 
         /* Toggle Buttons */
         .hidden-content { display: none !important; }
-
         .btn-toggle {
             background-color: transparent;
             color: var(--neon-green);
@@ -574,7 +612,6 @@
             font-size: 0.9rem;
             transition: all 0.3s;
         }
-
         .btn-toggle:hover {
             background-color: var(--neon-green);
             color: #000;
@@ -588,19 +625,16 @@
             line-height: 1.8;
             font-size: 1.1rem;
         }
-
         .about-text h3 {
             color: var(--neon-green);
             margin-top: 2rem;
             margin-bottom: 1rem;
             font-size: 1.5rem;
         }
-
         .about-text ul {
             margin-left: 1.5rem;
             margin-bottom: 1.5rem;
         }
-        
         .about-text li { margin-bottom: 0.8rem; }
 
         /* Footer & Socials */
@@ -609,14 +643,12 @@
             padding: 4rem 5% 7rem;
             border-top: 1px solid var(--card-border);
         }
-
         .social-links {
             display: flex;
             justify-content: center;
             gap: 1.5rem;
             margin-top: 1.5rem;
         }
-
         .social-icon {
             color: #fff;
             background: #222;
@@ -630,13 +662,11 @@
             transition: all 0.3s;
             text-decoration: none;
         }
-
         .social-icon:hover {
             background: var(--neon-green);
             color: #000;
             transform: translateY(-5px);
         }
-
         .whatsapp-icon { background: #25D366; color: #fff; }
         .whatsapp-icon:hover { background: #1ebe57; color: #fff; }
 
@@ -654,13 +684,11 @@
             align-items: center;
             z-index: 1000;
         }
-
         .now-playing {
             display: flex;
             align-items: center;
             gap: 1rem;
         }
-
         .live-indicator {
             background-color: var(--neon-green);
             color: black;
@@ -670,13 +698,11 @@
             border-radius: 4px;
             animation: pulse 2s infinite;
         }
-
         @keyframes pulse {
             0% { opacity: 1; }
             50% { opacity: 0.5; }
             100% { opacity: 1; }
         }
-
         .listener-count {
             display: flex;
             align-items: center;
@@ -687,7 +713,6 @@
             border-left: 1px solid #333;
             padding-left: 1.5rem;
         }
-
         .play-btn {
             background-color: transparent;
             color: #fff;
@@ -699,22 +724,16 @@
             cursor: pointer;
             transition: all 0.2s;
         }
-
         .play-btn:hover {
             border-color: var(--neon-green);
             color: var(--neon-green);
         }
-
         .volume-control {
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
-
-        input[type=range] {
-            accent-color: var(--neon-green);
-        }
-        
+        input[type=range] { accent-color: var(--neon-green); }
         .btn-donate-large {
             background-color: var(--neon-green);
             color: #000;
@@ -726,10 +745,7 @@
             cursor: pointer;
             transition: transform 0.2s;
         }
-
-        .btn-donate-large:hover {
-            transform: scale(1.05);
-        }
+        .btn-donate-large:hover { transform: scale(1.05); }
     </style>
 </head>
 <body>
@@ -742,7 +758,7 @@
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
             <li><a href="#programs">Programs</a></li>
-            <li><a href="#shoutouts">Shout-Outs</a></li>
+            <li><a href="#chat">Live Chat</a></li>
             <li><a href="#news">News</a></li>
             <li><a onclick="toggleShopModal(event)">Shop</a></li>
             <li><a href="#donate" class="btn-donate-nav">Donate</a></li>
@@ -808,28 +824,23 @@
         </div>
     </div>
 
-    <!-- Shout-Outs Section -->
-    <section id="shoutouts" class="section">
-        <div class="section-header">Live <span class="neon-text">Shout-Outs</span></div>
-        <p style="text-align:left; color:var(--text-muted); margin-top:-2rem; margin-bottom:2rem;">Messages automatically disappear after 30 minutes.</p>
-        <div class="shoutout-container">
-            <form id="shoutout-form" class="shoutout-form">
-                <input type="text" id="so-name" placeholder="Your Name" required>
-                <input type="text" id="so-message" placeholder="Type your shout-out here..." required>
-                <button type="submit" class="btn-donate-large" style="border-radius: 8px;">Send</button>
-            </form>
-            
-            <div id="shoutout-board" class="shoutout-board">
-                <!-- Initial Pre-loaded Shoutouts -->
-                <div class="shoutout-item color-1">
-                    <div class="shoutout-message">"Big up to the Mid-Morning Chat team! Keep the vibes coming."</div>
-                    <div class="shoutout-author">— Tshepo M.</div>
-                </div>
-                <div class="shoutout-item color-2">
-                    <div class="shoutout-message">"Listening all the way from Gabs! Loving the local music selection today."</div>
-                    <div class="shoutout-author">— Sarah Katlego</div>
-                </div>
+    <!-- Live Chat Section -->
+    <section id="chat" class="section">
+        <div class="section-header">Live <span class="neon-text">Chat</span></div>
+        <p style="text-align:left; color:var(--text-muted); margin-top:-2rem; margin-bottom:2rem;">Join the conversation! Messages will disappear after 30 minutes.</p>
+        
+        <div class="chat-container">
+            <!-- Messages Area -->
+            <div id="chat-messages" class="chat-messages">
+                <div style="color: #666; font-style: italic; text-align: center; padding: 2rem;">Connecting to live chat...</div>
             </div>
+            
+            <!-- Input Area -->
+            <form id="chat-form" class="chat-input-area">
+                <input type="text" id="chat-name" class="chat-input-name" placeholder="Your Name" required>
+                <input type="text" id="chat-message" class="chat-input-msg" placeholder="Type a message..." required>
+                <button type="submit" class="chat-btn">Send</button>
+            </form>
         </div>
     </section>
 
@@ -960,24 +971,24 @@
         </div>
     </div>
 
+
+    <!-- ============================================== -->
+    <!-- STANDARD JAVASCRIPT LOGIC (UI, Audio, Content) -->
+    <!-- ============================================== -->
     <script>
-        // Live Listener Counter Logic (Starts at 1000+ base and fluctuates)
+        // Live Listener Counter Logic
         const listenerElement = document.getElementById('listener-number');
-        let currentListeners = 1012; // Base starting number
+        let currentListeners = 1012; 
         listenerElement.innerText = currentListeners.toLocaleString();
 
         setInterval(() => {
-            // Fluctuate randomly between -3 and +4 listeners to simulate active stream
             const change = Math.floor(Math.random() * 8) - 3;
             currentListeners += change;
-            
-            // Keep the absolute minimum at 1000
             if (currentListeners < 1000) currentListeners = 1000; 
-            
             listenerElement.innerText = currentListeners.toLocaleString();
-        }, 6000); // Updates every 6 seconds
+        }, 6000); 
 
-        // Weather Fetching Logic (Using Open-Meteo free API)
+        // Weather Fetching Logic
         async function fetchWeather() {
             const cityInput = document.getElementById('weather-input').value || 'Lobatse';
             const locText = document.getElementById('weather-loc');
@@ -987,7 +998,6 @@
             tempText.innerHTML = '--°C';
             
             try {
-                // 1. Convert City Name to Coordinates
                 const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cityInput)}&count=1&format=json`);
                 const geoData = await geoRes.json();
                 
@@ -997,8 +1007,6 @@
                 }
                 
                 const { latitude, longitude, name, country } = geoData.results[0];
-                
-                // 2. Fetch Weather for Coordinates
                 const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`);
                 const weatherData = await weatherRes.json();
                 
@@ -1010,8 +1018,7 @@
                 locText.innerHTML = 'Error loading weather.';
             }
         }
-        // Load default weather on startup
-        fetchWeather();
+        fetchWeather(); 
 
         // Shop Modal Logic
         function toggleShopModal(e) {
@@ -1020,47 +1027,6 @@
             modal.classList.toggle('show');
         }
 
-        // Shout-Outs Auto-Delete Logic
-        const shoutoutForm = document.getElementById('shoutout-form');
-        const shoutoutBoard = document.getElementById('shoutout-board');
-        let colorIndex = 3; 
-
-        shoutoutForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const name = document.getElementById('so-name').value;
-            const message = document.getElementById('so-message').value;
-
-            const newItem = document.createElement('div');
-            newItem.className = `shoutout-item color-${colorIndex}`;
-            newItem.innerHTML = `
-                <div class="shoutout-message">"${message}"</div>
-                <div class="shoutout-author">— ${name}</div>
-            `;
-
-            shoutoutBoard.insertBefore(newItem, shoutoutBoard.firstChild);
-
-            if (shoutoutBoard.children.length > 5) {
-                shoutoutBoard.removeChild(shoutoutBoard.lastChild);
-            }
-
-            colorIndex = colorIndex >= 5 ? 1 : colorIndex + 1;
-            
-            document.getElementById('so-name').value = '';
-            document.getElementById('so-message').value = '';
-
-            // AUTO DELETE TIMER: 30 minutes
-            setTimeout(() => {
-                if (shoutoutBoard.contains(newItem)) {
-                    newItem.classList.add('fade-out');
-                    setTimeout(() => {
-                        if (shoutoutBoard.contains(newItem)) {
-                            shoutoutBoard.removeChild(newItem);
-                        }
-                    }, 500); 
-                }
-            }, 1800000); 
-        });
-
         // Live Video Dropdown Toggle
         function toggleLiveVideo(e) {
             e.preventDefault();
@@ -1068,7 +1034,7 @@
             dropdown.classList.toggle('show');
         }
 
-        // 1. Program Data
+        // Program Data
         const programs = [
             { title: "Morning Drive", time: "06:00 - 09:00", presenter: "Presenter 1", image: "WhatsApp Image 2026-10-05 at 14.23.54.jpeg" },
             { title: "Mid-Morning Chat", time: "09:00 - 12:00", presenter: "Presenter 2", image: "WhatsApp Image 2026-10-05 at 14.25.21.jpeg" },
@@ -1084,7 +1050,7 @@
             { title: "Sunday Soul", time: "Sun 08:00 - 12:00", presenter: "Presenter 12", image: "https://via.placeholder.com/100" }
         ];
 
-        // 2. News Data
+        // News Data
         const newsData = [
             { title: "Local Talent Showcase this Weekend", date: "Oct 12, 2026", excerpt: "Join us at the town square as we broadcast live from the annual local talent showcase." },
             { title: "New Studio Upgrades", date: "Oct 10, 2026", excerpt: "We are thrilled to announce state-of-the-art upgrades to the Lobatse Radio broadcastin..." },
@@ -1094,7 +1060,7 @@
             { title: "Cultural Festival Highlights", date: "Sep 28, 2026", excerpt: "A look back at the amazing performances and cultural displays from last week's festival." }
         ];
 
-        // 3. Shop Data
+        // Shop Data
         const shopData = [
             { name: "Lobatse Radio T-Shirt", price: "P150.00", image: "https://via.placeholder.com/200" },
             { name: "Neon Logo Hoodie", price: "P350.00", image: "https://via.placeholder.com/200" },
@@ -1106,7 +1072,7 @@
             { name: "Premium Water Bottle", price: "P110.00", image: "https://via.placeholder.com/200" }
         ];
 
-        // Inject Programs
+        // Inject Content
         const programGrid = document.getElementById('program-grid');
         programs.forEach(prog => {
             programGrid.innerHTML += `
@@ -1119,7 +1085,6 @@
             `;
         });
 
-        // Inject News
         const newsGrid = document.getElementById('news-grid');
         newsData.forEach((item, index) => {
             let hideClass = index > 2 ? "hidden-content news-item" : "news-item";
@@ -1133,7 +1098,6 @@
             `;
         });
 
-        // Inject Shop items into Modal
         const shopGrid = document.getElementById('shop-grid');
         shopData.forEach(item => {
             shopGrid.innerHTML += `
@@ -1146,7 +1110,7 @@
             `;
         });
 
-        // Dropdown Toggle Logic for News
+        // Toggle Functions
         function toggleSection(itemClass, btnId) {
             const items = document.querySelectorAll(`.${itemClass}`);
             const btn = document.getElementById(btnId);
@@ -1168,13 +1132,10 @@
             }
         }
 
-        // Dropdown Toggle Logic for About Section
         function toggleAbout() {
             const aboutMore = document.getElementById('about-more');
             const btn = document.getElementById('about-toggle-btn');
-            
             aboutMore.classList.toggle('hidden-content');
-            
             if (aboutMore.classList.contains('hidden-content')) {
                 btn.innerHTML = 'Read More <i class="fas fa-chevron-down"></i>';
             } else {
@@ -1182,7 +1143,6 @@
             }
         }
 
-        // Payment Methods Toggle Logic
         function showPayment(methodId, btn) {
             const buttons = document.querySelectorAll('.amount-btn');
             buttons.forEach(b => b.classList.remove('active'));
@@ -1197,7 +1157,6 @@
         const audio = new Audio('https://stream.zeno.fm/yhspijyzxp8vv');
         const playBtn = document.getElementById('play-pause-btn');
         const volumeSlider = document.getElementById('volume-slider');
-
         let isPlaying = false;
 
         playBtn.addEventListener('click', () => {
@@ -1213,6 +1172,114 @@
 
         volumeSlider.addEventListener('input', (e) => {
             audio.volume = e.target.value;
+        });
+    </script>
+
+
+    <!-- ============================================== -->
+    <!-- FIREBASE LIVE CHAT LOGIC (v13 Modular SDK)     -->
+    <!-- ============================================== -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-analytics.js";
+        import { getDatabase, ref, push, onChildAdded, serverTimestamp, query, limitToLast } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-database.js";
+
+        // Your exact Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBdLuCGZWVKtyfLhr1vaB6bydGF7NiK29o",
+            authDomain: "lobatse-radio.firebaseapp.com",
+            databaseURL: "https://lobatse-radio-default-rtdb.firebaseio.com",
+            projectId: "lobatse-radio",
+            storageBucket: "lobatse-radio.firebasestorage.app",
+            messagingSenderId: "136141473716",
+            appId: "1:136141473716:web:7e1c4dee78c5939ac894e1",
+            measurementId: "G-1TF1MTPHL8"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const db = getDatabase(app);
+
+        // Chat Elements
+        const chatForm = document.getElementById('chat-form');
+        const chatMessages = document.getElementById('chat-messages');
+        
+        // Clear placeholder text
+        chatMessages.innerHTML = '';
+        let colorIndex = 3; 
+
+        // Helper to format time
+        function getCurrentTime() {
+            return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+
+        // Auto-scroll chat to bottom
+        function scrollToBottom() {
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // SEND MESSAGE TO FIREBASE
+        chatForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('chat-name').value;
+            const message = document.getElementById('chat-message').value;
+
+            // Push to real-time database
+            push(ref(db, 'shoutouts'), {
+                name: name,
+                message: message,
+                time: getCurrentTime(),
+                colorIndex: colorIndex,
+                timestamp: serverTimestamp()
+            });
+
+            // Cycle colors and clear input
+            colorIndex = colorIndex >= 5 ? 1 : colorIndex + 1;
+            document.getElementById('chat-message').value = '';
+        });
+
+        // LISTEN FOR NEW MESSAGES & ENFORCE 30-MIN AUTO-DELETE
+        const recentShoutouts = query(ref(db, 'shoutouts'), limitToLast(50));
+        
+        onChildAdded(recentShoutouts, (snapshot) => {
+            const data = snapshot.val();
+            const now = new Date().getTime();
+            
+            // Fallback for immediate local render before server confirms timestamp
+            const msgTime = data.timestamp || now; 
+            const messageAge = now - msgTime;
+
+            // Only show message if it is less than 30 minutes old (1,800,000 milliseconds)
+            if (messageAge < 1800000) {
+                const newItem = document.createElement('div');
+                newItem.className = 'chat-message';
+                newItem.innerHTML = `
+                    <div class="chat-header">
+                        <span class="color-${data.colorIndex}-text">${data.name}</span>
+                        <span class="chat-time">${data.time}</span>
+                    </div>
+                    <div class="chat-bubble">${data.message}</div>
+                `;
+
+                // Add to board
+                chatMessages.appendChild(newItem);
+                scrollToBottom();
+
+                // Calculate exact time left before auto-deletion
+                const timeLeft = 1800000 - messageAge;
+                
+                setTimeout(() => {
+                    if (chatMessages.contains(newItem)) {
+                        newItem.classList.add('fade-out');
+                        setTimeout(() => {
+                            if (chatMessages.contains(newItem)) {
+                                chatMessages.removeChild(newItem);
+                            }
+                        }, 500); 
+                    }
+                }, Math.max(0, timeLeft));
+            }
         });
     </script>
 </body>
