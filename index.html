@@ -15,7 +15,6 @@
             --card-bg: #111111;
             --card-border: #222222;
             
-            /* Minimal Colors from Dumma Branding */
             --color-1: #FF1D58;
             --color-2: #F75990;
             --color-3: #FFF685;
@@ -121,7 +120,6 @@
             flex-direction: column;
         }
 
-        /* Custom Scrollbar for Dropdown */
         .video-dropdown::-webkit-scrollbar {
             width: 6px;
         }
@@ -240,10 +238,10 @@
             font-size: 0.9rem;
         }
 
-        /* Stats Grid */
+        /* Stats Grid & Top 10 Chart Card */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
             padding: 0 5% 3rem 5%;
         }
@@ -254,6 +252,17 @@
             border-radius: 12px;
             padding: 1.5rem;
             text-align: left;
+            position: relative;
+        }
+
+        .clickable-card {
+            cursor: pointer;
+            transition: border-color 0.3s, transform 0.2s;
+        }
+
+        .clickable-card:hover {
+            border-color: var(--neon-green);
+            transform: translateY(-2px);
         }
 
         .stat-number {
@@ -270,10 +279,65 @@
             letter-spacing: 1px;
         }
 
+        /* Top 10 Chart Dropdown Drawer */
+        .chart-drawer {
+            display: none;
+            grid-column: 1 / -1;
+            background: var(--card-bg);
+            border: 1px solid var(--neon-green);
+            border-radius: 12px;
+            padding: 2rem;
+            animation: fadeIn 0.3s ease-in-out;
+            text-align: left;
+        }
+
+        .chart-drawer.show {
+            display: block;
+        }
+
+        .chart-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .chart-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.8rem 1rem;
+            background: #181818;
+            border-radius: 8px;
+            border-left: 3px solid var(--neon-green);
+        }
+
+        .chart-rank {
+            font-weight: 900;
+            color: var(--neon-green);
+            width: 35px;
+            font-size: 1.1rem;
+        }
+
+        .chart-info {
+            flex: 1;
+        }
+
+        .chart-song {
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .chart-artist {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
         /* Grids and Cards */
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
         }
 
@@ -292,7 +356,16 @@
             border-color: #333;
         }
 
-        /* Program Styles */
+        .presenter-card {
+            cursor: pointer;
+            transition: border-color 0.3s, transform 0.3s;
+        }
+
+        .presenter-card:hover {
+            border-color: var(--neon-green);
+            transform: translateY(-4px);
+        }
+
         .presenter-img {
             width: 100px;
             height: 100px;
@@ -301,6 +374,86 @@
             margin: 0 auto 1rem;
             border: 2px solid var(--neon-green);
             display: block;
+        }
+
+        /* Modal Base (Shop & Presenter Bio) */
+        .modal {
+            display: none; 
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            overflow-y: auto;
+            padding: 2rem 5%;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg-darker);
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--neon-green);
+            max-width: 600px;
+            width: 100%;
+            position: relative;
+            box-shadow: 0 0 50px rgba(57, 255, 20, 0.15);
+            text-align: center;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1.2rem;
+            right: 1.5rem;
+            color: var(--text-main);
+            font-size: 2.2rem;
+            cursor: pointer;
+            transition: color 0.3s;
+            line-height: 1;
+        }
+
+        .close-modal:hover {
+            color: var(--neon-green);
+        }
+
+        .bio-avatar {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1.2rem;
+            border: 3px solid var(--neon-green);
+        }
+
+        .bio-title {
+            color: var(--neon-green);
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .bio-text {
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin: 1.5rem 0;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        .bio-socials {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
         }
 
         /* Live Chat Section */
@@ -386,7 +539,6 @@
             line-height: 1.4;
         }
 
-        /* Minimal Colors for Usernames */
         .color-1-text { color: var(--color-1); }
         .color-2-text { color: var(--color-2); }
         .color-3-text { color: var(--color-3); }
@@ -470,47 +622,6 @@
             transition: color 0.3s;
         }
         .news-read-more:hover { color: var(--neon-green); }
-
-        /* Shop MODAL Styles */
-        .shop-modal {
-            display: none; 
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 2000;
-            overflow-y: auto;
-            padding: 2rem 5%;
-            align-items: flex-start;
-            justify-content: center;
-            backdrop-filter: blur(5px);
-        }
-        .shop-modal.show { display: flex; }
-        .shop-modal-content {
-            background: var(--bg-darker);
-            padding: 3rem;
-            border-radius: 16px;
-            border: 1px solid var(--neon-green);
-            max-width: 1200px;
-            width: 100%;
-            position: relative;
-            margin-top: 2rem;
-            margin-bottom: 6rem;
-            box-shadow: 0 0 50px rgba(57, 255, 20, 0.1);
-        }
-        .close-shop-modal {
-            position: absolute;
-            top: 1.5rem;
-            right: 2rem;
-            color: var(--text-main);
-            font-size: 2.5rem;
-            cursor: pointer;
-            transition: color 0.3s;
-            line-height: 1;
-        }
-        .close-shop-modal:hover { color: var(--neon-green); }
 
         .item-img {
             width: 100%;
@@ -770,7 +881,6 @@
             <h3 style="color: #fff; font-size: 1.1rem;"><span style="color: red;">🔴</span> Broadcasting Live</h3>
             <i class="fas fa-times" style="cursor: pointer; color: var(--text-muted);" onclick="toggleLiveVideo(event)"></i>
         </div>
-        <!-- TikTok Embedded Feed -->
         <div style="background: #fff; border-radius: 8px; overflow: hidden;">
             <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@lobatse.online.ra" data-unique-id="lobatse.online.ra" data-embed-type="creator" style="max-width: 780px; min-width: 288px;" > 
                 <section> 
@@ -783,12 +893,27 @@
     </div>
 
     <!-- Shop Modal Overlay -->
-    <div id="shop-modal" class="shop-modal">
-        <div class="shop-modal-content">
-            <span class="close-shop-modal" onclick="toggleShopModal(event)">&times;</span>
+    <div id="shop-modal" class="modal">
+        <div class="modal-content" style="max-width: 1100px;">
+            <span class="close-modal" onclick="toggleShopModal(event)">&times;</span>
             <div class="section-header" style="margin-bottom: 2rem;">Mini <span class="neon-text">Shop</span></div>
             <div class="grid-container" id="shop-grid">
                 <!-- Shop items injected via JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Presenter Bio Modal -->
+    <div id="bio-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeBioModal()">&times;</span>
+            <img id="bio-img" src="" alt="Presenter" class="bio-avatar">
+            <h2 id="bio-name" style="margin-bottom: 0.3rem;"></h2>
+            <div id="bio-show" class="bio-title"></div>
+            <div id="bio-time" style="color: var(--text-muted); font-size: 0.9rem;"></div>
+            <p id="bio-desc" class="bio-text"></p>
+            <div class="bio-socials" id="bio-socials">
+                <!-- Social links injected via JS -->
             </div>
         </div>
     </div>
@@ -816,15 +941,30 @@
         </div>
     </div>
 
-    <!-- Stats Section -->
+    <!-- Stats & Top 10 Chart Section -->
     <div class="stats-grid">
         <div class="stat-card">
             <div class="stat-number">24/7</div>
             <div class="stat-label">LIVE STREAMING</div>
         </div>
-        <div class="stat-card">
-            <div class="stat-number">50+</div>
-            <div class="stat-label">LOCAL ARTISTS</div>
+        <!-- Replaced 50+ local artists with Top 10 Chart -->
+        <div class="stat-card clickable-card" onclick="toggleChartDrawer()">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div class="stat-number">TOP 10</div>
+                <i id="chart-arrow" class="fas fa-chevron-down" style="color: var(--neon-green); font-size: 1.5rem;"></i>
+            </div>
+            <div class="stat-label">OFFICIAL WEEKLY CHART (CLICK TO VIEW)</div>
+        </div>
+
+        <!-- Top 10 Songs Dropdown Drawer -->
+        <div id="chart-drawer" class="chart-drawer">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; padding-bottom: 0.8rem;">
+                <h3 style="color: #fff; font-size: 1.2rem;"><i class="fas fa-fire" style="color: var(--neon-green);"></i> Song of the Week & Top 10</h3>
+                <span style="font-size: 0.85rem; color: var(--neon-green);">Updated Every Week</span>
+            </div>
+            <ul class="chart-list" id="chart-list">
+                <!-- Chart items injected via JavaScript -->
+            </ul>
         </div>
     </div>
 
@@ -834,12 +974,10 @@
         <p style="text-align:left; color:var(--text-muted); margin-top:-2rem; margin-bottom:2rem;">Join the conversation! Messages will disappear after 30 minutes.</p>
         
         <div class="chat-container">
-            <!-- Messages Area -->
             <div id="chat-messages" class="chat-messages">
                 <div style="color: #666; font-style: italic; text-align: center; padding: 2rem;">Connecting to live chat...</div>
             </div>
             
-            <!-- Input Area -->
             <form id="chat-form" class="chat-input-area">
                 <input type="text" id="chat-name" class="chat-input-name" placeholder="Your Name" required>
                 <input type="text" id="chat-message" class="chat-input-msg" placeholder="Type a message..." required>
@@ -908,7 +1046,6 @@
                 <button class="amount-btn" onclick="showPayment('paypal', this)">PayPal</button>
             </div>
             
-            <!-- Payment Details Tabs -->
             <div id="orange" class="payment-method active-method">
                 <h3 style="color: var(--neon-green); margin-bottom: 1rem;">Orange Money</h3>
                 <p>Send your contribution directly via Orange Money to:<br><strong style="font-size: 1.2rem; color: #fff; display: block; margin-top: 0.5rem;">+267 72960417</strong></p>
@@ -943,10 +1080,10 @@
     <footer class="footer bg-darker">
         <h2>Connect With <span class="neon-text">Us</span></h2>
         <div class="social-links">
-            <a href="https://www.facebook.com/profile.php?id=100093615780700" target="_blank" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://www.tiktok.com/@lobatse.online.ra" target="_blank" class="social-icon"><i class="fab fa-tiktok"></i></a>
-            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-            <a href="#" class="social-icon whatsapp-icon"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.facebook.com/profile.php?id=100093615780700" target="_blank" class="social-icon" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.tiktok.com/@lobatse.online.ra" target="_blank" class="social-icon" title="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="https://www.instagram.com/lobatseonlineradio?utm_source=ig_web_button_share_sheet&cplk=ZDNlZDc0MzIxNw==" target="_blank" class="social-icon" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://wa.me/26772960417" target="_blank" class="social-icon whatsapp-icon" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
         </div>
         <p style="margin-top: 2rem; color: var(--text-muted); font-size: 0.9rem;">&copy; 2026 Lobatse Radio. All rights reserved.</p>
     </footer>
@@ -959,7 +1096,6 @@
                 <h4 style="margin: 0; font-size: 0.9rem;">Lobatse Radio</h4>
                 <p style="margin: 0; font-size: 0.8rem; color: var(--text-muted);">On Air</p>
             </div>
-            <!-- Listener Count -->
             <div class="listener-count hidden-mobile">
                 <i class="fas fa-headphones"></i> <span id="listener-number">1,024</span>
             </div>
@@ -977,80 +1113,169 @@
 
 
     <!-- ============================================== -->
-    <!-- STANDARD JAVASCRIPT LOGIC (UI, Audio, Content) -->
+    <!-- STANDARD JAVASCRIPT LOGIC                      -->
     <!-- ============================================== -->
     <script>
-        // Live Listener Counter Logic
-        const listenerElement = document.getElementById('listener-number');
-        let currentListeners = 1012; 
-        listenerElement.innerText = currentListeners.toLocaleString();
+        // Top 10 Chart Data
+        const top10Songs = [
+            { rank: 1, song: "Ke Tla Tsamaya", artist: "Local Star ft. Lobatse All-Stars" },
+            { rank: 2, song: "Pelonomi", artist: "Vee Mampeezy" },
+            { rank: 3, song: "O Nkae", artist: "ATI" },
+            { rank: 4, song: "Setswana Vibes", artist: "DJ Mo Gee" },
+            { rank: 5, song: "Botshelo Jame", artist: "Charma Gal" },
+            { rank: 6, song: "Gaborone Nights", artist: "Franco & Afro Musica" },
+            { rank: 7, song: "Kasi Anthem", artist: "DJ Vic" },
+            { rank: 8, song: "Lobatse Soul", artist: "LEANO KGASWANE" },
+            { rank: 9, song: "Re Ja Monate", artist: "Motswedi Crew" },
+            { rank: 10, song: "Dipoko", artist: "Team Mosako" }
+        ];
 
-        setInterval(() => {
-            const change = Math.floor(Math.random() * 8) - 3;
-            currentListeners += change;
-            if (currentListeners < 1000) currentListeners = 1000; 
-            listenerElement.innerText = currentListeners.toLocaleString();
-        }, 6000); 
+        // Populate Top 10 List
+        const chartList = document.getElementById('chart-list');
+        top10Songs.forEach(item => {
+            chartList.innerHTML += `
+                <li class="chart-item">
+                    <span class="chart-rank">#${item.rank}</span>
+                    <div class="chart-info">
+                        <div class="chart-song">${item.song}</div>
+                        <div class="chart-artist">${item.artist}</div>
+                    </div>
+                    <i class="fas fa-play-circle" style="color: var(--neon-green); font-size: 1.2rem; cursor: pointer;"></i>
+                </li>
+            `;
+        });
 
-        // Weather Fetching Logic
-        async function fetchWeather() {
-            const cityInput = document.getElementById('weather-input').value || 'Lobatse';
-            const locText = document.getElementById('weather-loc');
-            const tempText = document.getElementById('weather-temp');
-            
-            locText.innerHTML = 'Searching...';
-            tempText.innerHTML = '--°C';
-            
-            try {
-                const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cityInput)}&count=1&format=json`);
-                const geoData = await geoRes.json();
-                
-                if (!geoData.results || geoData.results.length === 0) {
-                    locText.innerHTML = 'City not found.';
-                    return;
-                }
-                
-                const { latitude, longitude, name, country } = geoData.results[0];
-                const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`);
-                const weatherData = await weatherRes.json();
-                
-                const temp = weatherData.current_weather.temperature;
-                
-                locText.innerHTML = `${name}, ${country}`;
-                tempText.innerHTML = `${temp}°C`;
-            } catch (err) {
-                locText.innerHTML = 'Error loading weather.';
+        function toggleChartDrawer() {
+            const drawer = document.getElementById('chart-drawer');
+            const arrow = document.getElementById('chart-arrow');
+            drawer.classList.toggle('show');
+            if (drawer.classList.contains('show')) {
+                arrow.className = 'fas fa-chevron-up';
+            } else {
+                arrow.className = 'fas fa-chevron-down';
             }
         }
-        fetchWeather(); 
 
-        // Shop Modal Logic
-        function toggleShopModal(e) {
-            if(e) e.preventDefault();
-            const modal = document.getElementById('shop-modal');
-            modal.classList.toggle('show');
-        }
-
-        // Live Video Dropdown Toggle
-        function toggleLiveVideo(e) {
-            e.preventDefault();
-            const dropdown = document.getElementById('live-video-dropdown');
-            dropdown.classList.toggle('show');
-        }
-
-        // Updated Program Data
+        // Presenters Data with Bio and Socials
         const programs = [
-            { title: "Ease Hour", time: "Sundays 5pm-7pm", presenter: "Temo", image: "WhatsApp Image 2026-10-05 at 14.23.54.jpeg" },
-            { title: "Sowing Seeds", time: "Saturdays 11am-1pm", presenter: "Nosipho", image: "WhatsApp Image 2026-10-05 at 14.25.21.jpeg" },
-            { title: "Hurt & Heal", time: "Sundays 12pm-2pm", presenter: "DJ Mo Gee", image: "WhatsApp Image 2026-10-05 at 15.47.38 (1).jpeg" },
-            { title: "Bumpy Cruise", time: "Saturdays 3pm-5pm", presenter: "MC SPONKIE", image: "WhatsApp Image 2026-10-05 at 15.47.38.jpeg" },
-            { title: "ChooseDay Live", time: "Tuesdays 1pm-3pm", presenter: "Motswedi", image: "WhatsApp Image 2026-10-05 at 14.27.13.jpeg" },
-            { title: "Afro Diamonds", time: "Thursdays 2pm-4pm", presenter: "LEANO KGASWANE", image: "WhatsApp Image 2026-10-05 at 15.43.16.jpeg" },
-            { title: "Voice Up", time: "Mondays 10am-12pm", presenter: "Mpheme Mmolai", image: "mondays.jpeg" },
-            { title: "Kasi 2 Kasi Top10", time: "Wednesdays 4pm-6pm", presenter: "DJ Vic", image: "wednesday.jpeg" },
-            { title: "Prayer Walk / Southern Africa Sound", time: "Various Times", presenter: "TT", image: "TT.jpg" },
-            { title: "Stand-in Presenter", time: "Various Times", presenter: "Guest / Stand-in", image: "WhatsApp Image 2026-10-05 at 14.26.24.jpeg" }
+            { 
+                title: "Ease Hour", 
+                time: "Sundays 5pm-7pm", 
+                presenter: "Temo", 
+                image: "WhatsApp Image 2026-10-05 at 14.23.54.jpeg",
+                bio: "Temo brings an effortlessly smooth, unwinding vibe to close off your weekend with the finest soulful selections and heartwarming chats.",
+                socials: { ig: "#", fb: "#", wa: "26772960417" }
+            },
+            { 
+                title: "Sowing Seeds", 
+                time: "Saturdays 11am-1pm", 
+                presenter: "Nosipho", 
+                image: "WhatsApp Image 2026-10-05 at 14.25.21.jpeg",
+                bio: "Dedicated to community stories, agriculture, growth, and empowerment across Botswana's southern communities.",
+                socials: { ig: "#", fb: "#", wa: "26772960417" }
+            },
+            { 
+                title: "Hurt & Heal", 
+                time: "Sundays 12pm-2pm", 
+                presenter: "DJ Mo Gee", 
+                image: "WhatsApp Image 2026-10-05 at 15.47.38 (1).jpeg",
+                bio: "DJ Mo Gee takes you through emotional musical therapy and candid discussions that help listeners process, reflect, and recover.",
+                socials: { ig: "#", fb: "#", wa: "26772960417" }
+            },
+            { 
+                title: "Bumpy Cruise", 
+                time: "Saturdays 3pm-5pm", 
+                presenter: "MC SPONKIE", 
+                image: "WhatsApp Image 2026-10-05 at 15.47.38.jpeg",
+                bio: "The high-energy afternoon party starter! Non-stop beats, laughs, and pure weekend road-trip atmosphere with MC SPONKIE.",
+                socials: { ig: "#", fb: "#", wa: "26772960417" }
+            },
+            { 
+                title: "ChooseDay Live", 
+                time: "Tuesdays 1pm-3pm", 
+                presenter: "Motswedi", 
+                image: "WhatsApp Image 2026-10-05 at 14.27.13.jpeg",
+                bio: "Spotlighting midweek local entertainment, lifestyle choices, youth culture, and trending community topics.",
+                socials: { ig: "#", fb: "#", wa: "26772960417" }
+            },
+            { 
+                title: "Afro Diamonds", 
+                time: "Thursdays 2pm-4pm", 
+                presenter: "LEANO KGASWANE", 
+                image: "WhatsApp Image 2026-10-05 at 15.43.16.jpeg",
+                bio: "Celebrating Africa's gems in sound, fashion, and business with LEANO KGASWANE's signature poise and elegance.",
+                socials: { ig: "#", fb: "#", wa: "26772960417" }
+            },
+            { 
+                title: "Voice Up", 
+                time: "Mondays 10am-12pm", 
+                presenter: "Mpheme Mmolai", 
+                image: "mondays.jpeg",
+                bio: "Kickstarting the week by giving listeners an unfiltered voice on social issues, community justice, and progress.",
+                socials: { ig: "#", fb: "#", wa: "26772960417" }
+            },
+            { 
+                title: "Kasi 2 Kasi Top10", 
+                time: "Wednesdays 4pm-6pm", 
+                presenter: "DJ Vic", 
+                image: "wednesday.jpeg",
+                bio: "Street hits straight from every township and ward. DJ Vic counts down the bangers dominating the streets.",
+                socials: { ig: "#", fb: "#", wa: "26772960417" }
+            },
+            { 
+                title: "Prayer Walk / Southern Africa Sound", 
+                time: "Various Times", 
+                presenter: "TT", 
+                image: "TT.jpg",
+                bio: "Spiritual upliftment and the deep roots of indigenous Southern African musical melodies hosted by TT.",
+                socials: { ig: "#", fb: "#", wa: "26772960417" }
+            },
+            { 
+                title: "Stand-in Presenter", 
+                time: "Various Times", 
+                presenter: "Guest / Stand-in", 
+                image: "WhatsApp Image 2026-10-05 at 14.26.24.jpeg",
+                bio: "Our dynamic on-call presenter keeping the airwaves buzzing and holding it down whenever called upon ko bofellong!",
+                socials: { ig: "#", fb: "#", wa: "26772960417" }
+            }
         ];
+
+        // Inject Presenter Cards
+        const programGrid = document.getElementById('program-grid');
+        programs.forEach((prog, index) => {
+            programGrid.innerHTML += `
+                <div class="card presenter-card" onclick="openBioModal(${index})" style="text-align: center;">
+                    <img src="${prog.image}" alt="${prog.presenter}" class="presenter-img">
+                    <div style="color: #39ff14; margin-bottom: 0.5rem; font-size: 0.9rem;">${prog.time}</div>
+                    <h3 style="margin-bottom: 0.5rem;">${prog.title}</h3>
+                    <p style="color: #a0a0a0; font-size: 0.9rem;">Hosted by ${prog.presenter}</p>
+                    <span style="color: var(--neon-green); font-size: 0.8rem; margin-top: 0.8rem; display: block;">Tap for Bio & Socials →</span>
+                </div>
+            `;
+        });
+
+        // Bio Modal Controls
+        function openBioModal(index) {
+            const p = programs[index];
+            document.getElementById('bio-img').src = p.image;
+            document.getElementById('bio-name').innerText = p.presenter;
+            document.getElementById('bio-show').innerText = p.title;
+            document.getElementById('bio-time').innerText = p.time;
+            document.getElementById('bio-desc').innerText = p.bio;
+            
+            const socialsContainer = document.getElementById('bio-socials');
+            socialsContainer.innerHTML = `
+                <a href="https://wa.me/${p.socials.wa}" target="_blank" class="social-icon whatsapp-icon" title="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://www.instagram.com/lobatseonlineradio?utm_source=ig_web_button_share_sheet&cplk=ZDNlZDc0MzIxNw==" target="_blank" class="social-icon" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/profile.php?id=100093615780700" target="_blank" class="social-icon" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+            `;
+            
+            document.getElementById('bio-modal').classList.add('show');
+        }
+
+        function closeBioModal() {
+            document.getElementById('bio-modal').classList.remove('show');
+        }
 
         // News Data
         const newsData = [
@@ -1073,19 +1298,6 @@
             { name: "Phone Case (All Models)", price: "P90.00", image: "https://via.placeholder.com/200" },
             { name: "Premium Water Bottle", price: "P110.00", image: "https://via.placeholder.com/200" }
         ];
-
-        // Inject Content
-        const programGrid = document.getElementById('program-grid');
-        programs.forEach(prog => {
-            programGrid.innerHTML += `
-                <div class="card" style="text-align: center;">
-                    <img src="${prog.image}" alt="${prog.presenter}" class="presenter-img">
-                    <div style="color: #39ff14; margin-bottom: 0.5rem; font-size: 0.9rem;">${prog.time}</div>
-                    <h3 style="margin-bottom: 0.5rem;">${prog.title}</h3>
-                    <p style="color: #a0a0a0; font-size: 0.9rem;">Hosted by ${prog.presenter}</p>
-                </div>
-            `;
-        });
 
         const newsGrid = document.getElementById('news-grid');
         newsData.forEach((item, index) => {
@@ -1112,7 +1324,6 @@
             `;
         });
 
-        // Toggle Functions
         function toggleSection(itemClass, btnId) {
             const items = document.querySelectorAll(`.${itemClass}`);
             const btn = document.getElementById(btnId);
@@ -1121,41 +1332,75 @@
             items.forEach((item, index) => {
                 if (index > 2) {
                     item.classList.toggle('hidden-content');
-                    if (item.classList.contains('hidden-content')) {
-                        isHidden = true;
-                    }
+                    if (item.classList.contains('hidden-content')) isHidden = true;
                 }
             });
 
-            if (isHidden) {
-                btn.innerHTML = 'See More <i class="fas fa-chevron-down"></i>';
-            } else {
-                btn.innerHTML = 'See Less <i class="fas fa-chevron-up"></i>';
-            }
+            btn.innerHTML = isHidden ? 'See More <i class="fas fa-chevron-down"></i>' : 'See Less <i class="fas fa-chevron-up"></i>';
         }
 
         function toggleAbout() {
             const aboutMore = document.getElementById('about-more');
             const btn = document.getElementById('about-toggle-btn');
             aboutMore.classList.toggle('hidden-content');
-            if (aboutMore.classList.contains('hidden-content')) {
-                btn.innerHTML = 'Read More <i class="fas fa-chevron-down"></i>';
-            } else {
-                btn.innerHTML = 'Read Less <i class="fas fa-chevron-up"></i>';
-            }
+            btn.innerHTML = aboutMore.classList.contains('hidden-content') ? 'Read More <i class="fas fa-chevron-down"></i>' : 'Read Less <i class="fas fa-chevron-up"></i>';
         }
 
         function showPayment(methodId, btn) {
-            const buttons = document.querySelectorAll('.amount-btn');
-            buttons.forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-
-            const methods = document.querySelectorAll('.payment-method');
-            methods.forEach(m => m.classList.remove('active-method'));
+            document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('active-method'));
             document.getElementById(methodId).classList.add('active-method');
         }
 
-        // Audio Player Setup
+        // Live Listener Counter
+        const listenerElement = document.getElementById('listener-number');
+        let currentListeners = 1012; 
+        listenerElement.innerText = currentListeners.toLocaleString();
+
+        setInterval(() => {
+            const change = Math.floor(Math.random() * 8) - 3;
+            currentListeners += change;
+            if (currentListeners < 1000) currentListeners = 1000; 
+            listenerElement.innerText = currentListeners.toLocaleString();
+        }, 6000); 
+
+        // Weather Fetching
+        async function fetchWeather() {
+            const cityInput = document.getElementById('weather-input').value || 'Lobatse';
+            const locText = document.getElementById('weather-loc');
+            const tempText = document.getElementById('weather-temp');
+            locText.innerHTML = 'Searching...';
+            tempText.innerHTML = '--°C';
+            try {
+                const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cityInput)}&count=1&format=json`);
+                const geoData = await geoRes.json();
+                if (!geoData.results || geoData.results.length === 0) {
+                    locText.innerHTML = 'City not found.';
+                    return;
+                }
+                const { latitude, longitude, name, country } = geoData.results[0];
+                const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`);
+                const weatherData = await weatherRes.json();
+                locText.innerHTML = `${name}, ${country}`;
+                tempText.innerHTML = `${weatherData.current_weather.temperature}°C`;
+            } catch (err) {
+                locText.innerHTML = 'Error loading weather.';
+            }
+        }
+        fetchWeather(); 
+
+        function toggleShopModal(e) {
+            if (e) e.preventDefault();
+            document.getElementById('shop-modal').classList.toggle('show');
+        }
+
+        function toggleLiveVideo(e) {
+            e.preventDefault();
+            document.getElementById('live-video-dropdown').classList.toggle('show');
+        }
+
+        // Audio Player
         const audio = new Audio('https://stream.zeno.fm/yhspijyzxp8vv');
         const playBtn = document.getElementById('play-pause-btn');
         const volumeSlider = document.getElementById('volume-slider');
@@ -1175,8 +1420,15 @@
         volumeSlider.addEventListener('input', (e) => {
             audio.volume = e.target.value;
         });
-    </script>
 
+        // Close Modals on background click
+        window.addEventListener('click', (e) => {
+            const bioModal = document.getElementById('bio-modal');
+            const shopModal = document.getElementById('shop-modal');
+            if (e.target === bioModal) bioModal.classList.remove('show');
+            if (e.target === shopModal) shopModal.classList.remove('show');
+        });
+    </script>
 
     <!-- ============================================== -->
     <!-- FIREBASE LIVE CHAT LOGIC                       -->
