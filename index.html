@@ -15,6 +15,7 @@
             --card-bg: #111111;
             --card-border: #222222;
             
+            /* Minimal Colors from Dumma Branding */
             --color-1: #FF1D58;
             --color-2: #F75990;
             --color-3: #FFF685;
@@ -120,20 +121,10 @@
             flex-direction: column;
         }
 
-        .video-dropdown::-webkit-scrollbar {
-            width: 6px;
-        }
-        .video-dropdown::-webkit-scrollbar-track {
-            background: var(--bg-darker);
-        }
-        .video-dropdown::-webkit-scrollbar-thumb {
-            background: #333;
-            border-radius: 4px;
-        }
-
-        .video-dropdown.show {
-            display: flex;
-        }
+        .video-dropdown::-webkit-scrollbar { width: 6px; }
+        .video-dropdown::-webkit-scrollbar-track { background: var(--bg-darker); }
+        .video-dropdown::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        .video-dropdown.show { display: flex; }
 
         /* Sections */
         .section {
@@ -212,9 +203,7 @@
             outline: none;
         }
         
-        .weather-search input:focus {
-            border-color: var(--neon-green);
-        }
+        .weather-search input:focus { border-color: var(--neon-green); }
 
         .weather-search button {
             background: var(--neon-green);
@@ -233,10 +222,7 @@
             margin: 0.5rem 0;
         }
 
-        .weather-result-loc {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
+        .weather-result-loc { color: var(--text-muted); font-size: 0.9rem; }
 
         /* Stats Grid & Top 10 Chart Card */
         .stats-grid {
@@ -291,9 +277,7 @@
             text-align: left;
         }
 
-        .chart-drawer.show {
-            display: block;
-        }
+        .chart-drawer.show { display: block; }
 
         .chart-list {
             list-style: none;
@@ -320,18 +304,33 @@
             font-size: 1.1rem;
         }
 
-        .chart-info {
-            flex: 1;
-        }
+        .chart-info { flex: 1; }
+        .chart-song { font-weight: bold; color: #fff; }
+        .chart-artist { font-size: 0.85rem; color: var(--text-muted); }
 
-        .chart-song {
-            font-weight: bold;
-            color: #fff;
+        /* Ad Slider Styles */
+        .ad-slider-container {
+            max-width: 800px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 12px;
+            border: 1px solid var(--card-border);
+            background: #000;
+            height: 500px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-
-        .chart-artist {
-            font-size: 0.85rem;
-            color: var(--text-muted);
+        
+        .ad-slider {
+            display: flex;
+            height: 100%;
+            transition: transform 0.8s ease-in-out;
+        }
+        
+        .ad-slide {
+            min-width: 100%;
+            height: 100%;
+            object-fit: contain; /* Ensures flyers aren't cropped */
         }
 
         /* Grids and Cards */
@@ -352,9 +351,7 @@
             flex-direction: column;
         }
 
-        .card:hover {
-            border-color: #333;
-        }
+        .card:hover { border-color: #333; }
 
         .presenter-card {
             cursor: pointer;
@@ -393,9 +390,7 @@
             backdrop-filter: blur(5px);
         }
 
-        .modal.show {
-            display: flex;
-        }
+        .modal.show { display: flex; }
 
         .modal-content {
             background: var(--bg-darker);
@@ -420,9 +415,7 @@
             line-height: 1;
         }
 
-        .close-modal:hover {
-            color: var(--neon-green);
-        }
+        .close-modal:hover { color: var(--neon-green); }
 
         .bio-avatar {
             width: 130px;
@@ -456,43 +449,61 @@
             margin-top: 1rem;
         }
 
-        /* Live Chat Section */
-        .chat-container {
-            max-width: 800px;
-            margin: 0 auto;
+        /* Floating Live Chat */
+        .floating-chat {
+            position: fixed;
+            bottom: 90px; /* Sits right above the audio player */
+            right: 5%;
+            width: 350px;
             background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
+            border: 1px solid var(--neon-green);
+            border-radius: 12px 12px 0 0;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.9);
+            z-index: 1001;
+            display: none; /* Hidden until button pressed */
+            flex-direction: column;
             overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .floating-chat.show { display: flex; }
+        .floating-chat.minimized .floating-chat-body { display: none; }
+
+        .floating-chat-header {
+            background: #151515;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--neon-green);
+            cursor: pointer;
+            color: var(--neon-green);
+            font-weight: bold;
+        }
+
+        .floating-chat-header i:hover { color: #fff; }
+
+        .floating-chat-body {
+            height: 400px;
             display: flex;
             flex-direction: column;
-            height: 500px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            background: var(--bg-darker);
         }
 
         .chat-messages {
             flex: 1;
             overflow-y: auto;
-            padding: 1.5rem;
+            padding: 1rem;
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 0.8rem;
             scroll-behavior: smooth;
         }
 
-        .chat-messages::-webkit-scrollbar {
-            width: 8px;
-        }
-        .chat-messages::-webkit-scrollbar-track {
-            background: var(--bg-darker);
-        }
-        .chat-messages::-webkit-scrollbar-thumb {
-            background: #333;
-            border-radius: 4px;
-        }
-        .chat-messages::-webkit-scrollbar-thumb:hover {
-            background: var(--neon-green);
-        }
+        .chat-messages::-webkit-scrollbar { width: 6px; }
+        .chat-messages::-webkit-scrollbar-track { background: var(--bg-darker); }
+        .chat-messages::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        .chat-messages::-webkit-scrollbar-thumb:hover { background: var(--neon-green); }
 
         .chat-message {
             display: flex;
@@ -502,9 +513,7 @@
             transition: opacity 0.5s ease-out;
         }
         
-        .chat-message.fade-out {
-            opacity: 0;
-        }
+        .chat-message.fade-out { opacity: 0; }
 
         @keyframes slideIn {
             from { opacity: 0; transform: translateY(10px); }
@@ -512,8 +521,8 @@
         }
 
         .chat-header {
-            font-size: 0.85rem;
-            margin-bottom: 0.3rem;
+            font-size: 0.8rem;
+            margin-bottom: 0.2rem;
             font-weight: bold;
             display: flex;
             gap: 0.5rem;
@@ -521,21 +530,20 @@
         }
 
         .chat-time {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: #666;
             font-weight: normal;
         }
 
         .chat-bubble {
             background: #222;
-            padding: 0.8rem 1.2rem;
+            padding: 0.6rem 1rem;
             border-radius: 12px;
             border-top-left-radius: 2px;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: #fff;
-            max-width: 85%;
+            max-width: 90%;
             word-wrap: break-word;
-            text-align: left;
             line-height: 1.4;
         }
 
@@ -547,8 +555,8 @@
 
         .chat-input-area {
             display: flex;
-            padding: 1rem;
-            background: var(--bg-darker);
+            padding: 0.8rem;
+            background: #111;
             border-top: 1px solid var(--card-border);
             gap: 0.5rem;
         }
@@ -557,304 +565,90 @@
             background: #222;
             border: 1px solid #444;
             color: #fff;
-            padding: 0.8rem 1.2rem;
-            border-radius: 25px;
+            padding: 0.6rem 0.8rem;
+            border-radius: 20px;
             outline: none;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
         }
 
-        .chat-input-area input[type="text"]:focus {
-            border-color: var(--neon-green);
-        }
-
-        .chat-input-name { width: 150px; }
+        .chat-input-area input[type="text"]:focus { border-color: var(--neon-green); }
+        .chat-input-name { width: 35%; }
         .chat-input-msg { flex: 1; }
 
         .chat-btn {
             background: var(--neon-green);
             color: #000;
             border: none;
-            padding: 0 1.5rem;
-            border-radius: 25px;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
             font-weight: bold;
             cursor: pointer;
             transition: transform 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .chat-btn:hover {
-            transform: scale(1.05);
-        }
+        .chat-btn:hover { transform: scale(1.1); }
 
         @media (max-width: 600px) {
-            .chat-input-area { flex-direction: column; }
-            .chat-input-name { width: 100%; }
-            .chat-btn { padding: 0.8rem; }
+            .floating-chat { width: 90%; right: 5%; bottom: 85px; }
             .hidden-mobile { display: none !important; }
         }
 
         /* News Card Styles */
-        .news-date {
-            color: var(--neon-green);
-            font-size: 0.9rem;
-            font-family: monospace;
-            margin-bottom: 1rem;
-        }
-        .news-title {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            line-height: 1.4;
-        }
-        .news-excerpt {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            line-height: 1.5;
-            margin-bottom: 2rem;
-            flex-grow: 1;
-        }
-        .news-read-more {
-            color: #fff;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: color 0.3s;
-        }
+        .news-date { color: var(--neon-green); font-size: 0.9rem; font-family: monospace; margin-bottom: 1rem; }
+        .news-title { font-size: 1.3rem; margin-bottom: 1rem; line-height: 1.4; }
+        .news-excerpt { color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; margin-bottom: 2rem; flex-grow: 1; }
+        .news-read-more { color: #fff; text-decoration: none; font-weight: bold; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; transition: color 0.3s; }
         .news-read-more:hover { color: var(--neon-green); }
 
-        .item-img {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 5px;
-            margin-bottom: 1rem;
-        }
-        .btn-buy {
-            background-color: transparent;
-            color: var(--neon-green);
-            border: 1px solid var(--neon-green);
-            padding: 0.4rem 1rem;
-            border-radius: 15px;
-            cursor: pointer;
-            margin-top: 1rem;
-            transition: all 0.3s;
-            font-weight: bold;
-            align-self: flex-start;
-        }
-        .btn-buy:hover {
-            background-color: var(--neon-green);
-            color: #000;
-        }
+        .item-img { width: 100%; height: 150px; object-fit: cover; border-radius: 5px; margin-bottom: 1rem; }
+        .btn-buy { background-color: transparent; color: var(--neon-green); border: 1px solid var(--neon-green); padding: 0.4rem 1rem; border-radius: 15px; cursor: pointer; margin-top: 1rem; transition: all 0.3s; font-weight: bold; align-self: flex-start; }
+        .btn-buy:hover { background-color: var(--neon-green); color: #000; }
 
         /* Donate Section Styles */
-        .donate-container {
-            background-color: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 4rem 2rem;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .donate-icon {
-            color: var(--neon-green);
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-        }
-        .donate-title {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-        .donate-text {
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto 2.5rem;
-            line-height: 1.6;
-        }
-        .donate-amounts {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-        }
-        .amount-btn {
-            background: transparent;
-            border: 1px solid #444;
-            color: #fff;
-            padding: 0.6rem 1.5rem;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.2s;
-        }
-        .amount-btn:hover, .amount-btn.active {
-            border-color: var(--neon-green);
-            color: var(--neon-green);
-        }
-        .payment-method {
-            display: none;
-            background: rgba(57, 255, 20, 0.05);
-            border: 1px solid var(--neon-green);
-            padding: 2rem;
-            border-radius: 12px;
-            margin-top: 1rem;
-            animation: fadeIn 0.3s ease-in-out;
-        }
+        .donate-container { background-color: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 4rem 2rem; max-width: 800px; margin: 0 auto; }
+        .donate-icon { color: var(--neon-green); font-size: 3rem; margin-bottom: 1.5rem; }
+        .donate-title { font-size: 2rem; margin-bottom: 1rem; }
+        .donate-text { color: var(--text-muted); max-width: 600px; margin: 0 auto 2.5rem; line-height: 1.6; }
+        .donate-amounts { display: flex; justify-content: center; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+        .amount-btn { background: transparent; border: 1px solid #444; color: #fff; padding: 0.6rem 1.5rem; border-radius: 25px; cursor: pointer; font-size: 1rem; transition: all 0.2s; }
+        .amount-btn:hover, .amount-btn.active { border-color: var(--neon-green); color: var(--neon-green); }
+        .payment-method { display: none; background: rgba(57, 255, 20, 0.05); border: 1px solid var(--neon-green); padding: 2rem; border-radius: 12px; margin-top: 1rem; animation: fadeIn 0.3s ease-in-out; }
         .payment-method.active-method { display: block; }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* Toggle Buttons */
         .hidden-content { display: none !important; }
-        .btn-toggle {
-            background-color: transparent;
-            color: var(--neon-green);
-            border: 1px solid var(--neon-green);
-            padding: 0.6rem 2rem;
-            border-radius: 25px;
-            cursor: pointer;
-            margin-top: 3rem;
-            font-weight: bold;
-            font-size: 0.9rem;
-            transition: all 0.3s;
-        }
-        .btn-toggle:hover {
-            background-color: var(--neon-green);
-            color: #000;
-        }
+        .btn-toggle { background-color: transparent; color: var(--neon-green); border: 1px solid var(--neon-green); padding: 0.6rem 2rem; border-radius: 25px; cursor: pointer; margin-top: 3rem; font-weight: bold; font-size: 0.9rem; transition: all 0.3s; }
+        .btn-toggle:hover { background-color: var(--neon-green); color: #000; }
 
         /* About Section Styles */
-        .about-text {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: left;
-            line-height: 1.8;
-            font-size: 1.1rem;
-        }
-        .about-text h3 {
-            color: var(--neon-green);
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
-        }
-        .about-text ul {
-            margin-left: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
+        .about-text { max-width: 800px; margin: 0 auto; text-align: left; line-height: 1.8; font-size: 1.1rem; }
+        .about-text h3 { color: var(--neon-green); margin-top: 2rem; margin-bottom: 1rem; font-size: 1.5rem; }
+        .about-text ul { margin-left: 1.5rem; margin-bottom: 1.5rem; }
         .about-text li { margin-bottom: 0.8rem; }
 
         /* Footer & Socials */
-        .footer {
-            text-align: center;
-            padding: 4rem 5% 7rem;
-            border-top: 1px solid var(--card-border);
-        }
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-        .social-icon {
-            color: #fff;
-            background: #222;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            font-size: 1.3rem;
-            transition: all 0.3s;
-            text-decoration: none;
-        }
-        .social-icon:hover {
-            background: var(--neon-green);
-            color: #000;
-            transform: translateY(-5px);
-        }
+        .footer { text-align: center; padding: 4rem 5% 7rem; border-top: 1px solid var(--card-border); }
+        .social-links { display: flex; justify-content: center; gap: 1.5rem; margin-top: 1.5rem; }
+        .social-icon { color: #fff; background: #222; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 1.3rem; transition: all 0.3s; text-decoration: none; }
+        .social-icon:hover { background: var(--neon-green); color: #000; transform: translateY(-5px); }
         .whatsapp-icon { background: #25D366; color: #fff; }
         .whatsapp-icon:hover { background: #1ebe57; color: #fff; }
 
         /* Persistent Audio Player */
-        .audio-player {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background-color: #000;
-            border-top: 1px solid #222;
-            padding: 1rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-        }
-        .now-playing {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-        .live-indicator {
-            background-color: var(--neon-green);
-            color: black;
-            font-size: 0.7rem;
-            font-weight: bold;
-            padding: 2px 6px;
-            border-radius: 4px;
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
-        }
-        .listener-count {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            color: var(--neon-green);
-            font-size: 0.85rem;
-            margin-left: 1.5rem;
-            border-left: 1px solid #333;
-            padding-left: 1.5rem;
-        }
-        .play-btn {
-            background-color: transparent;
-            color: #fff;
-            border: 1px solid #444;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .play-btn:hover {
-            border-color: var(--neon-green);
-            color: var(--neon-green);
-        }
-        .volume-control {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
+        .audio-player { position: fixed; bottom: 0; left: 0; width: 100%; background-color: #000; border-top: 1px solid #222; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; }
+        .now-playing { display: flex; align-items: center; gap: 1rem; }
+        .live-indicator { background-color: var(--neon-green); color: black; font-size: 0.7rem; font-weight: bold; padding: 2px 6px; border-radius: 4px; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+        .listener-count { display: flex; align-items: center; gap: 0.4rem; color: var(--neon-green); font-size: 0.85rem; margin-left: 1.5rem; border-left: 1px solid #333; padding-left: 1.5rem; }
+        .play-btn { background-color: transparent; color: #fff; border: 1px solid #444; width: 45px; height: 45px; border-radius: 50%; font-size: 1rem; cursor: pointer; transition: all 0.2s; }
+        .play-btn:hover { border-color: var(--neon-green); color: var(--neon-green); }
+        .volume-control { display: flex; align-items: center; gap: 0.5rem; }
         input[type=range] { accent-color: var(--neon-green); }
-        .btn-donate-large {
-            background-color: var(--neon-green);
-            color: #000;
-            border: none;
-            padding: 1rem 3rem;
-            border-radius: 30px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        .btn-donate-large:hover { transform: scale(1.05); }
     </style>
 </head>
 <body>
@@ -867,13 +661,35 @@
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
             <li><a href="#programs">Programs</a></li>
-            <li><a href="#chat">Live Chat</a></li>
+            <!-- Updated Live Chat Trigger -->
+            <li><a onclick="toggleChat(event)">Live Chat</a></li>
             <li><a href="#news">News</a></li>
             <li><a onclick="toggleShopModal(event)">Shop</a></li>
             <li><a href="#donate" class="btn-donate-nav">Donate</a></li>
             <li><a href="#" onclick="toggleLiveVideo(event)" class="btn-live-video">🔴 Live Video</a></li>
         </ul>
     </nav>
+
+    <!-- FLOATING LIVE CHAT OVERLAY -->
+    <div id="floating-chat" class="floating-chat">
+        <div class="floating-chat-header" onclick="minimizeChat()">
+            <span><i class="fas fa-comments"></i> LOR Live Chat</span>
+            <div>
+                <i class="fas fa-minus" title="Minimize"></i>
+                <i class="fas fa-times" onclick="closeChat(event)" title="Close" style="margin-left: 15px;"></i>
+            </div>
+        </div>
+        <div class="floating-chat-body" id="chat-body">
+            <div id="chat-messages" class="chat-messages">
+                <div style="color: #666; font-style: italic; text-align: center; padding: 2rem;">Connecting to live chat...</div>
+            </div>
+            <form id="chat-form" class="chat-input-area">
+                <input type="text" id="chat-name" class="chat-input-name" placeholder="Name" required>
+                <input type="text" id="chat-message" class="chat-input-msg" placeholder="Message..." required>
+                <button type="submit" class="chat-btn"><i class="fas fa-paper-plane"></i></button>
+            </form>
+        </div>
+    </div>
 
     <!-- Live Video Dropdown Panel (TikTok Embed) -->
     <div id="live-video-dropdown" class="video-dropdown">
@@ -947,7 +763,6 @@
             <div class="stat-number">24/7</div>
             <div class="stat-label">LIVE STREAMING</div>
         </div>
-        <!-- Replaced 50+ local artists with Top 10 Chart -->
         <div class="stat-card clickable-card" onclick="toggleChartDrawer()">
             <div style="display: flex; justify-content: space-between; align-items: center;">
                 <div class="stat-number">TOP 10</div>
@@ -968,21 +783,17 @@
         </div>
     </div>
 
-    <!-- Live Chat Section -->
-    <section id="chat" class="section">
-        <div class="section-header">Live <span class="neon-text">Chat</span></div>
-        <p style="text-align:left; color:var(--text-muted); margin-top:-2rem; margin-bottom:2rem;">Join the conversation! Messages will disappear after 30 minutes.</p>
+    <!-- REPLACED: Advertise With Us Auto-Slider -->
+    <section id="advertise" class="section">
+        <div class="section-header">Advertise <span class="neon-text">With Us</span></div>
+        <p style="text-align:left; color:var(--text-muted); margin-top:-2rem; margin-bottom:2rem;">Support local business. Hover over an ad to pause the slide.</p>
         
-        <div class="chat-container">
-            <div id="chat-messages" class="chat-messages">
-                <div style="color: #666; font-style: italic; text-align: center; padding: 2rem;">Connecting to live chat...</div>
+        <div class="ad-slider-container" id="ad-slider-container">
+            <div class="ad-slider" id="ad-slider">
+                <img src="Add 1.jpg" alt="Ad 1" class="ad-slide">
+                <img src="Add 2 .jpg" alt="Ad 2" class="ad-slide">
+                <img src="your add.jpeg" alt="Your Ad Here" class="ad-slide">
             </div>
-            
-            <form id="chat-form" class="chat-input-area">
-                <input type="text" id="chat-name" class="chat-input-name" placeholder="Your Name" required>
-                <input type="text" id="chat-message" class="chat-input-msg" placeholder="Type a message..." required>
-                <button type="submit" class="chat-btn">Send</button>
-            </form>
         </div>
     </section>
 
@@ -1116,6 +927,45 @@
     <!-- STANDARD JAVASCRIPT LOGIC                      -->
     <!-- ============================================== -->
     <script>
+        // Floating Chat Controls
+        function toggleChat(e) {
+            if(e) e.preventDefault();
+            const chat = document.getElementById('floating-chat');
+            chat.classList.toggle('show');
+            chat.classList.remove('minimized'); // Open fully if it was minimized
+        }
+
+        function minimizeChat() {
+            document.getElementById('floating-chat').classList.toggle('minimized');
+        }
+
+        function closeChat(e) {
+            e.stopPropagation(); // Prevents triggering minimize
+            document.getElementById('floating-chat').classList.remove('show');
+        }
+
+        // Ad Slider Logic
+        const adSlider = document.getElementById('ad-slider');
+        const adContainer = document.getElementById('ad-slider-container');
+        const totalAds = 3;
+        let currentAdIndex = 0;
+        let adInterval;
+
+        function startAdSlider() {
+            adInterval = setInterval(() => {
+                currentAdIndex = (currentAdIndex + 1) % totalAds;
+                adSlider.style.transform = `translateX(-${currentAdIndex * 100}%)`;
+            }, 10000); // Slides every 10 seconds
+        }
+
+        function stopAdSlider() {
+            clearInterval(adInterval);
+        }
+
+        adContainer.addEventListener('mouseenter', stopAdSlider);
+        adContainer.addEventListener('mouseleave', startAdSlider);
+        startAdSlider();
+
         // Top 10 Chart Data
         const top10Songs = [
             { rank: 1, song: "Ke Tla Tsamaya", artist: "Local Star ft. Lobatse All-Stars" },
