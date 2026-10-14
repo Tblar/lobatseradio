@@ -880,13 +880,20 @@
         <div class="now-playing">
             <div class="live-indicator">LIVE</div>
             <div>
-                <h4 style="margin: 0; font-size: 0.9rem;">Lobatse Radio</h4>
-                <p style="margin: 0; font-size: 0.8rem; color: var(--text-muted);">On Air</p>
-            </div>
-            <div class="listener-count hidden-mobile">
-                <i class="fas fa-headphones"></i> <span id="listener-number">1,024</span>
+                <!-- DYNAMIC SHOW TITLE AND PRESENTER -->
+                <h4 id="player-show-title" style="margin: 0; font-size: 0.9rem;">Lobatse Radio</h4>
+                <p id="player-presenter" style="margin: 0; font-size: 0.8rem; color: var(--neon-green);">Non-Stop Music</p>
+                
+                <!-- ZENO.FM TRACK METADATA TEXT -->
+                <p id="zeno-text" style="margin: 0; font-size: 0.75rem; color: var(--text-muted); font-style: italic; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 250px;"></p>
             </div>
         </div>
+        
+        <!-- Listener Count (Moved to the center/right dynamically based on screen size) -->
+        <div class="listener-count hidden-mobile" style="margin-right: auto; padding-left: 2rem; border-left: none;">
+            <i class="fas fa-headphones"></i> <span id="listener-number">1,024</span>
+        </div>
+
         <div class="controls">
             <button id="play-pause-btn" class="play-btn">
                 <i class="fas fa-play"></i>
@@ -953,7 +960,8 @@
             }
         }
 
-        // Presenters Data with Bio and Socials
+        // Presenters Data with Bio, Socials, and Numeric Time Codes for the Auto-Player
+        // Note: day integers -> 0=Sun, 1=Mon, 2=Tue, 3=Wed, 4=Thu, 5=Fri, 6=Sat
         const programs = [
             { 
                 title: "Ease Hour", 
@@ -961,7 +969,8 @@
                 presenter: "Temo", 
                 image: "WhatsApp Image 2026-10-05 at 14.23.54.jpeg",
                 bio: "Temo brings an effortlessly smooth, unwinding vibe to close off your weekend with the finest soulful selections and heartwarming chats.",
-                socials: { ig: "#", fb: "#", wa: "26772960417" }
+                socials: { ig: "#", fb: "#", wa: "26772960417" },
+                day: 0, startHour: 17, endHour: 19 
             },
             { 
                 title: "Sowing Seeds", 
@@ -969,7 +978,8 @@
                 presenter: "Nosipho", 
                 image: "WhatsApp Image 2026-10-05 at 14.25.21.jpeg",
                 bio: "Dedicated to community stories, agriculture, growth, and empowerment across Botswana's southern communities.",
-                socials: { ig: "#", fb: "#", wa: "26772960417" }
+                socials: { ig: "#", fb: "#", wa: "26772960417" },
+                day: 6, startHour: 11, endHour: 13 
             },
             { 
                 title: "Hurt & Heal", 
@@ -977,7 +987,8 @@
                 presenter: "DJ Mo Gee", 
                 image: "WhatsApp Image 2026-10-05 at 15.47.38 (1).jpeg",
                 bio: "DJ Mo Gee takes you through emotional musical therapy and candid discussions that help listeners process, reflect, and recover.",
-                socials: { ig: "#", fb: "#", wa: "26772960417" }
+                socials: { ig: "#", fb: "#", wa: "26772960417" },
+                day: 0, startHour: 12, endHour: 14
             },
             { 
                 title: "Bumpy Cruise", 
@@ -985,7 +996,8 @@
                 presenter: "MC SPONKIE", 
                 image: "WhatsApp Image 2026-10-05 at 15.47.38.jpeg",
                 bio: "The high-energy afternoon party starter! Non-stop beats, laughs, and pure weekend road-trip atmosphere with MC SPONKIE.",
-                socials: { ig: "#", fb: "#", wa: "26772960417" }
+                socials: { ig: "#", fb: "#", wa: "26772960417" },
+                day: 6, startHour: 15, endHour: 17
             },
             { 
                 title: "ChooseDay Live", 
@@ -993,7 +1005,8 @@
                 presenter: "Motswedi", 
                 image: "WhatsApp Image 2026-10-05 at 14.27.13.jpeg",
                 bio: "Spotlighting midweek local entertainment, lifestyle choices, youth culture, and trending community topics.",
-                socials: { ig: "#", fb: "#", wa: "26772960417" }
+                socials: { ig: "#", fb: "#", wa: "26772960417" },
+                day: 2, startHour: 13, endHour: 15
             },
             { 
                 title: "Afro Diamonds", 
@@ -1001,7 +1014,8 @@
                 presenter: "LEANO KGASWANE", 
                 image: "WhatsApp Image 2026-10-05 at 15.43.16.jpeg",
                 bio: "Celebrating Africa's gems in sound, fashion, and business with LEANO KGASWANE's signature poise and elegance.",
-                socials: { ig: "#", fb: "#", wa: "26772960417" }
+                socials: { ig: "#", fb: "#", wa: "26772960417" },
+                day: 4, startHour: 14, endHour: 16
             },
             { 
                 title: "Voice Up", 
@@ -1009,7 +1023,8 @@
                 presenter: "Mpheme Mmolai", 
                 image: "mondays.jpeg",
                 bio: "Kickstarting the week by giving listeners an unfiltered voice on social issues, community justice, and progress.",
-                socials: { ig: "#", fb: "#", wa: "26772960417" }
+                socials: { ig: "#", fb: "#", wa: "26772960417" },
+                day: 1, startHour: 10, endHour: 12
             },
             { 
                 title: "Kasi 2 Kasi Top10", 
@@ -1017,7 +1032,8 @@
                 presenter: "DJ Vic", 
                 image: "wednesday.jpeg",
                 bio: "Street hits straight from every township and ward. DJ Vic counts down the bangers dominating the streets.",
-                socials: { ig: "#", fb: "#", wa: "26772960417" }
+                socials: { ig: "#", fb: "#", wa: "26772960417" },
+                day: 3, startHour: 16, endHour: 18
             },
             { 
                 title: "Prayer Walk / Southern Africa Sound", 
@@ -1025,7 +1041,8 @@
                 presenter: "TT", 
                 image: "TT.jpg",
                 bio: "Spiritual upliftment and the deep roots of indigenous Southern African musical melodies hosted by TT.",
-                socials: { ig: "#", fb: "#", wa: "26772960417" }
+                socials: { ig: "#", fb: "#", wa: "26772960417" },
+                day: -1, startHour: 0, endHour: 0 // -1 means it relies on manual override or isn't auto-matched
             },
             { 
                 title: "Stand-in Presenter", 
@@ -1033,10 +1050,73 @@
                 presenter: "Guest / Stand-in", 
                 image: "WhatsApp Image 2026-10-05 at 14.26.24.jpeg",
                 bio: "Our dynamic on-call presenter keeping the airwaves buzzing and holding it down whenever called upon ko bofellong!",
-                socials: { ig: "#", fb: "#", wa: "26772960417" }
+                socials: { ig: "#", fb: "#", wa: "26772960417" },
+                day: -1, startHour: 0, endHour: 0
             }
         ];
 
+        // 1. DYNAMIC AUDIO PLAYER SCHEDULE MATCHER
+        function updateCurrentShow() {
+            // Get current time specifically formatted to Botswana timezone (UTC+2)
+            const botTimeString = new Date().toLocaleString("en-US", {timeZone: "Africa/Gaborone"});
+            const localTime = new Date(botTimeString);
+            
+            const currentDay = localTime.getDay();
+            const currentHour = localTime.getHours();
+
+            let activeShow = null;
+
+            // Loop through schedule to see if a show is currently on
+            for (let i = 0; i < programs.length; i++) {
+                if (programs[i].day === currentDay && currentHour >= programs[i].startHour && currentHour < programs[i].endHour) {
+                    activeShow = programs[i];
+                    break;
+                }
+            }
+
+            const titleEl = document.getElementById('player-show-title');
+            const presenterEl = document.getElementById('player-presenter');
+
+            if (activeShow) {
+                titleEl.innerText = activeShow.title;
+                presenterEl.innerText = "Hosted by: " + activeShow.presenter;
+            } else {
+                titleEl.innerText = "Lobatse Radio";
+                presenterEl.innerText = "Non-Stop Music";
+            }
+        }
+        
+        // Update the show display instantly, then check again every 60 seconds
+        updateCurrentShow();
+        setInterval(updateCurrentShow, 60000);
+
+
+        // 2. ZENO.FM METADATA EXTRACTOR
+        // Listens to the Server-Sent Events from Zeno's public metadata API
+        const zenoTextEl = document.getElementById('zeno-text');
+        try {
+            const zenoSource = new EventSource('https://api.zeno.fm/mounts/metadata/subscribe/yhspijyzxp8vv');
+            zenoSource.onmessage = function(event) {
+                if (event.data) {
+                    try {
+                        const data = JSON.parse(event.data);
+                        if (data && data.streamTitle) {
+                            zenoTextEl.innerText = "🎵 Playing: " + data.streamTitle;
+                        } else {
+                            zenoTextEl.innerText = "";
+                        }
+                    } catch (e) {
+                        // ignore JSON parse errors
+                    }
+                }
+            };
+        } catch (e) {
+            // Fails gracefully if SSE is blocked
+            console.log("Could not load Zeno metadata");
+        }
+
+
+        // Inject Presenter Cards into UI
         const programGrid = document.getElementById('program-grid');
         programs.forEach((prog, index) => {
             programGrid.innerHTML += `
