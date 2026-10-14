@@ -274,39 +274,18 @@
             border-radius: 12px;
             padding: 2rem;
             animation: fadeIn 0.3s ease-in-out;
-            text-align: left;
+            text-align: center;
         }
 
         .chart-drawer.show { display: block; }
 
-        .chart-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
+        .chart-image {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            border-radius: 8px;
             margin-top: 1rem;
         }
-
-        .chart-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0.8rem 1rem;
-            background: #181818;
-            border-radius: 8px;
-            border-left: 3px solid var(--neon-green);
-        }
-
-        .chart-rank {
-            font-weight: 900;
-            color: var(--neon-green);
-            width: 35px;
-            font-size: 1.1rem;
-        }
-
-        .chart-info { flex: 1; }
-        .chart-song { font-weight: bold; color: #fff; }
-        .chart-artist { font-size: 0.85rem; color: var(--text-muted); }
 
         /* Ad Slider Styles */
         .ad-slider-container {
@@ -330,7 +309,7 @@
         .ad-slide {
             min-width: 100%;
             height: 100%;
-            object-fit: contain; /* Ensures flyers aren't cropped */
+            object-fit: contain;
         }
 
         /* Grids and Cards */
@@ -452,7 +431,7 @@
         /* Floating Live Chat */
         .floating-chat {
             position: fixed;
-            bottom: 90px; /* Sits right above the audio player */
+            bottom: 90px;
             right: 5%;
             width: 350px;
             background: var(--card-bg);
@@ -460,7 +439,7 @@
             border-radius: 12px 12px 0 0;
             box-shadow: 0 10px 40px rgba(0,0,0,0.9);
             z-index: 1001;
-            display: none; /* Hidden until button pressed */
+            display: none;
             flex-direction: column;
             overflow: hidden;
             transition: all 0.3s ease;
@@ -661,7 +640,6 @@
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
             <li><a href="#programs">Programs</a></li>
-            <!-- Updated Live Chat Trigger -->
             <li><a onclick="toggleChat(event)">Live Chat</a></li>
             <li><a href="#news">News</a></li>
             <li><a onclick="toggleShopModal(event)">Shop</a></li>
@@ -771,27 +749,25 @@
             <div class="stat-label">OFFICIAL WEEKLY CHART (CLICK TO VIEW)</div>
         </div>
 
-        <!-- Top 10 Songs Dropdown Drawer -->
+        <!-- Top 10 Chart Image Dropdown -->
         <div id="chart-drawer" class="chart-drawer">
             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; padding-bottom: 0.8rem;">
-                <h3 style="color: #fff; font-size: 1.2rem;"><i class="fas fa-fire" style="color: var(--neon-green);"></i> Song of the Week & Top 10</h3>
+                <h3 style="color: #fff; font-size: 1.2rem;"><i class="fas fa-fire" style="color: var(--neon-green);"></i> Kasi 2 Kasi Top 10</h3>
                 <span style="font-size: 0.85rem; color: var(--neon-green);">Updated Every Week</span>
             </div>
-            <ul class="chart-list" id="chart-list">
-                <!-- Chart items injected via JavaScript -->
-            </ul>
+            <img src="top10.jpg" alt="Top 10 Chart" class="chart-image">
         </div>
     </div>
 
-    <!-- REPLACED: Advertise With Us Auto-Slider -->
+    <!-- Advertise With Us Auto-Slider -->
     <section id="advertise" class="section">
         <div class="section-header">Advertise <span class="neon-text">With Us</span></div>
         <p style="text-align:left; color:var(--text-muted); margin-top:-2rem; margin-bottom:2rem;">Support local business. Hover over an ad to pause the slide.</p>
         
         <div class="ad-slider-container" id="ad-slider-container">
             <div class="ad-slider" id="ad-slider">
-                <img src="Add 1.jpg" alt="Ad 1" class="ad-slide">
-                <img src="Add 2 .jpg" alt="Ad 2" class="ad-slide">
+                <img src="ad1.jpg" alt="A Touch of Karamel" class="ad-slide">
+                <img src="ad2.jpg" alt="Inhouse Media" class="ad-slide">
                 <img src="your add.jpeg" alt="Your Ad Here" class="ad-slide">
             </div>
         </div>
@@ -932,7 +908,7 @@
             if(e) e.preventDefault();
             const chat = document.getElementById('floating-chat');
             chat.classList.toggle('show');
-            chat.classList.remove('minimized'); // Open fully if it was minimized
+            chat.classList.remove('minimized');
         }
 
         function minimizeChat() {
@@ -940,7 +916,7 @@
         }
 
         function closeChat(e) {
-            e.stopPropagation(); // Prevents triggering minimize
+            e.stopPropagation(); 
             document.getElementById('floating-chat').classList.remove('show');
         }
 
@@ -955,7 +931,7 @@
             adInterval = setInterval(() => {
                 currentAdIndex = (currentAdIndex + 1) % totalAds;
                 adSlider.style.transform = `translateX(-${currentAdIndex * 100}%)`;
-            }, 10000); // Slides every 10 seconds
+            }, 10000); 
         }
 
         function stopAdSlider() {
@@ -965,35 +941,6 @@
         adContainer.addEventListener('mouseenter', stopAdSlider);
         adContainer.addEventListener('mouseleave', startAdSlider);
         startAdSlider();
-
-        // Top 10 Chart Data
-        const top10Songs = [
-            { rank: 1, song: "Ke Tla Tsamaya", artist: "Local Star ft. Lobatse All-Stars" },
-            { rank: 2, song: "Pelonomi", artist: "Vee Mampeezy" },
-            { rank: 3, song: "O Nkae", artist: "ATI" },
-            { rank: 4, song: "Setswana Vibes", artist: "DJ Mo Gee" },
-            { rank: 5, song: "Botshelo Jame", artist: "Charma Gal" },
-            { rank: 6, song: "Gaborone Nights", artist: "Franco & Afro Musica" },
-            { rank: 7, song: "Kasi Anthem", artist: "DJ Vic" },
-            { rank: 8, song: "Lobatse Soul", artist: "LEANO KGASWANE" },
-            { rank: 9, song: "Re Ja Monate", artist: "Motswedi Crew" },
-            { rank: 10, song: "Dipoko", artist: "Team Mosako" }
-        ];
-
-        // Populate Top 10 List
-        const chartList = document.getElementById('chart-list');
-        top10Songs.forEach(item => {
-            chartList.innerHTML += `
-                <li class="chart-item">
-                    <span class="chart-rank">#${item.rank}</span>
-                    <div class="chart-info">
-                        <div class="chart-song">${item.song}</div>
-                        <div class="chart-artist">${item.artist}</div>
-                    </div>
-                    <i class="fas fa-play-circle" style="color: var(--neon-green); font-size: 1.2rem; cursor: pointer;"></i>
-                </li>
-            `;
-        });
 
         function toggleChartDrawer() {
             const drawer = document.getElementById('chart-drawer');
@@ -1090,7 +1037,6 @@
             }
         ];
 
-        // Inject Presenter Cards
         const programGrid = document.getElementById('program-grid');
         programs.forEach((prog, index) => {
             programGrid.innerHTML += `
@@ -1104,7 +1050,6 @@
             `;
         });
 
-        // Bio Modal Controls
         function openBioModal(index) {
             const p = programs[index];
             document.getElementById('bio-img').src = p.image;
@@ -1203,7 +1148,6 @@
             document.getElementById(methodId).classList.add('active-method');
         }
 
-        // Live Listener Counter
         const listenerElement = document.getElementById('listener-number');
         let currentListeners = 1012; 
         listenerElement.innerText = currentListeners.toLocaleString();
@@ -1215,7 +1159,6 @@
             listenerElement.innerText = currentListeners.toLocaleString();
         }, 6000); 
 
-        // Weather Fetching
         async function fetchWeather() {
             const cityInput = document.getElementById('weather-input').value || 'Lobatse';
             const locText = document.getElementById('weather-loc');
@@ -1250,7 +1193,6 @@
             document.getElementById('live-video-dropdown').classList.toggle('show');
         }
 
-        // Audio Player
         const audio = new Audio('https://stream.zeno.fm/yhspijyzxp8vv');
         const playBtn = document.getElementById('play-pause-btn');
         const volumeSlider = document.getElementById('volume-slider');
@@ -1271,7 +1213,6 @@
             audio.volume = e.target.value;
         });
 
-        // Close Modals on background click
         window.addEventListener('click', (e) => {
             const bioModal = document.getElementById('bio-modal');
             const shopModal = document.getElementById('shop-modal');
