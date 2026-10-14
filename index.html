@@ -583,7 +583,7 @@
         .news-read-more:hover { color: var(--neon-green); }
 
         .item-img { width: 100%; height: 150px; object-fit: cover; border-radius: 5px; margin-bottom: 1rem; }
-        .btn-buy { background-color: transparent; color: var(--neon-green); border: 1px solid var(--neon-green); padding: 0.4rem 1rem; border-radius: 15px; cursor: pointer; margin-top: 1rem; transition: all 0.3s; font-weight: bold; align-self: flex-start; }
+        .btn-buy { background-color: transparent; color: var(--neon-green); border: 1px solid var(--neon-green); padding: 0.4rem 1rem; border-radius: 15px; cursor: pointer; margin-top: 1rem; transition: all 0.2s; }
         .btn-buy:hover { background-color: var(--neon-green); color: #000; }
 
         /* Donate Section Styles */
@@ -600,7 +600,7 @@
 
         /* Toggle Buttons */
         .hidden-content { display: none !important; }
-        .btn-toggle { background-color: transparent; color: var(--neon-green); border: 1px solid var(--neon-green); padding: 0.6rem 2rem; border-radius: 25px; cursor: pointer; margin-top: 3rem; font-weight: bold; font-size: 0.9rem; transition: all 0.3s; }
+        .btn-toggle { background-color: transparent; color: var(--neon-green); border: 1px solid var(--neon-green); padding: 0.6rem 2rem; border-radius: 25px; cursor: pointer; margin-top: 3rem; font-weight: bold; }
         .btn-toggle:hover { background-color: var(--neon-green); color: #000; }
 
         /* About Section Styles */
@@ -612,13 +612,13 @@
         /* Footer & Socials */
         .footer { text-align: center; padding: 4rem 5% 7rem; border-top: 1px solid var(--card-border); }
         .social-links { display: flex; justify-content: center; gap: 1.5rem; margin-top: 1.5rem; }
-        .social-icon { color: #fff; background: #222; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 1.3rem; transition: all 0.3s; text-decoration: none; }
+        .social-icon { color: #fff; background: #222; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 1.3rem; transition: all 0.3s; }
         .social-icon:hover { background: var(--neon-green); color: #000; transform: translateY(-5px); }
         .whatsapp-icon { background: #25D366; color: #fff; }
         .whatsapp-icon:hover { background: #1ebe57; color: #fff; }
 
         /* Persistent Audio Player */
-        .audio-player { position: fixed; bottom: 0; left: 0; width: 100%; background-color: #000; border-top: 1px solid #222; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; }
+        .audio-player { position: fixed; bottom: 0; left: 0; width: 100%; background-color: #000; border-top: 1px solid #222; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; }
         .now-playing { display: flex; align-items: center; gap: 1rem; }
         .live-indicator { background-color: var(--neon-green); color: black; font-size: 0.7rem; font-weight: bold; padding: 2px 6px; border-radius: 4px; animation: pulse 2s infinite; }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
@@ -675,7 +675,7 @@
             <i class="fas fa-times" style="cursor: pointer; color: var(--text-muted);" onclick="toggleLiveVideo(event)"></i>
         </div>
         <div style="background: #fff; border-radius: 8px; overflow: hidden;">
-            <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@lobatse.online.ra" data-unique-id="lobatse.online.ra" data-embed-type="creator" style="max-width: 780px; min-width: 288px;" > 
+            <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@lobatse.online.ra" data-unique-id="lobatse.online.ra" data-embed-type="creator" style="max-width: 780px; min-width: 288px;" >[...]
                 <section> 
                     <a target="_blank" href="https://www.tiktok.com/@lobatse.online.ra?refer=creator_embed">@lobatse.online.ra</a> 
                 </section> 
@@ -765,10 +765,9 @@
         
        <div class="ad-slider-container" id="ad-slider-container">
             <div class="ad-slider" id="ad-slider">
-                <!-- Matches exact capitalization and spacing -->
-                <img src="Add 1.jpg" alt="A Touch of Karamel" class="ad-slide">
-                <img src="ad2.jpg" alt="Inhouse Media" class="ad-slide">
-                <img src="your add.jpeg" alt="Your Ad Here" class="ad-slide">
+                <img src="Add%201.jpg" alt="A Touch of Karamel" class="ad-slide">
+                <img src="Add%202%20.jpg" alt="Inhouse Media" class="ad-slide">
+                <img src="your%20add.jpeg" alt="Your Ad Here" class="ad-slide">
             </div>
         </div>
     </section>
@@ -799,18 +798,18 @@
             <h3 style="text-align: center; font-size: 1.8rem; margin-top: 0; color: #fff;">The Pulse of Lobatse, Broadcasting to the World.</h3>
             <p style="text-align: center; color: #a0a0a0; margin-bottom: 2.5rem; font-style: italic;">Bringing local culture, breaking music, and community voices to your screens and speakers, wherever you are.</p>
             
-            <p>Lobatse Online Radio is a digital broadcasting platform dedicated to amplifying the voice of our community. We bridge the gap between traditional radio and modern streaming, proving that you don't need an FM license to deliver a high-quality, professional, and deeply local radio experience.</p>
+            <p>Lobatse Online Radio is a digital broadcasting platform dedicated to amplifying the voice of our community. We bridge the gap between traditional radio and modern streaming, proving that great local storytelling and music can travel across borders.</p>
             
             <div id="about-more" class="hidden-content">
                 <h3>What We Do</h3>
                 <ul>
-                    <li><strong>Champion Local Talent:</strong> We are an incubator for rising broadcasters, DJs, and artists. From Afropop to underground beats, we give creators the platform they deserve to be heard.</li>
+                    <li><strong>Champion Local Talent:</strong> We are an incubator for rising broadcasters, DJs, and artists. From Afropop to underground beats, we give creators the platform they deserve.</li>
                     <li><strong>Connect the Community:</strong> We go beyond music. LOR is a hub for local stories, cultural pride, and conversations that matter to the people of Lobatse and our diaspora.</li>
                     <li><strong>Global Reach, Local Heart:</strong> Through accessible online streaming, our listeners can tune in from a smartphone or computer anywhere in the world, staying connected to home.</li>
                 </ul>
                 
                 <h3>Partner With Us</h3>
-                <p>Reach a highly engaged, loyal audience that supports local. We offer accessible, modern advertising and sponsorship packages for businesses looking to grow their brand alongside ours.</p>
+                <p>Reach a highly engaged, loyal audience that supports local. We offer accessible, modern advertising and sponsorship packages for businesses looking to grow their brand alongside our community.</p>
             </div>
             
             <div style="text-align: center;">
@@ -998,320 +997,156 @@
             { 
                 title: "Afro Diamonds", 
                 time: "Thursdays 2pm-4pm", 
-                presenter: "LEANO KGASWANE", 
-                image: "WhatsApp Image 2026-10-05 at 15.43.16.jpeg",
-                bio: "Celebrating Africa's gems in sound, fashion, and business with LEANO KGASWANE's signature poise and elegance.",
-                socials: { ig: "#", fb: "#", wa: "26772960417" }
-            },
-            { 
-                title: "Voice Up", 
-                time: "Mondays 10am-12pm", 
-                presenter: "Mpheme Mmolai", 
-                image: "mondays.jpeg",
-                bio: "Kickstarting the week by giving listeners an unfiltered voice on social issues, community justice, and progress.",
-                socials: { ig: "#", fb: "#", wa: "26772960417" }
-            },
-            { 
-                title: "Kasi 2 Kasi Top10", 
-                time: "Wednesdays 4pm-6pm", 
-                presenter: "DJ Vic", 
-                image: "wednesday.jpeg",
-                bio: "Street hits straight from every township and ward. DJ Vic counts down the bangers dominating the streets.",
-                socials: { ig: "#", fb: "#", wa: "26772960417" }
-            },
-            { 
-                title: "Prayer Walk / Southern Africa Sound", 
-                time: "Various Times", 
-                presenter: "TT", 
-                image: "TT.jpg",
-                bio: "Spiritual upliftment and the deep roots of indigenous Southern African musical melodies hosted by TT.",
-                socials: { ig: "#", fb: "#", wa: "26772960417" }
-            },
-            { 
-                title: "Stand-in Presenter", 
-                time: "Various Times", 
-                presenter: "Guest / Stand-in", 
-                image: "WhatsApp Image 2026-10-05 at 14.26.24.jpeg",
-                bio: "Our dynamic on-call presenter keeping the airwaves buzzing and holding it down whenever called upon ko bofellong!",
+                presenter: "G-Cypher", 
+                image: "WhatsApp Image 2026-10-05 at 15.43.17.jpeg",
+                bio: "A vibrant celebration of African sound, rhythm, and style with glossy, dance-ready selections from across the continent.",
                 socials: { ig: "#", fb: "#", wa: "26772960417" }
             }
         ];
 
-        const programGrid = document.getElementById('program-grid');
-        programs.forEach((prog, index) => {
-            programGrid.innerHTML += `
-                <div class="card presenter-card" onclick="openBioModal(${index})" style="text-align: center;">
-                    <img src="${prog.image}" alt="${prog.presenter}" class="presenter-img">
-                    <div style="color: #39ff14; margin-bottom: 0.5rem; font-size: 0.9rem;">${prog.time}</div>
-                    <h3 style="margin-bottom: 0.5rem;">${prog.title}</h3>
-                    <p style="color: #a0a0a0; font-size: 0.9rem;">Hosted by ${prog.presenter}</p>
-                    <span style="color: var(--neon-green); font-size: 0.8rem; margin-top: 0.8rem; display: block;">Tap for Bio & Socials →</span>
-                </div>
-            `;
-        });
+        function renderPrograms() {
+            const grid = document.getElementById('program-grid');
+            programs.forEach((program) => {
+                const card = document.createElement('div');
+                card.className = 'card presenter-card';
+                card.onclick = () => openBio(program);
+                card.innerHTML = `
+                    <img src="${program.image}" alt="${program.presenter}" class="presenter-img">
+                    <div style="text-align: center;">
+                        <div class="bio-title" style="margin-bottom: 0.5rem;">${program.title}</div>
+                        <div style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1rem;">${program.time}</div>
+                        <div style="font-size: 1.1rem; font-weight: bold;">${program.presenter}</div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
 
-        function openBioModal(index) {
-            const p = programs[index];
-            document.getElementById('bio-img').src = p.image;
-            document.getElementById('bio-name').innerText = p.presenter;
-            document.getElementById('bio-show').innerText = p.title;
-            document.getElementById('bio-time').innerText = p.time;
-            document.getElementById('bio-desc').innerText = p.bio;
-            
-            const socialsContainer = document.getElementById('bio-socials');
-            socialsContainer.innerHTML = `
-                <a href="https://wa.me/${p.socials.wa}" target="_blank" class="social-icon whatsapp-icon" title="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
-                <a href="https://www.instagram.com/lobatseonlineradio?utm_source=ig_web_button_share_sheet&cplk=ZDNlZDc0MzIxNw==" target="_blank" class="social-icon" title="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.facebook.com/profile.php?id=100093615780700" target="_blank" class="social-icon" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-            `;
-            
-            document.getElementById('bio-modal').classList.add('show');
+        function openBio(program) {
+            const modal = document.getElementById('bio-modal');
+            document.getElementById('bio-img').src = program.image;
+            document.getElementById('bio-name').textContent = program.presenter;
+            document.getElementById('bio-show').textContent = program.title;
+            document.getElementById('bio-time').textContent = program.time;
+            document.getElementById('bio-desc').textContent = program.bio;
+
+            const socials = document.getElementById('bio-socials');
+            socials.innerHTML = '';
+            if (program.socials.ig) {
+                socials.innerHTML += `<a href="${program.socials.ig}" target="_blank" class="social-icon" title="Instagram"><i class="fab fa-instagram"></i></a>`;
+            }
+            if (program.socials.fb) {
+                socials.innerHTML += `<a href="${program.socials.fb}" target="_blank" class="social-icon" title="Facebook"><i class="fab fa-facebook-f"></i></a>`;
+            }
+            if (program.socials.wa) {
+                socials.innerHTML += `<a href="https://wa.me/${program.socials.wa}" target="_blank" class="social-icon whatsapp-icon" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>`;
+            }
+
+            modal.classList.add('show');
         }
 
         function closeBioModal() {
             document.getElementById('bio-modal').classList.remove('show');
         }
 
-        // News Data
-        const newsData = [
-            { title: "Local Talent Showcase this Weekend", date: "Oct 12, 2026", excerpt: "Join us at the town square as we broadcast live from the annual local talent showcase." },
-            { title: "New Studio Upgrades", date: "Oct 10, 2026", excerpt: "We are thrilled to announce state-of-the-art upgrades to the Lobatse Radio broadcastin..." },
-            { title: "Top 10 Countdown Resumes", date: "Oct 08, 2026", excerpt: "Your favorite weekly countdown is back! Tune in this Friday to hear who made the number on..." },
-            { title: "Community Drive Success", date: "Oct 05, 2026", excerpt: "Thanks to all who donated to the recent local shelter initiative. We raised a record amount." },
-            { title: "DJ Competition Winners", date: "Oct 02, 2026", excerpt: "Meet the new talent joining our late-night roster after an intense weekend of mixing." },
-            { title: "Cultural Festival Highlights", date: "Sep 28, 2026", excerpt: "A look back at the amazing performances and cultural displays from last week's festival." }
-        ];
+        function toggleAbout() {
+            const more = document.getElementById('about-more');
+            const btn = document.getElementById('about-toggle-btn');
+            more.classList.toggle('hidden-content');
+            if (more.classList.contains('hidden-content')) {
+                btn.innerHTML = 'Read More <i class="fas fa-chevron-down"></i>';
+            } else {
+                btn.innerHTML = 'Read Less <i class="fas fa-chevron-up"></i>';
+            }
+        }
 
-        // Shop Data
-        const shopData = [
-            { name: "Lobatse Radio T-Shirt", price: "P150.00", image: "https://via.placeholder.com/200" },
-            { name: "Neon Logo Hoodie", price: "P350.00", image: "https://via.placeholder.com/200" },
-            { name: "Studio Coffee Mug", price: "P80.00", image: "https://via.placeholder.com/200" },
-            { name: "Classic Snapback Cap", price: "P120.00", image: "https://via.placeholder.com/200" },
-            { name: "Lanyard & ID Holder", price: "P45.00", image: "https://via.placeholder.com/200" },
-            { name: "Wireless Earbuds", price: "P250.00", image: "https://via.placeholder.com/200" },
-            { name: "Phone Case (All Models)", price: "P90.00", image: "https://via.placeholder.com/200" },
-            { name: "Premium Water Bottle", price: "P110.00", image: "https://via.placeholder.com/200" }
-        ];
+        function showPayment(type, el) {
+            document.querySelectorAll('.payment-method').forEach((m) => m.classList.remove('active-method'));
+            document.querySelectorAll('.amount-btn').forEach((b) => b.classList.remove('active'));
+            document.getElementById(type).classList.add('active-method');
+            el.classList.add('active');
+        }
 
-        const newsGrid = document.getElementById('news-grid');
-        newsData.forEach((item, index) => {
-            let hideClass = index > 2 ? "hidden-content news-item" : "news-item";
-            newsGrid.innerHTML += `
-                <div class="card ${hideClass}">
-                    <div class="news-date">${item.date}</div>
-                    <h3 class="news-title">${item.title}</h3>
-                    <p class="news-excerpt">${item.excerpt}</p>
-                    <a href="#" class="news-read-more">Read More <i class="fas fa-chevron-right" style="font-size: 0.8rem;"></i></a>
-                </div>
-            `;
-        });
+        function toggleSection(className, btnId) {
+            const items = document.querySelectorAll('.' + className);
+            const btn = document.getElementById(btnId);
+            items.forEach((item) => item.classList.toggle('hidden-content'));
+            btn.innerHTML = items[0].classList.contains('hidden-content')
+                ? 'See More <i class="fas fa-chevron-down"></i>'
+                : 'See Less <i class="fas fa-chevron-up"></i>';
+        }
 
-        const shopGrid = document.getElementById('shop-grid');
-        shopData.forEach(item => {
-            shopGrid.innerHTML += `
+        /* --- Weather API --- */
+        async function fetchWeather() {
+            const city = document.getElementById('weather-input').value || 'Lobatse';
+            const resultLoc = document.getElementById('weather-loc');
+            const resultTemp = document.getElementById('weather-temp');
+
+            resultLoc.textContent = 'Loading...';
+            resultTemp.textContent = '--°C';
+
+            try {
+                const response = await fetch(`https://wttr.in/${encodeURIComponent(city)}?format=j1`);
+                if (!response.ok) throw new Error('Weather fetch failed');
+                const data = await response.json();
+                const current = data.current_condition[0];
+                const tempC = current.temp_C;
+                const location = `${city}, Botswana`;
+
+                resultLoc.textContent = location;
+                resultTemp.textContent = `${tempC}°C`;
+            } catch (err) {
+                resultLoc.textContent = 'Location unavailable';
+                resultTemp.textContent = '--°C';
+            }
+        }
+
+        renderPrograms();
+        fetchWeather();
+
+        function toggleLiveVideo(event) {
+            event.preventDefault();
+            const panel = document.getElementById('live-video-dropdown');
+            panel.classList.toggle('show');
+        }
+
+        function toggleShopModal(event) {
+            if (event) event.preventDefault();
+            const modal = document.getElementById('shop-modal');
+            if (modal) {
+                modal.classList.toggle('show');
+                if (modal.classList.contains('show')) {
+                    renderShopItems();
+                }
+            }
+        }
+
+        function renderShopItems() {
+            const grid = document.getElementById('shop-grid');
+            const items = [
+                { name: 'LOR Cap', price: 'P250', image: 'IMG_3420.JPG' },
+                { name: 'LOR Tee', price: 'P320', image: 'IMG_3422.JPG' },
+                { name: 'Station Sticker Pack', price: 'P80', image: 'TT.jpeg' }
+            ];
+
+            grid.innerHTML = items.map(item => `
                 <div class="card">
-                    <img src="${item.image}" alt="${item.name}" class="item-img" style="height: 200px; object-fit: contain; background: #fff;">
-                    <h3 style="margin: 1rem 0 0.5rem;">${item.name}</h3>
-                    <div style="color: #39ff14; font-weight: bold; font-size: 1.1rem;">${item.price}</div>
+                    <img src="${item.image}" alt="${item.name}" class="item-img">
+                    <div style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.5rem;">${item.name}</div>
+                    <div style="color: var(--neon-green); margin-bottom: 1rem; font-weight: bold;">${item.price}</div>
                     <button class="btn-buy">Buy Now</button>
                 </div>
-            `;
-        });
-
-        function toggleSection(itemClass, btnId) {
-            const items = document.querySelectorAll(`.${itemClass}`);
-            const btn = document.getElementById(btnId);
-            let isHidden = false;
-            
-            items.forEach((item, index) => {
-                if (index > 2) {
-                    item.classList.toggle('hidden-content');
-                    if (item.classList.contains('hidden-content')) isHidden = true;
-                }
-            });
-
-            btn.innerHTML = isHidden ? 'See More <i class="fas fa-chevron-down"></i>' : 'See Less <i class="fas fa-chevron-up"></i>';
+            `).join('');
         }
 
-        function toggleAbout() {
-            const aboutMore = document.getElementById('about-more');
-            const btn = document.getElementById('about-toggle-btn');
-            aboutMore.classList.toggle('hidden-content');
-            btn.innerHTML = aboutMore.classList.contains('hidden-content') ? 'Read More <i class="fas fa-chevron-down"></i>' : 'Read Less <i class="fas fa-chevron-up"></i>';
-        }
-
-        function showPayment(methodId, btn) {
-            document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('active-method'));
-            document.getElementById(methodId).classList.add('active-method');
-        }
-
-        const listenerElement = document.getElementById('listener-number');
-        let currentListeners = 1012; 
-        listenerElement.innerText = currentListeners.toLocaleString();
-
-        setInterval(() => {
-            const change = Math.floor(Math.random() * 8) - 3;
-            currentListeners += change;
-            if (currentListeners < 1000) currentListeners = 1000; 
-            listenerElement.innerText = currentListeners.toLocaleString();
-        }, 6000); 
-
-        async function fetchWeather() {
-            const cityInput = document.getElementById('weather-input').value || 'Lobatse';
-            const locText = document.getElementById('weather-loc');
-            const tempText = document.getElementById('weather-temp');
-            locText.innerHTML = 'Searching...';
-            tempText.innerHTML = '--°C';
-            try {
-                const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cityInput)}&count=1&format=json`);
-                const geoData = await geoRes.json();
-                if (!geoData.results || geoData.results.length === 0) {
-                    locText.innerHTML = 'City not found.';
-                    return;
-                }
-                const { latitude, longitude, name, country } = geoData.results[0];
-                const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`);
-                const weatherData = await weatherRes.json();
-                locText.innerHTML = `${name}, ${country}`;
-                tempText.innerHTML = `${weatherData.current_weather.temperature}°C`;
-            } catch (err) {
-                locText.innerHTML = 'Error loading weather.';
+        function toggleShopModal(event) {
+            if (event) event.preventDefault();
+            const modal = document.getElementById('shop-modal');
+            modal.classList.toggle('show');
+            if (modal.classList.contains('show')) {
+                renderShopItems();
             }
         }
-        fetchWeather(); 
-
-        function toggleShopModal(e) {
-            if (e) e.preventDefault();
-            document.getElementById('shop-modal').classList.toggle('show');
-        }
-
-        function toggleLiveVideo(e) {
-            e.preventDefault();
-            document.getElementById('live-video-dropdown').classList.toggle('show');
-        }
-
-        const audio = new Audio('https://stream.zeno.fm/yhspijyzxp8vv');
-        const playBtn = document.getElementById('play-pause-btn');
-        const volumeSlider = document.getElementById('volume-slider');
-        let isPlaying = false;
-
-        playBtn.addEventListener('click', () => {
-            if (isPlaying) {
-                audio.pause();
-                playBtn.innerHTML = '<i class="fas fa-play"></i>';
-            } else {
-                audio.play();
-                playBtn.innerHTML = '<i class="fas fa-pause"></i>';
-            }
-            isPlaying = !isPlaying;
-        });
-
-        volumeSlider.addEventListener('input', (e) => {
-            audio.volume = e.target.value;
-        });
-
-        window.addEventListener('click', (e) => {
-            const bioModal = document.getElementById('bio-modal');
-            const shopModal = document.getElementById('shop-modal');
-            if (e.target === bioModal) bioModal.classList.remove('show');
-            if (e.target === shopModal) shopModal.classList.remove('show');
-        });
-    </script>
-
-    <!-- ============================================== -->
-    <!-- FIREBASE LIVE CHAT LOGIC                       -->
-    <!-- ============================================== -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-analytics.js";
-        import { getDatabase, ref, push, onChildAdded, serverTimestamp, query, limitToLast } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyBdLuCGZWVKtyfLhr1vaB6bydGF7NiK29o",
-            authDomain: "lobatse-radio.firebaseapp.com",
-            databaseURL: "https://lobatse-radio-default-rtdb.firebaseio.com",
-            projectId: "lobatse-radio",
-            storageBucket: "lobatse-radio.firebasestorage.app",
-            messagingSenderId: "136141473716",
-            appId: "1:136141473716:web:7e1c4dee78c5939ac894e1",
-            measurementId: "G-1TF1MTPHL8"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-        const db = getDatabase(app);
-
-        const chatForm = document.getElementById('chat-form');
-        const chatMessages = document.getElementById('chat-messages');
-        
-        chatMessages.innerHTML = '';
-        let colorIndex = 3; 
-
-        function getCurrentTime() {
-            return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        }
-
-        function scrollToBottom() {
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        chatForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const name = document.getElementById('chat-name').value;
-            const message = document.getElementById('chat-message').value;
-
-            push(ref(db, 'shoutouts'), {
-                name: name,
-                message: message,
-                time: getCurrentTime(),
-                colorIndex: colorIndex,
-                timestamp: serverTimestamp()
-            });
-
-            colorIndex = colorIndex >= 5 ? 1 : colorIndex + 1;
-            document.getElementById('chat-message').value = '';
-        });
-
-        const recentShoutouts = query(ref(db, 'shoutouts'), limitToLast(50));
-        
-        onChildAdded(recentShoutouts, (snapshot) => {
-            const data = snapshot.val();
-            const now = new Date().getTime();
-            
-            const msgTime = data.timestamp || now; 
-            const messageAge = now - msgTime;
-
-            if (messageAge < 1800000) {
-                const newItem = document.createElement('div');
-                newItem.className = 'chat-message';
-                newItem.innerHTML = `
-                    <div class="chat-header">
-                        <span class="color-${data.colorIndex}-text">${data.name}</span>
-                        <span class="chat-time">${data.time}</span>
-                    </div>
-                    <div class="chat-bubble">${data.message}</div>
-                `;
-
-                chatMessages.appendChild(newItem);
-                scrollToBottom();
-
-                const timeLeft = 1800000 - messageAge;
-                
-                setTimeout(() => {
-                    if (chatMessages.contains(newItem)) {
-                        newItem.classList.add('fade-out');
-                        setTimeout(() => {
-                            if (chatMessages.contains(newItem)) {
-                                chatMessages.removeChild(newItem);
-                            }
-                        }, 500); 
-                    }
-                }, Math.max(0, timeLeft));
-            }
-        });
     </script>
 </body>
 </html>
