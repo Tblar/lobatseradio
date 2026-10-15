@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lobatse Radio - Where Talent Lives</title>
     
-    <!-- Browser Tab Icon (Favicon) added here -->
+    <!-- Browser Tab Icon (Favicon) -->
     <link rel="icon" type="image/jpeg" href="Lradio1.jpeg">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -36,7 +36,8 @@
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
-            padding-bottom: 80px;
+            padding-bottom: 90px;
+            overflow-x: hidden; /* Prevent horizontal scroll */
         }
 
         .neon-text {
@@ -335,6 +336,7 @@
             cursor: pointer;
             transition: transform 0.2s, background-color 0.2s;
             box-shadow: 0 4px 10px rgba(255, 140, 0, 0.3);
+            white-space: nowrap;
         }
         .btn-submit-song:hover {
             background-color: #e67e00;
@@ -364,6 +366,7 @@
             border-radius: 12px;
             padding: 1.5rem;
             width: 340px;
+            max-width: 90vw;
             z-index: 150;
             box-shadow: 0 10px 40px rgba(0,0,0,0.9);
             text-align: left;
@@ -677,11 +680,6 @@
 
         .chat-btn:hover { transform: scale(1.1); }
 
-        @media (max-width: 600px) {
-            .floating-chat { width: 90%; right: 5%; bottom: 85px; }
-            .hidden-mobile { display: none !important; }
-        }
-
         /* News Card Styles */
         .news-date { color: var(--neon-green); font-size: 0.9rem; font-family: monospace; margin-bottom: 1rem; }
         .news-title { font-size: 1.3rem; margin-bottom: 1rem; line-height: 1.4; }
@@ -734,6 +732,64 @@
         .play-btn:hover { border-color: var(--neon-green); color: var(--neon-green); }
         .volume-control { display: flex; align-items: center; gap: 0.5rem; }
         input[type=range] { accent-color: var(--neon-green); }
+
+        /* ========================================= */
+        /* MOBILE RESPONSIVE FIXES                   */
+        /* ========================================= */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem 5%;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.8rem;
+            }
+            .hero h1 {
+                font-size: 2.5rem; /* Shrinks the massive header */
+            }
+            .section-header {
+                font-size: 1.6rem;
+                flex-wrap: wrap;
+                justify-content: center;
+                text-align: center;
+            }
+            .ad-slider-container {
+                height: 250px; /* Makes ads fit on phone screens */
+            }
+            .video-dropdown {
+                width: 90%;
+                right: 5%;
+                left: 5%;
+            }
+            .song-dropdown {
+                width: 90vw;
+                right: 0;
+            }
+            .floating-chat {
+                width: 90%;
+                right: 5%;
+                bottom: 85px;
+            }
+            .hidden-mobile {
+                display: none !important;
+            }
+            .volume-control {
+                display: none; /* Hide volume bar so play button fits on mobile */
+            }
+            .now-playing {
+                gap: 0.5rem;
+            }
+            .audio-player {
+                padding: 0.8rem 5%;
+            }
+            .modal-content {
+                padding: 1.5rem;
+                width: 95%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1510,6 +1566,7 @@
             if (e.target === bioModal) bioModal.classList.remove('show');
             if (e.target === shopModal) shopModal.classList.remove('show');
             
+            // Close dropdown when clicking outside
             if(songDropdown && songDropdown.classList.contains('show') && !e.target.closest('.song-dropdown') && !e.target.closest('.btn-submit-song')) {
                 songDropdown.classList.remove('show');
             }
