@@ -3,42 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lobatse Radio - Where Talent Lives</title>
+    <title>Lobatse Radio - Live Streaming Audio | Botswana & Southern Africa</title>
     
     <!-- Browser Tab Icon -->
     <link rel="icon" type="image/jpeg" href="Lradio1.jpeg">
 
-    <!-- Standard SEO -->
-    <meta name="description" content="Lobatse Online Radio (LOR) is a digital broadcasting platform dedicated to amplifying the voice of our community. Tune in for local talent, news, and 24/7 live streaming from Botswana.">
-    <meta name="keywords" content="Lobatse Radio, Lobatse Online Radio, LOR, Botswana Radio, Live Stream Botswana, African Radio, Kasi 2 Kasi, Botswana Talent">
-    <meta name="author" content="Lobatse Radio">
+    <!-- Canonical URL (Crucial for Single Page App SEO) -->
+    <!-- Replace 'yourdomain.com' with your actual website link when you get one! -->
+    <link rel="canonical" href="https://yourdomain.com/" />
 
-    <!-- Open Graph for Facebook & WhatsApp (Shows Logo when link is shared) -->
+    <!-- Highly Optimized Standard SEO -->
+    <meta name="description" content="Listen to Lobatse Online Radio (LOR), the premier live streaming audio platform in Botswana. Broadcasting 24/7 hits, news, and local talent to Lobatse, Gaborone, Francistown, Namibia, Zambia, Zimbabwe, Eswatini, Lesotho, and Mozambique.">
+    <meta name="keywords" content="Live streaming audio, Lobatse Radio, Lobatse Online Radio, LOR, Botswana Radio, Gaborone internet radio, Francistown live stream, Namibia radio, Zambia audio stream, Zimbabwe music live, Eswatini broadcast, Lesotho radio, Mozambique live radio, Southern Africa streaming, Kasi 2 Kasi, Botswana talent">
+    <meta name="author" content="Lobatse Radio">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph for Facebook & WhatsApp (Shows Logo & Info when shared) -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Lobatse Radio - Where Talent Lives">
-    <meta property="og:description" content="Tune in to Lobatse Online Radio for 24/7 live music, local talk shows, and the pulse of Botswana.">
+    <meta property="og:title" content="Lobatse Radio - Live Streaming Audio in Southern Africa">
+    <meta property="og:description" content="Tune in to Lobatse Online Radio for 24/7 live music, local talk shows, and the pulse of Botswana. Broadcasting to Gaborone, Namibia, Zimbabwe and beyond.">
     <meta property="og:image" content="Lradio1.jpeg"> 
+    <meta property="og:url" content="https://yourdomain.com/">
 
     <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Lobatse Radio - Where Talent Lives">
-    <meta name="twitter:description" content="Tune in to Lobatse Online Radio for 24/7 live music, local talk shows, and the pulse of Botswana.">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Lobatse Radio - Live Audio Stream">
+    <meta name="twitter:description" content="Broadcasting the best sounds, news, and entertainment across Botswana and Southern Africa 24/7.">
     <meta name="twitter:image" content="Lradio1.jpeg">
 
-    <!-- Google Rich Results -->
+    <!-- Advanced Google Rich Results (Local & Regional Targeting) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "RadioStation",
       "name": "Lobatse Online Radio",
+      "url": "https://yourdomain.com/",
       "image": "Lradio1.jpeg",
-      "description": "Lobatse Online Radio is a digital broadcasting platform amplifying the voice of the community.",
+      "description": "Lobatse Online Radio is a digital broadcasting platform offering 24/7 live streaming audio, amplifying the voice of Botswana and Southern Africa.",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Lobatse",
+        "addressRegion": "South-East District",
         "addressCountry": "Botswana"
       },
-      "telephone": "+26772960417"
+      "areaServed": [
+        "Botswana", "Lobatse", "Gaborone", "Francistown",
+        "Namibia", "Zambia", "Zimbabwe", "Eswatini", "Lesotho", "Mozambique"
+      ],
+      "telephone": "+26772960417",
+      "genre": ["Afropop", "Amapiano", "RnB", "Afrobeat", "Talk", "News"],
+      "knowsAbout": ["Music", "Local Talent", "Southern Africa", "Entertainment"]
     }
     </script>
     
@@ -1598,6 +1612,7 @@
             if (e.target === bioModal) bioModal.classList.remove('show');
             if (e.target === shopModal) shopModal.classList.remove('show');
             
+            // Close dropdown when clicking outside
             if(songDropdown && songDropdown.classList.contains('show') && !e.target.closest('.song-dropdown') && !e.target.closest('.btn-submit-song')) {
                 songDropdown.classList.remove('show');
             }
