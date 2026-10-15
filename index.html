@@ -102,6 +102,27 @@
             color: white !important;
         }
 
+        /* Chat Badge (Inbox Style) */
+        .chat-link-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .chat-badge {
+            position: absolute;
+            top: -8px;
+            right: -15px;
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            display: none;
+            pointer-events: none;
+        }
+
         /* Live Video Dropdown */
         .video-dropdown {
             position: fixed;
@@ -549,6 +570,14 @@
             font-size: 0.85rem;
         }
 
+        /* Locked state styling for the name input */
+        .chat-input-area input[type="text"].locked {
+            background-color: #0a0a0a;
+            color: #666;
+            border-color: #222;
+            cursor: not-allowed;
+        }
+
         .chat-input-area input[type="text"]:focus { border-color: var(--neon-green); }
         .chat-input-name { width: 35%; }
         .chat-input-msg { flex: 1; }
@@ -639,7 +668,12 @@
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
             <li><a href="#programs">Programs</a></li>
-            <li><a onclick="toggleChat(event)">Live Chat</a></li>
+            <li>
+                <a onclick="toggleChat(event)" class="chat-link-container">
+                    Live Chat
+                    <span id="chat-badge" class="chat-badge">0</span>
+                </a>
+            </li>
             <li><a href="#news">News</a></li>
             <li><a onclick="toggleShopModal(event)">Shop</a></li>
             <li><a href="#donate" class="btn-donate-nav">Donate</a></li>
@@ -661,6 +695,7 @@
                 <div style="color: #666; font-style: italic; text-align: center; padding: 2rem;">Connecting to live chat...</div>
             </div>
             <form id="chat-form" class="chat-input-area">
+                <!-- Name input will be locked via JS after first message -->
                 <input type="text" id="chat-name" class="chat-input-name" placeholder="Name" required>
                 <input type="text" id="chat-message" class="chat-input-msg" placeholder="Message..." required>
                 <button type="submit" class="chat-btn"><i class="fas fa-paper-plane"></i></button>
@@ -880,16 +915,12 @@
         <div class="now-playing">
             <div class="live-indicator">LIVE</div>
             <div>
-                <!-- DYNAMIC SHOW TITLE AND PRESENTER -->
                 <h4 id="player-show-title" style="margin: 0; font-size: 0.9rem;">Lobatse Radio</h4>
                 <p id="player-presenter" style="margin: 0; font-size: 0.8rem; color: var(--neon-green);">Non-Stop Music</p>
-                
-                <!-- ZENO.FM TRACK METADATA TEXT -->
                 <p id="zeno-text" style="margin: 0; font-size: 0.75rem; color: var(--text-muted); font-style: italic; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 250px;"></p>
             </div>
         </div>
         
-        <!-- Listener Count -->
         <div class="listener-count hidden-mobile" style="margin-right: auto; padding-left: 2rem; border-left: none;">
             <i class="fas fa-headphones"></i> <span id="listener-number">1,024</span>
         </div>
@@ -959,7 +990,7 @@
             }
         }
 
-        // Presenters Data with Bio, Socials, and Numeric Time Codes for the Auto-Player
+        // Presenters Data with Bio, Socials, and Numeric Time Codes
         const programs = [
             { 
                 title: "Ease Hour", 
@@ -1040,7 +1071,7 @@
                 image: "TT.jpg",
                 bio: "Spiritual upliftment and the deep roots of indigenous Southern African musical melodies hosted by TT.",
                 socials: { ig: "#", fb: "#", wa: "26772960417" },
-                day: -1, startHour: 0, endHour: 0 
+                day: -1, startHour: 0, endHour: 0
             },
             { 
                 title: "Stand-in Presenter", 
@@ -1310,9 +1341,51 @@
 
         const chatForm = document.getElementById('chat-form');
         const chatMessages = document.getElementById('chat-messages');
+        const chatNameInput = document.getElementById('chat-name');
         
         chatMessages.innerHTML = '';
         let colorIndex = 3; 
+        let totalMessages = 0;
+
+        // Visual Chat Lock Function
+        function applyNameLock() {
+            const storedData = localStorage.getItem('lor_chat_user');
+            if (storedData) {
+                const { name, timestamp } = JSON.parse(storedData);
+                const now = new Date().getTime();
+                
+                // If within 30 minutes (1800000 ms), lock it
+                if (now - timestamp < 1800000) {
+                    chatNameInput.value = name;
+                    chatNameInput.setAttribute('readonly', 'true');
+                    chatNameInput.classList.add('locked');
+                    chatNameInput.title = "Your name is locked for 30 minutes after your last message.";
+                } else {
+                    // Lock expired
+                    localStorage.removeItem('lor_chat_user');
+                    chatNameInput.removeAttribute('readonly');
+                    chatNameInput.classList.remove('locked');
+                    chatNameInput.title = "";
+                }
+            }
+        }
+        
+        // Apply lock on page load
+        applyNameLock();
+        // Periodically check if lock should expire
+        setInterval(applyNameLock, 60000);
+
+        function updateBadge() {
+            const badge = document.getElementById('chat-badge');
+            if (badge) {
+                if (totalMessages > 0) {
+                    badge.style.display = 'inline-block';
+                    badge.innerText = totalMessages;
+                } else {
+                    badge.style.display = 'none';
+                }
+            }
+        }
 
         function getCurrentTime() {
             return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -1324,8 +1397,17 @@
 
         chatForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const name = document.getElementById('chat-name').value;
-            const message = document.getElementById('chat-message').value;
+            const name = chatNameInput.value.trim();
+            const message = document.getElementById('chat-message').value.trim();
+
+            if (!name || !message) return;
+
+            // Lock the user's name for 30 minutes from this message
+            localStorage.setItem('lor_chat_user', JSON.stringify({ 
+                name: name, 
+                timestamp: new Date().getTime() 
+            }));
+            applyNameLock(); // Update visuals immediately
 
             push(ref(db, 'shoutouts'), {
                 name: name,
@@ -1362,6 +1444,9 @@
                 chatMessages.appendChild(newItem);
                 scrollToBottom();
 
+                totalMessages++;
+                updateBadge();
+
                 const timeLeft = 1800000 - messageAge;
                 
                 setTimeout(() => {
@@ -1370,6 +1455,8 @@
                         setTimeout(() => {
                             if (chatMessages.contains(newItem)) {
                                 chatMessages.removeChild(newItem);
+                                totalMessages--;
+                                updateBadge();
                             }
                         }, 500); 
                     }
