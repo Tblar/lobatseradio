@@ -307,6 +307,68 @@
             margin-top: 1rem;
         }
 
+        /* New Button Styles (Submit Song & Forms) */
+        .btn-submit-song {
+            background-color: #ff8c00;
+            color: #fff;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+            box-shadow: 0 4px 10px rgba(255, 140, 0, 0.3);
+        }
+        .btn-submit-song:hover {
+            background-color: #e67e00;
+            transform: scale(1.05);
+        }
+
+        .form-drawer {
+            display: none;
+            background: var(--card-bg);
+            border: 1px solid var(--neon-green);
+            border-radius: 12px;
+            padding: 2rem;
+            animation: fadeIn 0.3s ease-in-out;
+            text-align: left;
+            margin-bottom: 2rem;
+        }
+        .form-drawer.show { display: block; }
+
+        .song-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 15px;
+            background: var(--card-bg);
+            border: 1px solid #ff8c00;
+            border-radius: 12px;
+            padding: 1.5rem;
+            width: 340px;
+            z-index: 150;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.9);
+            text-align: left;
+            animation: fadeIn 0.2s ease-in-out;
+        }
+        .song-dropdown.show { display: block; }
+
+        .custom-input {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--bg-darker);
+            border: 1px solid #444;
+            color: #fff;
+            border-radius: 6px;
+            outline: none;
+            margin-bottom: 1rem;
+            font-family: inherit;
+        }
+        .custom-input:focus { border-color: var(--neon-green); }
+        .custom-input.orange-focus:focus { border-color: #ff8c00; }
+
         /* Ad Slider Styles */
         .ad-slider-container {
             max-width: 800px;
@@ -695,7 +757,6 @@
                 <div style="color: #666; font-style: italic; text-align: center; padding: 2rem;">Connecting to live chat...</div>
             </div>
             <form id="chat-form" class="chat-input-area">
-                <!-- Name input will be locked via JS after first message -->
                 <input type="text" id="chat-name" class="chat-input-name" placeholder="Name" required>
                 <input type="text" id="chat-message" class="chat-input-msg" placeholder="Message..." required>
                 <button type="submit" class="chat-btn"><i class="fas fa-paper-plane"></i></button>
@@ -703,7 +764,7 @@
         </div>
     </div>
 
-    <!-- Live Video Dropdown Panel (TikTok Embed) -->
+    <!-- Live Video Dropdown Panel -->
     <div id="live-video-dropdown" class="video-dropdown">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
             <h3 style="color: #fff; font-size: 1.1rem;"><span style="color: red;">🔴</span> Broadcasting Live</h3>
@@ -793,10 +854,71 @@
         </div>
     </div>
 
-    <!-- Advertise With Us Auto-Slider -->
+    <!-- Advertise With Us Auto-Slider & Contact Forms -->
     <section id="advertise" class="section">
-        <div class="section-header">Advertise <span class="neon-text">With Us</span></div>
-        <p style="text-align:left; color:var(--text-muted); margin-top:-2rem; margin-bottom:2rem;">Support local business. Hover over an ad to pause the slide.</p>
+        
+        <div class="section-header" style="justify-content: space-between; display: flex; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            
+            <!-- Clickable "Advertise With Us" Title -->
+            <div style="cursor: pointer; display: flex; align-items: center; gap: 0.8rem;" onclick="toggleAdForm()">
+                <span>Advertise <span class="neon-text">With Us</span></span>
+                <i id="ad-form-arrow" class="fas fa-chevron-down" style="font-size: 1.2rem; color: var(--neon-green);"></i>
+            </div>
+            
+            <!-- Submit Your Song Button & Dropdown -->
+            <div style="position: relative;">
+                <button class="btn-submit-song" onclick="toggleSongForm(event)">Submit Your Song</button>
+                
+                <!-- Song Submit Dropdown Drawer -->
+                <div id="song-dropdown" class="song-dropdown">
+                    <h3 style="margin-top: 0; color: #fff; font-size: 1.2rem; margin-bottom: 0.5rem;">Submit Your Track</h3>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1rem;">Choose your preferred method:</p>
+                    
+                    <div style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem;">
+                        <button type="button" class="btn-buy active" style="flex:1; border-color: #ff8c00; color: #ff8c00;" onclick="switchSongMethod('email')" id="btn-song-email">Email</button>
+                        <button type="button" class="btn-buy" style="flex:1; border-color: #444; color: #a0a0a0;" onclick="switchSongMethod('whatsapp')" id="btn-song-wa">WhatsApp</button>
+                    </div>
+
+                    <!-- Email Route -->
+                    <form id="song-email-form" onsubmit="sendSongEmail(event)">
+                        <input type="email" id="song-email" class="custom-input orange-focus" placeholder="Your Email Address" required>
+                        <input type="text" id="song-subject" class="custom-input orange-focus" placeholder="Song Title & Artist" required>
+                        <textarea id="song-message" class="custom-input orange-focus" placeholder="Tell us about the song..." rows="3" required></textarea>
+                        
+                        <label style="display:block; text-align:left; color:var(--text-muted); margin-bottom:0.5rem; font-size:0.85rem;">Attach File (MP3/WAV):</label>
+                        <input type="file" id="song-file" accept="audio/*" style="width: 100%; color: #fff; margin-bottom: 1rem; font-size: 0.85rem;">
+                        
+                        <button type="submit" class="btn-submit-song" style="width: 100%; border-radius: 6px;">Prepare Email</button>
+                    </form>
+                    
+                    <!-- WhatsApp Route -->
+                    <div id="song-wa-form" style="display: none; text-align: left;">
+                        <p style="color: #a0a0a0; font-size: 0.9rem; margin-bottom: 1.5rem; line-height: 1.5;">Click below to open WhatsApp. You can type your message and attach your audio file directly in the chat!</p>
+                        <a href="https://wa.me/26772960417?text=Hi%20Lobatse%20Radio,%20I%20would%20like%20to%20submit%20my%20song%20for%20airplay!" target="_blank" class="btn-submit-song" style="background-color: #25D366; color: #fff; text-decoration: none; display: block; text-align: center; border-radius: 6px;">Open WhatsApp</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ad Inquiry Form Dropdown (Hidden by default) -->
+        <div id="ad-form-drawer" class="form-drawer">
+            <h3 style="margin-top: 0; color: #fff; margin-bottom: 1.5rem;">Advertise Inquiry</h3>
+            <form id="ad-contact-form" onsubmit="sendAdEmail(event)">
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 200px;">
+                        <input type="email" id="ad-email" class="custom-input" placeholder="Your Email Address" required>
+                    </div>
+                    <div style="flex: 1; min-width: 200px;">
+                        <input type="text" id="ad-phone" class="custom-input" placeholder="Your Phone Number" required>
+                    </div>
+                </div>
+                <input type="text" id="ad-subject" class="custom-input" placeholder="Subject" required>
+                <textarea id="ad-message" class="custom-input" placeholder="Compose your message..." rows="4" required></textarea>
+                <button type="submit" class="btn-buy" style="margin-top:0; padding: 0.8rem 2rem;">Send via Email</button>
+            </form>
+        </div>
+        
+        <p style="text-align:left; color:var(--text-muted); margin-top:-1rem; margin-bottom:2rem;">Support local business. Hover over an ad to pause the slide.</p>
         
        <div class="ad-slider-container" id="ad-slider-container">
             <div class="ad-slider" id="ad-slider">
@@ -905,6 +1027,9 @@
             <a href="https://www.tiktok.com/@lobatse.online.ra" target="_blank" class="social-icon" title="TikTok"><i class="fab fa-tiktok"></i></a>
             <a href="https://www.instagram.com/lobatseonlineradio?utm_source=ig_web_button_share_sheet&cplk=ZDNlZDc0MzIxNw==" target="_blank" class="social-icon" title="Instagram"><i class="fab fa-instagram"></i></a>
             <a href="https://wa.me/26772960417" target="_blank" class="social-icon whatsapp-icon" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            
+            <!-- Email Added Here -->
+            <a href="mailto:lobatseonlineradio@gmail.com" class="social-icon" title="Email Us"><i class="fas fa-envelope"></i></a>
         </div>
         <p style="margin-top: 2rem; color: var(--text-muted); font-size: 0.9rem;">&copy; 2026 Lobatse Radio. All rights reserved.</p>
     </footer>
@@ -939,6 +1064,65 @@
     <!-- STANDARD JAVASCRIPT LOGIC                      -->
     <!-- ============================================== -->
     <script>
+        // Form & Button Toggle Actions
+        function toggleAdForm() {
+            const drawer = document.getElementById('ad-form-drawer');
+            const arrow = document.getElementById('ad-form-arrow');
+            drawer.classList.toggle('show');
+            arrow.className = drawer.classList.contains('show') ? 'fas fa-chevron-up' : 'fas fa-chevron-down';
+        }
+
+        function toggleSongForm(e) {
+            if(e) e.stopPropagation();
+            document.getElementById('song-dropdown').classList.toggle('show');
+        }
+
+        function switchSongMethod(method) {
+            const emailForm = document.getElementById('song-email-form');
+            const waForm = document.getElementById('song-wa-form');
+            const btnEmail = document.getElementById('btn-song-email');
+            const btnWa = document.getElementById('btn-song-wa');
+
+            if(method === 'email') {
+                emailForm.style.display = 'block';
+                waForm.style.display = 'none';
+                btnEmail.style.borderColor = '#ff8c00';
+                btnEmail.style.color = '#ff8c00';
+                btnWa.style.borderColor = '#444';
+                btnWa.style.color = '#a0a0a0';
+            } else {
+                emailForm.style.display = 'none';
+                waForm.style.display = 'block';
+                btnEmail.style.borderColor = '#444';
+                btnEmail.style.color = '#a0a0a0';
+                btnWa.style.borderColor = '#25D366';
+                btnWa.style.color = '#25D366';
+            }
+        }
+
+        function sendAdEmail(e) {
+            e.preventDefault();
+            const email = document.getElementById('ad-email').value;
+            const phone = document.getElementById('ad-phone').value;
+            const subj = document.getElementById('ad-subject').value;
+            const msg = document.getElementById('ad-message').value;
+            
+            const body = encodeURIComponent("From: " + email + "\nPhone: " + phone + "\n\n" + msg);
+            window.location.href = "mailto:lobatseonlineradio@gmail.com?subject=" + encodeURIComponent(subj) + "&body=" + body;
+            toggleAdForm(); 
+        }
+
+        function sendSongEmail(e) {
+            e.preventDefault();
+            const email = document.getElementById('song-email').value;
+            const subj = document.getElementById('song-subject').value;
+            const msg = document.getElementById('song-message').value;
+            
+            const body = encodeURIComponent("From: " + email + "\n\n" + msg + "\n\n(Please remember to attach your song file to this email before sending!)");
+            window.location.href = "mailto:lobatseonlineradio@gmail.com?subject=" + encodeURIComponent("Song Submission: " + subj) + "&body=" + body;
+            document.getElementById('song-dropdown').classList.remove('show');
+        }
+
         // Floating Chat Controls
         function toggleChat(e) {
             if(e) e.preventDefault();
@@ -989,7 +1173,6 @@
             }
         }
 
-        // Presenters Data with Bio, Socials, and Numeric Time Codes
         const programs = [
             { 
                 title: "Ease Hour", 
@@ -1083,7 +1266,6 @@
             }
         ];
 
-        // 1. DYNAMIC AUDIO PLAYER SCHEDULE MATCHER
         function updateCurrentShow() {
             const botTimeString = new Date().toLocaleString("en-US", {timeZone: "Africa/Gaborone"});
             const localTime = new Date(botTimeString);
@@ -1115,7 +1297,6 @@
         updateCurrentShow();
         setInterval(updateCurrentShow, 60000);
 
-        // 2. ZENO.FM METADATA EXTRACTOR
         const zenoTextEl = document.getElementById('zeno-text');
         try {
             const zenoSource = new EventSource('https://api.zeno.fm/mounts/metadata/subscribe/yhspijyzxp8vv');
@@ -1135,7 +1316,6 @@
             console.log("Could not load Zeno metadata");
         }
 
-        // Inject Presenter Cards into UI
         const programGrid = document.getElementById('program-grid');
         programs.forEach((prog, index) => {
             programGrid.innerHTML += `
@@ -1171,7 +1351,6 @@
             document.getElementById('bio-modal').classList.remove('show');
         }
 
-        // News Data
         const newsData = [
             { title: "Local Talent Showcase this Weekend", date: "Oct 12, 2026", excerpt: "Join us at the town square as we broadcast live from the annual local talent showcase." },
             { title: "New Studio Upgrades", date: "Oct 10, 2026", excerpt: "We are thrilled to announce state-of-the-art upgrades to the Lobatse Radio broadcastin..." },
@@ -1181,7 +1360,6 @@
             { title: "Cultural Festival Highlights", date: "Sep 28, 2026", excerpt: "A look back at the amazing performances and cultural displays from last week's festival." }
         ];
 
-        // Shop Data Updated with Actual Merchandise
         const shopData = [
             { name: "Lobatse Radio Cup", price: "P35.00", image: "IMG_3420.JPG" },
             { name: "Lobatse Radio T-Shirt", price: "P170.00", image: "IMG_3422.JPG" },
@@ -1310,8 +1488,15 @@
         window.addEventListener('click', (e) => {
             const bioModal = document.getElementById('bio-modal');
             const shopModal = document.getElementById('shop-modal');
+            const songDropdown = document.getElementById('song-dropdown');
+
             if (e.target === bioModal) bioModal.classList.remove('show');
             if (e.target === shopModal) shopModal.classList.remove('show');
+            
+            // Close dropdown when clicking outside
+            if(songDropdown && songDropdown.classList.contains('show') && !e.target.closest('.song-dropdown') && !e.target.closest('.btn-submit-song')) {
+                songDropdown.classList.remove('show');
+            }
         });
     </script>
 
@@ -1346,21 +1531,18 @@
         let colorIndex = 3; 
         let totalMessages = 0;
 
-        // Visual Chat Lock Function
         function applyNameLock() {
             const storedData = localStorage.getItem('lor_chat_user');
             if (storedData) {
                 const { name, timestamp } = JSON.parse(storedData);
                 const now = new Date().getTime();
                 
-                // If within 30 minutes (1800000 ms), lock it
                 if (now - timestamp < 1800000) {
                     chatNameInput.value = name;
                     chatNameInput.setAttribute('readonly', 'true');
                     chatNameInput.classList.add('locked');
                     chatNameInput.title = "Your name is locked for 30 minutes after your last message.";
                 } else {
-                    // Lock expired
                     localStorage.removeItem('lor_chat_user');
                     chatNameInput.removeAttribute('readonly');
                     chatNameInput.classList.remove('locked');
@@ -1369,9 +1551,7 @@
             }
         }
         
-        // Apply lock on page load
         applyNameLock();
-        // Periodically check if lock should expire
         setInterval(applyNameLock, 60000);
 
         function updateBadge() {
@@ -1401,12 +1581,11 @@
 
             if (!name || !message) return;
 
-            // Lock the user's name for 30 minutes from this message
             localStorage.setItem('lor_chat_user', JSON.stringify({ 
                 name: name, 
                 timestamp: new Date().getTime() 
             }));
-            applyNameLock(); // Update visuals immediately
+            applyNameLock(); 
 
             push(ref(db, 'shoutouts'), {
                 name: name,
