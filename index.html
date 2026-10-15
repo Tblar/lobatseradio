@@ -582,7 +582,7 @@
         .news-read-more { color: #fff; text-decoration: none; font-weight: bold; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; transition: color 0.3s; }
         .news-read-more:hover { color: var(--neon-green); }
 
-        .item-img { width: 100%; height: 150px; object-fit: cover; border-radius: 5px; margin-bottom: 1rem; }
+        .item-img { width: 100%; height: 200px; object-fit: contain; background: #fff; border-radius: 5px; margin-bottom: 1rem; }
         .btn-buy { background-color: transparent; color: var(--neon-green); border: 1px solid var(--neon-green); padding: 0.4rem 1rem; border-radius: 15px; cursor: pointer; margin-top: 1rem; transition: all 0.3s; font-weight: bold; align-self: flex-start; }
         .btn-buy:hover { background-color: var(--neon-green); color: #000; }
 
@@ -761,7 +761,7 @@
     <!-- Advertise With Us Auto-Slider -->
     <section id="advertise" class="section">
         <div class="section-header">Advertise <span class="neon-text">With Us</span></div>
-        <p style="text-align:left; color:var(--text-muted); margin-top:-2rem; margin-bottom:2rem;">Support local business. </p>
+        <p style="text-align:left; color:var(--text-muted); margin-top:-2rem; margin-bottom:2rem;">Support local business. Hover over an ad to pause the slide.</p>
         
        <div class="ad-slider-container" id="ad-slider-container">
             <div class="ad-slider" id="ad-slider">
@@ -889,7 +889,7 @@
             </div>
         </div>
         
-        <!-- Listener Count (Moved to the center/right dynamically based on screen size) -->
+        <!-- Listener Count -->
         <div class="listener-count hidden-mobile" style="margin-right: auto; padding-left: 2rem; border-left: none;">
             <i class="fas fa-headphones"></i> <span id="listener-number">1,024</span>
         </div>
@@ -904,7 +904,6 @@
             <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.8">
         </div>
     </div>
-
 
     <!-- ============================================== -->
     <!-- STANDARD JAVASCRIPT LOGIC                      -->
@@ -961,7 +960,6 @@
         }
 
         // Presenters Data with Bio, Socials, and Numeric Time Codes for the Auto-Player
-        // Note: day integers -> 0=Sun, 1=Mon, 2=Tue, 3=Wed, 4=Thu, 5=Fri, 6=Sat
         const programs = [
             { 
                 title: "Ease Hour", 
@@ -1042,7 +1040,7 @@
                 image: "TT.jpg",
                 bio: "Spiritual upliftment and the deep roots of indigenous Southern African musical melodies hosted by TT.",
                 socials: { ig: "#", fb: "#", wa: "26772960417" },
-                day: -1, startHour: 0, endHour: 0 // -1 means it relies on manual override or isn't auto-matched
+                day: -1, startHour: 0, endHour: 0 
             },
             { 
                 title: "Stand-in Presenter", 
@@ -1057,7 +1055,6 @@
 
         // 1. DYNAMIC AUDIO PLAYER SCHEDULE MATCHER
         function updateCurrentShow() {
-            // Get current time specifically formatted to Botswana timezone (UTC+2)
             const botTimeString = new Date().toLocaleString("en-US", {timeZone: "Africa/Gaborone"});
             const localTime = new Date(botTimeString);
             
@@ -1066,7 +1063,6 @@
 
             let activeShow = null;
 
-            // Loop through schedule to see if a show is currently on
             for (let i = 0; i < programs.length; i++) {
                 if (programs[i].day === currentDay && currentHour >= programs[i].startHour && currentHour < programs[i].endHour) {
                     activeShow = programs[i];
@@ -1086,13 +1082,10 @@
             }
         }
         
-        // Update the show display instantly, then check again every 60 seconds
         updateCurrentShow();
         setInterval(updateCurrentShow, 60000);
 
-
         // 2. ZENO.FM METADATA EXTRACTOR
-        // Listens to the Server-Sent Events from Zeno's public metadata API
         const zenoTextEl = document.getElementById('zeno-text');
         try {
             const zenoSource = new EventSource('https://api.zeno.fm/mounts/metadata/subscribe/yhspijyzxp8vv');
@@ -1105,16 +1098,12 @@
                         } else {
                             zenoTextEl.innerText = "";
                         }
-                    } catch (e) {
-                        // ignore JSON parse errors
-                    }
+                    } catch (e) {}
                 }
             };
         } catch (e) {
-            // Fails gracefully if SSE is blocked
             console.log("Could not load Zeno metadata");
         }
-
 
         // Inject Presenter Cards into UI
         const programGrid = document.getElementById('program-grid');
