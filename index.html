@@ -371,7 +371,7 @@
             margin-top: 1rem;
         }
 
-        /* Submit Song Buttons & Forms */
+        /* Buttons & Forms */
         .btn-submit-song {
             background-color: #ff8c00;
             color: #fff;
@@ -402,25 +402,6 @@
         }
         .form-drawer.show { display: block; }
 
-        .song-dropdown {
-            display: none;
-            position: absolute;
-            top: 100%;
-            right: 0;
-            margin-top: 15px;
-            background: var(--card-bg);
-            border: 1px solid #ff8c00;
-            border-radius: 12px;
-            padding: 1.5rem;
-            width: 340px;
-            max-width: 90vw;
-            z-index: 150;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.9);
-            text-align: left;
-            animation: fadeIn 0.2s ease-in-out;
-        }
-        .song-dropdown.show { display: block; }
-
         .custom-input {
             width: 100%;
             padding: 0.8rem;
@@ -433,7 +414,6 @@
             font-family: inherit;
         }
         .custom-input:focus { border-color: var(--neon-green); }
-        .custom-input.orange-focus:focus { border-color: #ff8c00; }
 
         /* Ad Slider */
         .ad-slider-container {
@@ -698,6 +678,7 @@
             font-size: 0.85rem;
         }
 
+        /* Locked state styling for the name input */
         .chat-input-area input[type="text"].locked {
             background-color: #0a0a0a;
             color: #666;
@@ -733,6 +714,7 @@
         .news-read-more { color: #fff; text-decoration: none; font-weight: bold; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; transition: color 0.3s; }
         .news-read-more:hover { color: var(--neon-green); }
 
+        .item-img { width: 100%; height: 200px; object-fit: contain; background: #fff; border-radius: 5px; margin-bottom: 1rem; }
         .btn-buy { background-color: transparent; color: var(--neon-green); border: 1px solid var(--neon-green); padding: 0.4rem 1rem; border-radius: 15px; cursor: pointer; margin-top: 1rem; transition: all 0.3s; font-weight: bold; align-self: flex-start; }
         .btn-buy:hover { background-color: var(--neon-green); color: #000; }
 
@@ -786,7 +768,6 @@
             .section-header { font-size: 1.6rem; flex-wrap: wrap; justify-content: center; text-align: center; }
             .ad-slider-container { height: 250px; }
             .video-dropdown { width: 90%; right: 5%; left: 5%; }
-            .song-dropdown { width: 90vw; right: 0; }
             .floating-chat { width: 90%; right: 5%; bottom: 85px; }
             .hidden-mobile { display: none !important; }
             .volume-control { display: none; }
@@ -858,11 +839,19 @@
         <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 1rem; text-align: center;">Follow our live sessions on TikTok and Facebook.</p>
     </div>
 
-    <!-- Shop Modal Overlay (Now loads separate shop.html file) -->
+    <!-- Shop Modal Overlay (Loads separate shop.html file) -->
     <div id="shop-modal" class="modal">
         <div class="modal-content" style="max-width: 1100px; padding: 1.5rem;">
             <span class="close-modal" onclick="toggleShopModal(event)" style="z-index: 10; right: 2rem; top: 1.5rem;">&times;</span>
             <iframe src="shop.html" style="width: 100%; height: 75vh; border: none; border-radius: 12px; background: transparent;"></iframe>
+        </div>
+    </div>
+
+    <!-- Song Submission Modal Overlay (Loads separate submit.html file) -->
+    <div id="song-modal" class="modal">
+        <div class="modal-content" style="max-width: 500px; padding: 1.5rem;">
+            <span class="close-modal" onclick="toggleSongModal(event)" style="z-index: 10; right: 1.5rem; top: 1.2rem;">&times;</span>
+            <iframe src="submit.html" style="width: 100%; height: 450px; border: none; border-radius: 12px; background: transparent;"></iframe>
         </div>
     </div>
 
@@ -939,39 +928,8 @@
                 <i id="ad-form-arrow" class="fas fa-chevron-down" style="font-size: 1.2rem; color: var(--neon-green);"></i>
             </div>
             
-            <!-- Submit Your Song Button & Dropdown -->
-            <div style="position: relative;">
-                <button class="btn-submit-song" onclick="toggleSongForm(event)">Submit Your Song</button>
-                
-                <!-- Song Submit Dropdown Drawer -->
-                <div id="song-dropdown" class="song-dropdown">
-                    <h3 style="margin-top: 0; color: #fff; font-size: 1.2rem; margin-bottom: 0.5rem;">Submit Your Track</h3>
-                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1rem;">Choose your preferred method:</p>
-                    
-                    <div style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem;">
-                        <button type="button" class="btn-buy active" style="flex:1; border-color: #ff8c00; color: #ff8c00;" onclick="switchSongMethod('email')" id="btn-song-email">Email</button>
-                        <button type="button" class="btn-buy" style="flex:1; border-color: #444; color: #a0a0a0;" onclick="switchSongMethod('whatsapp')" id="btn-song-wa">WhatsApp</button>
-                    </div>
-
-                    <!-- Email Route -->
-                    <form id="song-email-form" onsubmit="sendSongEmail(event)">
-                        <input type="email" id="song-email" class="custom-input orange-focus" placeholder="Your Email Address" required>
-                        <input type="text" id="song-subject" class="custom-input orange-focus" placeholder="Song Title & Artist" required>
-                        <textarea id="song-message" class="custom-input orange-focus" placeholder="Tell us about the song..." rows="3" required></textarea>
-                        
-                        <label style="display:block; text-align:left; color:var(--text-muted); margin-bottom:0.5rem; font-size:0.85rem;">Attach File (MP3/WAV):</label>
-                        <input type="file" id="song-file" accept="audio/*" style="width: 100%; color: #fff; margin-bottom: 1rem; font-size: 0.85rem;">
-                        
-                        <button type="submit" class="btn-submit-song" style="width: 100%; border-radius: 6px;">Prepare Email</button>
-                    </form>
-                    
-                    <!-- WhatsApp Route -->
-                    <div id="song-wa-form" style="display: none; text-align: left;">
-                        <p style="color: #a0a0a0; font-size: 0.9rem; margin-bottom: 1.5rem; line-height: 1.5;">Click below to open WhatsApp. You can type your message and attach your audio file directly in the chat!</p>
-                        <a href="https://wa.me/26772960417?text=Hi%20Lobatse%20Radio,%20I%20would%20like%20to%20submit%20my%20song%20for%20airplay!" target="_blank" class="btn-submit-song" style="background-color: #25D366; color: #fff; text-decoration: none; display: block; text-align: center; border-radius: 6px;">Open WhatsApp</a>
-                    </div>
-                </div>
-            </div>
+            <!-- Submit Your Song Button (Now triggers modal) -->
+            <button class="btn-submit-song" onclick="toggleSongModal(event)">Submit Your Song</button>
         </div>
 
         <!-- Ad Inquiry Form Dropdown (Hidden by default) -->
@@ -1144,32 +1102,9 @@
             arrow.className = drawer.classList.contains('show') ? 'fas fa-chevron-up' : 'fas fa-chevron-down';
         }
 
-        function toggleSongForm(e) {
-            if(e) e.stopPropagation();
-            document.getElementById('song-dropdown').classList.toggle('show');
-        }
-
-        function switchSongMethod(method) {
-            const emailForm = document.getElementById('song-email-form');
-            const waForm = document.getElementById('song-wa-form');
-            const btnEmail = document.getElementById('btn-song-email');
-            const btnWa = document.getElementById('btn-song-wa');
-
-            if(method === 'email') {
-                emailForm.style.display = 'block';
-                waForm.style.display = 'none';
-                btnEmail.style.borderColor = '#ff8c00';
-                btnEmail.style.color = '#ff8c00';
-                btnWa.style.borderColor = '#444';
-                btnWa.style.color = '#a0a0a0';
-            } else {
-                emailForm.style.display = 'none';
-                waForm.style.display = 'block';
-                btnEmail.style.borderColor = '#444';
-                btnEmail.style.color = '#a0a0a0';
-                btnWa.style.borderColor = '#25D366';
-                btnWa.style.color = '#25D366';
-            }
+        function toggleSongModal(e) {
+            if (e) e.preventDefault();
+            document.getElementById('song-modal').classList.toggle('show');
         }
 
         function sendAdEmail(e) {
@@ -1182,17 +1117,6 @@
             const body = encodeURIComponent("From: " + email + "\nPhone: " + phone + "\n\n" + msg);
             window.location.href = "mailto:lobatseonlineradio@gmail.com?subject=" + encodeURIComponent(subj) + "&body=" + body;
             toggleAdForm(); 
-        }
-
-        function sendSongEmail(e) {
-            e.preventDefault();
-            const email = document.getElementById('song-email').value;
-            const subj = document.getElementById('song-subject').value;
-            const msg = document.getElementById('song-message').value;
-            
-            const body = encodeURIComponent("From: " + email + "\n\n" + msg + "\n\n(Please remember to attach your song file to this email before sending!)");
-            window.location.href = "mailto:lobatseonlineradio@gmail.com?subject=" + encodeURIComponent("Song Submission: " + subj) + "&body=" + body;
-            document.getElementById('song-dropdown').classList.remove('show');
         }
 
         // Floating Chat Controls
@@ -1542,15 +1466,11 @@
         window.addEventListener('click', (e) => {
             const bioModal = document.getElementById('bio-modal');
             const shopModal = document.getElementById('shop-modal');
-            const songDropdown = document.getElementById('song-dropdown');
+            const songModal = document.getElementById('song-modal');
 
             if (e.target === bioModal) bioModal.classList.remove('show');
             if (e.target === shopModal) shopModal.classList.remove('show');
-            
-            // Close dropdown when clicking outside
-            if(songDropdown && songDropdown.classList.contains('show') && !e.target.closest('.song-dropdown') && !e.target.closest('.btn-submit-song')) {
-                songDropdown.classList.remove('show');
-            }
+            if (e.target === songModal) songModal.classList.remove('show');
         });
     </script>
 
