@@ -8,9 +8,8 @@
     <!-- Browser Tab Icon -->
     <link rel="icon" type="image/jpeg" href="Lradio1.jpeg">
 
-    <!-- Canonical URL (Crucial for Single Page App SEO) -->
-    <!-- Replace 'yourdomain.com' with your actual website link when you get one! -->
-    <link rel="canonical" href="https://yourdomain.com/" />
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://lobatseradio.com/" />
 
     <!-- Highly Optimized Standard SEO -->
     <meta name="description" content="Listen to Lobatse Online Radio (LOR), the premier live streaming audio platform in Botswana. Broadcasting 24/7 hits, news, and local talent to Lobatse, Gaborone, Francistown, Namibia, Zambia, Zimbabwe, Eswatini, Lesotho, and Mozambique.">
@@ -18,12 +17,12 @@
     <meta name="author" content="Lobatse Radio">
     <meta name="robots" content="index, follow">
 
-    <!-- Open Graph for Facebook & WhatsApp (Shows Logo & Info when shared) -->
+    <!-- Open Graph for Facebook & WhatsApp -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Lobatse Radio - Live Streaming Audio in Southern Africa">
     <meta property="og:description" content="Tune in to Lobatse Online Radio for 24/7 live music, local talk shows, and the pulse of Botswana. Broadcasting to Gaborone, Namibia, Zimbabwe and beyond.">
     <meta property="og:image" content="Lradio1.jpeg"> 
-    <meta property="og:url" content="https://yourdomain.com/">
+    <meta property="og:url" content="https://lobatseradio.com/">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
@@ -31,13 +30,13 @@
     <meta name="twitter:description" content="Broadcasting the best sounds, news, and entertainment across Botswana and Southern Africa 24/7.">
     <meta name="twitter:image" content="Lradio1.jpeg">
 
-    <!-- Advanced Google Rich Results (Local & Regional Targeting) -->
+    <!-- Advanced Google Rich Results -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "RadioStation",
       "name": "Lobatse Online Radio",
-      "url": "https://yourdomain.com/",
+      "url": "https://lobatseradio.com/",
       "image": "Lradio1.jpeg",
       "description": "Lobatse Online Radio is a digital broadcasting platform offering 24/7 live streaming audio, amplifying the voice of Botswana and Southern Africa.",
       "address": {
@@ -167,7 +166,7 @@
             color: white !important;
         }
 
-        /* Chat Badge (Inbox Style) */
+        /* Chat Badge */
         .chat-link-container {
             position: relative;
             display: inline-block;
@@ -372,7 +371,7 @@
             margin-top: 1rem;
         }
 
-        /* New Button Styles (Submit Song & Forms) */
+        /* Submit Song Buttons & Forms */
         .btn-submit-song {
             background-color: #ff8c00;
             color: #fff;
@@ -436,7 +435,7 @@
         .custom-input:focus { border-color: var(--neon-green); }
         .custom-input.orange-focus:focus { border-color: #ff8c00; }
 
-        /* Ad Slider Styles */
+        /* Ad Slider */
         .ad-slider-container {
             max-width: 800px;
             margin: 0 auto;
@@ -699,7 +698,6 @@
             font-size: 0.85rem;
         }
 
-        /* Locked state styling for the name input */
         .chat-input-area input[type="text"].locked {
             background-color: #0a0a0a;
             color: #666;
@@ -735,7 +733,6 @@
         .news-read-more { color: #fff; text-decoration: none; font-weight: bold; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; transition: color 0.3s; }
         .news-read-more:hover { color: var(--neon-green); }
 
-        .item-img { width: 100%; height: 200px; object-fit: contain; background: #fff; border-radius: 5px; margin-bottom: 1rem; }
         .btn-buy { background-color: transparent; color: var(--neon-green); border: 1px solid var(--neon-green); padding: 0.4rem 1rem; border-radius: 15px; cursor: pointer; margin-top: 1rem; transition: all 0.3s; font-weight: bold; align-self: flex-start; }
         .btn-buy:hover { background-color: var(--neon-green); color: #000; }
 
@@ -781,62 +778,21 @@
         .volume-control { display: flex; align-items: center; gap: 0.5rem; }
         input[type=range] { accent-color: var(--neon-green); }
 
-        /* ========================================= */
-        /* MOBILE RESPONSIVE FIXES                   */
-        /* ========================================= */
+        /* Mobile Fixes */
         @media (max-width: 768px) {
-            .navbar {
-                flex-direction: column;
-                gap: 1rem;
-                padding: 1rem 5%;
-            }
-            .nav-links {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 0.8rem;
-            }
-            .hero h1 {
-                font-size: 2.5rem; 
-            }
-            .section-header {
-                font-size: 1.6rem;
-                flex-wrap: wrap;
-                justify-content: center;
-                text-align: center;
-            }
-            .ad-slider-container {
-                height: 250px; 
-            }
-            .video-dropdown {
-                width: 90%;
-                right: 5%;
-                left: 5%;
-            }
-            .song-dropdown {
-                width: 90vw;
-                right: 0;
-            }
-            .floating-chat {
-                width: 90%;
-                right: 5%;
-                bottom: 85px;
-            }
-            .hidden-mobile {
-                display: none !important;
-            }
-            .volume-control {
-                display: none; 
-            }
-            .now-playing {
-                gap: 0.5rem;
-            }
-            .audio-player {
-                padding: 0.8rem 5%;
-            }
-            .modal-content {
-                padding: 1.5rem;
-                width: 95%;
-            }
+            .navbar { flex-direction: column; gap: 1rem; padding: 1rem 5%; }
+            .nav-links { flex-wrap: wrap; justify-content: center; gap: 0.8rem; }
+            .hero h1 { font-size: 2.5rem; }
+            .section-header { font-size: 1.6rem; flex-wrap: wrap; justify-content: center; text-align: center; }
+            .ad-slider-container { height: 250px; }
+            .video-dropdown { width: 90%; right: 5%; left: 5%; }
+            .song-dropdown { width: 90vw; right: 0; }
+            .floating-chat { width: 90%; right: 5%; bottom: 85px; }
+            .hidden-mobile { display: none !important; }
+            .volume-control { display: none; }
+            .now-playing { gap: 0.5rem; }
+            .audio-player { padding: 0.8rem 5%; }
+            .modal-content { padding: 1.5rem; width: 95%; }
         }
     </style>
 </head>
@@ -902,14 +858,11 @@
         <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 1rem; text-align: center;">Follow our live sessions on TikTok and Facebook.</p>
     </div>
 
-    <!-- Shop Modal Overlay -->
+    <!-- Shop Modal Overlay (Now loads separate shop.html file) -->
     <div id="shop-modal" class="modal">
-        <div class="modal-content" style="max-width: 1100px;">
-            <span class="close-modal" onclick="toggleShopModal(event)">&times;</span>
-            <div class="section-header" style="margin-bottom: 2rem;">Mini <span class="neon-text">Shop</span></div>
-            <div class="grid-container" id="shop-grid">
-                <!-- Shop items injected via JavaScript -->
-            </div>
+        <div class="modal-content" style="max-width: 1100px; padding: 1.5rem;">
+            <span class="close-modal" onclick="toggleShopModal(event)" style="z-index: 10; right: 2rem; top: 1.5rem;">&times;</span>
+            <iframe src="shop.html" style="width: 100%; height: 75vh; border: none; border-radius: 12px; background: transparent;"></iframe>
         </div>
     </div>
 
@@ -1479,12 +1432,6 @@
             { title: "Cultural Festival Highlights", date: "Sep 28, 2026", excerpt: "A look back at the amazing performances and cultural displays from last week's festival." }
         ];
 
-        const shopData = [
-            { name: "Lobatse Radio Cup", price: "P35.00", image: "IMG_3420.JPG" },
-            { name: "Lobatse Radio T-Shirt", price: "P170.00", image: "IMG_3422.JPG" },
-            { name: "Lobatse Radio Hoody", price: "P200.00", image: "Gemini_Generated_Image (3).jpeg" }
-        ];
-
         const newsGrid = document.getElementById('news-grid');
         newsData.forEach((item, index) => {
             let hideClass = index > 2 ? "hidden-content news-item" : "news-item";
@@ -1494,18 +1441,6 @@
                     <h3 class="news-title">${item.title}</h3>
                     <p class="news-excerpt">${item.excerpt}</p>
                     <a href="#" class="news-read-more">Read More <i class="fas fa-chevron-right" style="font-size: 0.8rem;"></i></a>
-                </div>
-            `;
-        });
-
-        const shopGrid = document.getElementById('shop-grid');
-        shopData.forEach(item => {
-            shopGrid.innerHTML += `
-                <div class="card">
-                    <img src="${item.image}" alt="${item.name}" class="item-img" style="height: 200px; object-fit: contain; background: #fff;">
-                    <h3 style="margin: 1rem 0 0.5rem;">${item.name}</h3>
-                    <div style="color: #39ff14; font-weight: bold; font-size: 1.1rem;">${item.price}</div>
-                    <button class="btn-buy">Buy Now</button>
                 </div>
             `;
         });
