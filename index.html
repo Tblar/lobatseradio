@@ -1441,6 +1441,11 @@
         function toggleLiveVideo(e) {
             e.preventDefault();
             document.getElementById('live-video-dropdown').classList.toggle('show');
+        }
+
+        // ============================================
+        // AUDIO PLAYER + MEDIA SESSION (LOCK SCREEN)
+        // ============================================
         const audio = new Audio('https://stream.zeno.fm/yhspijyzxp8vv');
         const playBtn = document.getElementById('play-pause-btn');
         const volumeSlider = document.getElementById('volume-slider');
@@ -1493,6 +1498,10 @@
         volumeSlider.addEventListener('input', (e) => {
             audio.volume = e.target.value;
         });
+
+        // Keep the lock screen play/pause state in sync with the audio element
+        audio.addEventListener('play',  () => { if ('mediaSession' in navigator) navigator.mediaSession.playbackState = 'playing'; });
+        audio.addEventListener('pause', () => { if ('mediaSession' in navigator) navigator.mediaSession.playbackState = 'paused'; });
 
         window.addEventListener('click', (e) => {
             const bioModal = document.getElementById('bio-modal');
