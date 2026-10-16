@@ -1441,12 +1441,42 @@
         function toggleLiveVideo(e) {
             e.preventDefault();
             document.getElementById('live-video-dropdown').classList.toggle('show');
-        }
-
         const audio = new Audio('https://stream.zeno.fm/yhspijyzxp8vv');
         const playBtn = document.getElementById('play-pause-btn');
         const volumeSlider = document.getElementById('volume-slider');
         let isPlaying = false;
+
+        // Apply Media Session API for mobile lock screens
+        function setupMediaSession() {
+            if ('mediaSession' in navigator) {
+                navigator.mediaSession.metadata = new MediaMetadata({
+                    title: 'Lobatse Radio Live',
+                    artist: 'Where Talent Lives',
+                    album: 'Lobatse Online Radio',
+                    artwork: [
+                        { src: 'Lradio1.jpeg', sizes: '96x96', type: 'image/jpeg' },
+                        { src: 'Lradio1.jpeg', sizes: '128x128', type: 'image/jpeg' },
+                        { src: 'Lradio1.jpeg', sizes: '192x192', type: 'image/jpeg' },
+                        { src: 'Lradio1.jpeg', sizes: '256x256', type: 'image/jpeg' },
+                        { src: 'Lradio1.jpeg', sizes: '384x384', type: 'image/jpeg' },
+                        { src: 'Lradio1.jpeg', sizes: '512x512', type: 'image/jpeg' }
+                    ]
+                });
+
+                // Sync lock screen play/pause buttons with the site
+                navigator.mediaSession.setActionHandler('play', () => {
+                    audio.play();
+                    playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                    isPlaying = true;
+                });
+
+                navigator.mediaSession.setActionHandler('pause', () => {
+                    audio.pause();
+                    playBtn.innerHTML = '<i class="fas fa-play"></i>';
+                    isPlaying = false;
+                });
+            }
+        }
 
         playBtn.addEventListener('click', () => {
             if (isPlaying) {
@@ -1455,6 +1485,7 @@
             } else {
                 audio.play();
                 playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                setupMediaSession(); // Initialize lock screen data when play is pressed
             }
             isPlaying = !isPlaying;
         });
