@@ -37,7 +37,7 @@
         }
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
         }
         .card {
@@ -48,46 +48,73 @@
             display: flex;
             flex-direction: column;
         }
-        .video-placeholder {
-            background: #1c1c1c;
-            height: 160px;
+
+        /* Video Container & Expand/Shrink Styles */
+        .video-container {
+            position: relative;
+            background: #000;
+            height: 180px;
             border-radius: 8px;
+            margin-bottom: 1rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 1rem;
-            position: relative;
+            transition: all 0.3s ease;
         }
-        .video-placeholder i {
-            font-size: 2.8rem;
-            color: var(--neon-green);
-            cursor: pointer;
-            transition: transform 0.2s;
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+            outline: none;
+            background: #000;
         }
-        .video-placeholder i:hover {
-            transform: scale(1.15);
-        }
-        .duration {
+        
+        .expand-btn {
             position: absolute;
-            bottom: 8px;
+            top: 8px;
             right: 8px;
-            background: rgba(0,0,0,0.85);
-            padding: 2px 6px;
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--text-main);
+            border: 1px solid var(--neon-green);
             border-radius: 4px;
-            font-size: 0.75rem;
-            color: #fff;
+            padding: 6px 10px;
+            cursor: pointer;
+            z-index: 10;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.8rem;
         }
-        h3 {
-            font-size: 1.05rem;
-            margin-bottom: 0.4rem;
+        .expand-btn:hover {
+            background: var(--neon-green);
+            color: #000;
         }
-        p {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-            line-height: 1.4;
-            flex-grow: 1;
+
+        /* Fullscreen Overlay State */
+        .video-container.expanded {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 9999;
+            background: rgba(0,0,0,0.95);
+            border-radius: 0;
+            padding: 2rem;
+            margin: 0;
         }
+        .video-container.expanded video {
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* Text Formatting */
+        h3 { font-size: 1.2rem; margin-bottom: 0.2rem; color: #fff; }
+        .host-text { color: var(--neon-green); font-size: 0.9rem; font-weight: bold; margin-bottom: 0.2rem; }
+        .time-text { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem; flex-grow: 1; }
+        
+        /* Interaction Actions */
         .actions {
             display: flex;
             gap: 1.2rem;
@@ -96,65 +123,100 @@
             border-top: 1px solid #282828;
             padding-top: 0.8rem;
         }
-        .actions span {
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-        .actions span:hover {
-            color: var(--neon-green);
-        }
-        .liked {
-            color: var(--neon-green) !important;
-        }
+        .actions span { cursor: pointer; transition: color 0.2s; }
+        .actions span:hover { color: var(--neon-green); }
+        .liked { color: var(--neon-green) !important; }
     </style>
 </head>
 <body>
     <div class="section-header">Latest <span class="neon-text">Podcasts</span></div>
     <div class="grid-container">
-        <!-- Episode 1 -->
+
+        <!-- New Video: Voice Up -->
         <div class="card">
-            <div class="video-placeholder">
-                <i class="fas fa-play-circle" onclick="playEpisode('Hurt & Heal: Episode 12')"></i>
-                <span class="duration">45:20</span>
+            <div class="video-container" id="vc-1">
+                <video src="voice up.mp4" controls preload="metadata"></video>
+                <button class="expand-btn" onclick="toggleExpand('vc-1', this)">
+                    <i class="fas fa-expand"></i> Expand
+                </button>
+            </div>
+            <h3>Voice Up</h3>
+            <div class="host-text">Hosted By Mpheme Mmolai</div>
+            <div class="time-text">Mondays 10am</div>
+            <div class="actions">
+                <span onclick="toggleLove(this)"><i class="far fa-heart"></i> <span class="label">Love</span></span>
+                <span onclick="triggerComment('Voice Up')"><i class="far fa-comment"></i> Comment</span>
+            </div>
+        </div>
+
+        <!-- Podcast Placeholder 1 -->
+        <div class="card">
+            <div class="video-container" id="vc-2">
+                <video src="" controls preload="none"></video>
+                <button class="expand-btn" onclick="toggleExpand('vc-2', this)">
+                    <i class="fas fa-expand"></i> Expand
+                </button>
             </div>
             <h3>Hurt & Heal: Episode 12</h3>
-            <p>DJ Mo Gee discusses emotional therapy and community mental health recovery.</p>
+            <div class="host-text">Hosted By DJ Mo Gee</div>
+            <div class="time-text">Sundays 12pm</div>
             <div class="actions">
                 <span onclick="toggleLove(this)"><i class="far fa-heart"></i> <span class="label">Love</span></span>
                 <span onclick="triggerComment('Hurt & Heal: Episode 12')"><i class="far fa-comment"></i> Comment</span>
             </div>
         </div>
 
-        <!-- Episode 2 -->
+        <!-- Podcast Placeholder 2 -->
         <div class="card">
-            <div class="video-placeholder">
-                <i class="fas fa-play-circle" onclick="playEpisode('ChooseDay Live Highlights')"></i>
-                <span class="duration">1:12:05</span>
+            <div class="video-container" id="vc-3">
+                <video src="" controls preload="none"></video>
+                <button class="expand-btn" onclick="toggleExpand('vc-3', this)">
+                    <i class="fas fa-expand"></i> Expand
+                </button>
             </div>
-            <h3>ChooseDay Live Highlights</h3>
-            <p>Motswedi breaks down trending youth culture, fashion, and southern entertainment.</p>
+            <h3>ChooseDay Live Exclusives</h3>
+            <div class="host-text">Hosted By Motswedi</div>
+            <div class="time-text">Tuesdays 1pm</div>
             <div class="actions">
                 <span onclick="toggleLove(this)"><i class="far fa-heart"></i> <span class="label">Love</span></span>
                 <span onclick="triggerComment('ChooseDay Live Highlights')"><i class="far fa-comment"></i> Comment</span>
             </div>
         </div>
 
-        <!-- Episode 3 -->
+        <!-- Podcast Placeholder 3 -->
         <div class="card">
-            <div class="video-placeholder">
-                <i class="fas fa-play-circle" onclick="playEpisode('Afro Diamonds Spotlight')"></i>
-                <span class="duration">58:30</span>
+            <div class="video-container" id="vc-4">
+                <video src="" controls preload="none"></video>
+                <button class="expand-btn" onclick="toggleExpand('vc-4', this)">
+                    <i class="fas fa-expand"></i> Expand
+                </button>
             </div>
             <h3>Afro Diamonds Spotlight</h3>
-            <p>Leano Kgaswane interviews rising regional talent pushing Southern African beats.</p>
+            <div class="host-text">Hosted By Leano Kgaswane</div>
+            <div class="time-text">Thursdays 2pm</div>
             <div class="actions">
                 <span onclick="toggleLove(this)"><i class="far fa-heart"></i> <span class="label">Love</span></span>
                 <span onclick="triggerComment('Afro Diamonds Spotlight')"><i class="far fa-comment"></i> Comment</span>
             </div>
         </div>
+
     </div>
 
     <script>
+        // Smoothly expand and shrink the video players
+        function toggleExpand(containerId, btn) {
+            const container = document.getElementById(containerId);
+            
+            if (container.classList.contains('expanded')) {
+                container.classList.remove('expanded');
+                btn.innerHTML = '<i class="fas fa-expand"></i> Expand';
+            } else {
+                container.classList.add('expanded');
+                btn.innerHTML = '<i class="fas fa-compress"></i> Shrink';
+            }
+        }
+
+        // Toggle Love button
         function toggleLove(btn) {
             const icon = btn.querySelector('i');
             const label = btn.querySelector('.label');
@@ -169,15 +231,12 @@
             }
         }
 
+        // Trigger Comment Box
         function triggerComment(title) {
             const comment = prompt(`Leave a comment for "${title}":`);
             if (comment && comment.trim() !== '') {
-                alert('Thank you! Your comment has been received.');
+                alert('Thank you! Your comment has been posted.');
             }
-        }
-
-        function playEpisode(title) {
-            alert(`Loading video stream for "${title}"...`);
         }
     </script>
 </body>
