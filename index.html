@@ -132,26 +132,12 @@
         .video-dropdown { position: fixed; top: 80px; right: 5%; background: var(--card-bg); border: 1px solid var(--neon-green); border-radius: 12px; padding: 1rem; z-index: 99; width: 350px; max-height: 80vh; overflow-y: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.8); display: none; flex-direction: column; }
         .video-dropdown.show { display: flex; }
 
+        /* Floating Live Chat Parent Container */
         .floating-chat { position: fixed; bottom: 30px; right: 5%; width: 350px; background: var(--card-bg); border: 1px solid var(--neon-green); border-radius: 12px 12px 0 0; box-shadow: 0 10px 40px rgba(0,0,0,0.9); z-index: 1001; display: none; flex-direction: column; overflow: hidden; transition: all 0.3s ease; }
         .floating-chat.show { display: flex; }
         .floating-chat.minimized .floating-chat-body { display: none; }
         .floating-chat-header { background: #151515; padding: 1rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--neon-green); cursor: pointer; color: var(--neon-green); font-weight: bold; }
-        .floating-chat-body { height: 400px; display: flex; flex-direction: column; background: var(--bg-darker); }
-        .chat-messages { flex: 1; overflow-y: auto; padding: 1rem; display: flex; flex-direction: column; gap: 0.8rem; scroll-behavior: smooth; }
-        .chat-message { display: flex; flex-direction: column; align-items: flex-start; animation: slideIn 0.3s ease-out; transition: opacity 0.5s ease-out; }
-        .chat-message.fade-out { opacity: 0; }
-        @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .chat-header { font-size: 0.8rem; margin-bottom: 0.2rem; font-weight: bold; display: flex; gap: 0.5rem; align-items: center; }
-        .chat-time { font-size: 0.65rem; color: #666; font-weight: normal; }
-        .chat-bubble { background: #222; padding: 0.6rem 1rem; border-radius: 12px; border-top-left-radius: 2px; font-size: 0.9rem; color: #fff; max-width: 90%; word-wrap: break-word; line-height: 1.4; }
-        
-        .color-1-text { color: var(--color-1); } .color-2-text { color: var(--color-2); } .color-3-text { color: var(--color-3); } .color-4-text { color: var(--color-4); } .color-5-text { color: var(--color-5); }
-        
-        .chat-input-area { display: flex; padding: 0.8rem; background: #111; border-top: 1px solid var(--card-border); gap: 0.5rem; }
-        .chat-input-area input[type="text"] { background: #222; border: 1px solid #444; color: #fff; padding: 0.6rem 0.8rem; border-radius: 20px; outline: none; font-size: 0.85rem; }
-        .chat-input-name { width: 35%; }
-        .chat-input-msg { flex: 1; }
-        .chat-btn { background: var(--neon-green); color: #000; border: none; width: 35px; height: 35px; border-radius: 50%; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .floating-chat-body { height: 400px; display: block; background: var(--bg-darker); }
 
         .btn-toggle { background-color: transparent; color: var(--neon-green); border: 1px solid var(--neon-green); padding: 0.6rem 2rem; border-radius: 25px; cursor: pointer; margin-top: 2rem; font-weight: bold; font-size: 0.9rem; transition: all 0.3s; }
         .btn-toggle:hover { background-color: var(--neon-green); color: #000; }
@@ -210,6 +196,7 @@
         </ul>
     </nav>
 
+    <!-- FLOATING LIVE CHAT OVERLAY -->
     <div id="floating-chat" class="floating-chat">
         <div class="floating-chat-header" onclick="minimizeChat()">
             <span><i class="fas fa-comments"></i> LOR Live Chat</span>
@@ -218,16 +205,8 @@
                 <i class="fas fa-times" onclick="closeChat(event)" title="Close" style="margin-left: 15px;"></i>
             </div>
         </div>
-        <div class="floating-chat-body" id="chat-body">
-            <div id="chat-messages" class="chat-messages">
-                <div id="chat-loading" style="color: #666; font-style: italic; text-align: center; padding: 2rem;">Connecting to live chat...</div>
-            </div>
-            <form id="chat-form" class="chat-input-area">
-                <input type="text" id="chat-name" class="chat-input-name" placeholder="Name" required>
-                <input type="text" id="chat-message" class="chat-input-msg" placeholder="Message..." required>
-                <button type="submit" class="chat-btn"><i class="fas fa-paper-plane"></i></button>
-            </form>
-        </div>
+        <!-- Chat logic moved to iframe -->
+        <iframe src="chat.html" class="floating-chat-body" style="border: none; width: 100%;"></iframe>
     </div>
 
     <div id="live-video-dropdown" class="video-dropdown">
@@ -570,145 +549,6 @@
             const liveVideoDropdown = document.getElementById('live-video-dropdown');
             if (liveVideoDropdown.classList.contains('show') && !e.target.closest('.video-dropdown') && !e.target.closest('.btn-live-video')) {
                 liveVideoDropdown.classList.remove('show');
-            }
-        });
-    </script>
-
-    <!-- ============================================== -->
-    <!-- FIREBASE LIVE CHAT LOGIC (24-Hour Expiration)  -->
-    <!-- ============================================== -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-        import { getDatabase, ref, push, onChildAdded, query, limitToLast, remove } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyBdLuCGZWVKtyfLhr1vaB6bydGF7NiK29o",
-            authDomain: "lobatse-radio.firebaseapp.com",
-            databaseURL: "https://lobatse-radio-default-rtdb.firebaseio.com",
-            projectId: "lobatse-radio",
-            storageBucket: "lobatse-radio.firebasestorage.app",
-            messagingSenderId: "136141473716",
-            appId: "1:136141473716:web:7e1c4dee78c5939ac894e1"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
-
-        const chatForm = document.getElementById('chat-form');
-        const chatMessages = document.getElementById('chat-messages');
-        const chatNameInput = document.getElementById('chat-name');
-        
-        let colorIndex = 3; 
-        let totalMessages = 0;
-        const retentionTime = 86400000; // 24 Hours in Milliseconds
-
-        function applyNameLock() {
-            const storedData = localStorage.getItem('lor_chat_user');
-            if (storedData) {
-                const { name, timestamp } = JSON.parse(storedData);
-                if (Date.now() - timestamp < retentionTime) {
-                    chatNameInput.value = name;
-                } else {
-                    localStorage.removeItem('lor_chat_user');
-                }
-            }
-        }
-        applyNameLock();
-
-        function updateBadge() {
-            const badge = document.getElementById('chat-badge');
-            if (badge) {
-                if (totalMessages > 0) {
-                    badge.style.display = 'inline-block';
-                    badge.innerText = totalMessages;
-                } else {
-                    badge.style.display = 'none';
-                }
-            }
-        }
-
-        function getCurrentTime() {
-            return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        }
-
-        function scrollToBottom() {
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        chatForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const name = chatNameInput.value.trim();
-            const message = document.getElementById('chat-message').value.trim();
-
-            if (!name || !message) return;
-
-            const now = Date.now();
-            localStorage.setItem('lor_chat_user', JSON.stringify({ name: name, timestamp: now }));
-            applyNameLock(); 
-
-            // Directly push device timestamp to completely bypass NaN issues
-            try {
-                await push(ref(db, 'shoutouts'), {
-                    name: name,
-                    message: message,
-                    time: getCurrentTime(),
-                    colorIndex: colorIndex,
-                    timestamp: now
-                });
-                colorIndex = colorIndex >= 5 ? 1 : colorIndex + 1;
-                document.getElementById('chat-message').value = '';
-            } catch (err) {
-                console.error("Firebase write error:", err);
-            }
-        });
-
-        const recentShoutouts = query(ref(db, 'shoutouts'), limitToLast(100));
-        
-        onChildAdded(recentShoutouts, (snapshot) => {
-            const loading = document.getElementById('chat-loading');
-            if (loading) loading.style.display = 'none';
-
-            const data = snapshot.val();
-            const key = snapshot.key;
-            if (!data || !data.message) return;
-
-            const messageAge = Date.now() - (data.timestamp || Date.now());
-
-            if (messageAge < retentionTime) {
-                const newItem = document.createElement('div');
-                newItem.className = 'chat-message';
-                
-                newItem.innerHTML = `
-                    <div class="chat-header">
-                        <span class="color-${data.colorIndex || 1}-text">${data.name || 'Anonymous'}</span>
-                        <span class="chat-time">${data.time || ''}</span>
-                    </div>
-                    <div class="chat-bubble">${data.message}</div>
-                `;
-
-                chatMessages.appendChild(newItem);
-                scrollToBottom();
-
-                totalMessages++;
-                updateBadge();
-
-                // Auto-hide and delete from database when it hits 24 hours
-                setTimeout(() => {
-                    if (chatMessages.contains(newItem)) {
-                        newItem.classList.add('fade-out');
-                        setTimeout(() => {
-                            if (chatMessages.contains(newItem)) {
-                                chatMessages.removeChild(newItem);
-                                totalMessages = Math.max(0, totalMessages - 1);
-                                updateBadge();
-                            }
-                        }, 500); 
-                    }
-                    remove(ref(db, 'shoutouts/' + key));
-                }, Math.max(1000, retentionTime - messageAge));
-            } else {
-                // If message is already older than 24h when loading, delete it directly from Firebase
-                remove(ref(db, 'shoutouts/' + key));
             }
         });
     </script>
