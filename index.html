@@ -561,7 +561,6 @@
             <button class="btn-submit-song" onclick="toggleSongModal(event)">Submit Your Song</button>
         </div>
 
-        <!-- Correctly styled Form Drawer -->
         <div id="ad-form-drawer" class="form-drawer">
             <h3 style="margin-top: 0; color: #fff; margin-bottom: 1.5rem; text-align: center;">Advertise Inquiry</h3>
             <form id="ad-contact-form" onsubmit="sendAdEmail(event)" style="display: flex; flex-direction: column;">
@@ -976,14 +975,16 @@
 
             const now = new Date().getTime();
             let msgTime = now;
+            
+            // Failsafe: Properly grab the timestamp regardless of Firebase's internal sync state
             if (data.timestamp && typeof data.timestamp === 'number') {
                 msgTime = data.timestamp;
             }
             
             const messageAge = now - msgTime;
 
-            // Display message if it's within 24 hours or if timestamp is freshly generated
-            if (messageAge < retentionTime || isNaN(messageAge)) {
+            // Only hide messages if we are 100% sure they are older than 24 hours
+            if (messageAge < retentionTime || isNaN(messageAge) || messageAge < 0) {
                 const newItem = document.createElement('div');
                 newItem.className = 'chat-message';
                 
