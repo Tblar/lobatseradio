@@ -339,10 +339,6 @@
         .chat-time { font-size: 0.65rem; color: #666; font-weight: normal; }
         .chat-bubble { background: #222; padding: 0.6rem 1rem; border-radius: 12px; border-top-left-radius: 2px; font-size: 0.9rem; color: #fff; max-width: 90%; word-wrap: break-word; line-height: 1.4; }
         
-        .chat-actions { font-size: 0.75rem; color: #666; margin-top: 0.3rem; display: flex; gap: 0.8rem; }
-        .chat-actions span { cursor: pointer; transition: color 0.2s; }
-        .chat-actions span:hover { color: var(--neon-green); }
-
         .color-1-text { color: var(--color-1); } .color-2-text { color: var(--color-2); } .color-3-text { color: var(--color-3); } .color-4-text { color: var(--color-4); } .color-5-text { color: var(--color-5); }
         
         .chat-input-area { display: flex; padding: 0.8rem; background: #111; border-top: 1px solid var(--card-border); gap: 0.5rem; }
@@ -888,7 +884,6 @@
         chatMessages.innerHTML = '';
         let colorIndex = 3; 
         let totalMessages = 0;
-        const retentionTime = 86400000; // 24 hours
 
         function applyNameLock() {
             const storedData = localStorage.getItem('lor_chat_user');
@@ -896,18 +891,22 @@
                 const { name, timestamp } = JSON.parse(storedData);
                 const now = new Date().getTime();
                 
-                if (now - timestamp < retentionTime) {
+                if (now - timestamp < 1800000) {
                     chatNameInput.value = name;
                     chatNameInput.setAttribute('readonly', 'true');
-                    chatNameInput.title = "Your name is locked for 24 hours to prevent spam.";
+                    chatNameInput.classList.add('locked');
+                    chatNameInput.title = "Your name is locked for 30 minutes after your last message.";
                 } else {
                     localStorage.removeItem('lor_chat_user');
                     chatNameInput.removeAttribute('readonly');
+                    chatNameInput.classList.remove('locked');
                     chatNameInput.title = "";
                 }
             }
         }
+        
         applyNameLock();
+        setInterval(applyNameLock, 60000);
 
         function updateBadge() {
             const badge = document.getElementById('chat-badge');
@@ -928,19 +927,6 @@
         function scrollToBottom() {
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
-
-        window.likeChatMsg = function(element) {
-            const countSpan = element.querySelector('.like-count');
-            let count = parseInt(countSpan.innerText);
-            countSpan.innerText = count + 1;
-            element.style.color = "var(--neon-green)";
-        };
-
-        window.replyChatMsg = function(name) {
-            const msgInput = document.getElementById('chat-message');
-            msgInput.value = `@${name} ` + msgInput.value;
-            msgInput.focus();
-        };
 
         chatForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -967,24 +953,21 @@
             document.getElementById('chat-message').value = '';
         });
 
-        const recentShoutouts = query(ref(db, 'shoutouts'), limitToLast(100));
+        const recentShoutouts = query(ref(db, 'shoutouts'), limitToLast(50));
         
         onChildAdded(recentShoutouts, (snapshot) => {
             const data = snapshot.val();
-            if (!data || !data.message) return;
-
             const now = new Date().getTime();
-            let msgTime = now;
             
-            // Failsafe: Properly grab the timestamp regardless of Firebase's internal sync state
+            // Failsafe for timestamp
+            let msgTime = now;
             if (data.timestamp && typeof data.timestamp === 'number') {
                 msgTime = data.timestamp;
             }
             
             const messageAge = now - msgTime;
 
-            // Only hide messages if we are 100% sure they are older than 24 hours
-            if (messageAge < retentionTime || isNaN(messageAge) || messageAge < 0) {
+            if (messageAge < 1800000 || isNaN(messageAge) || messageAge < 0) {
                 const newItem = document.createElement('div');
                 newItem.className = 'chat-message';
                 
@@ -994,10 +977,6 @@
                         <span class="chat-time">${data.time || ''}</span>
                     </div>
                     <div class="chat-bubble">${data.message}</div>
-                    <div class="chat-actions">
-                        <span onclick="likeChatMsg(this)"><i class="fas fa-thumbs-up"></i> <span class="like-count">0</span></span>
-                        <span onclick="replyChatMsg('${data.name || 'Anonymous'}')"><i class="fas fa-reply"></i> Reply</span>
-                    </div>
                 `;
 
                 chatMessages.appendChild(newItem);
@@ -1005,6 +984,21 @@
 
                 totalMessages++;
                 updateBadge();
+
+                const timeLeft = 1800000 - messageAge;
+                
+                setTimeout(() => {
+                    if (chatMessages.contains(newItem)) {
+                        newItem.classList.add('fade-out');
+                        setTimeout(() => {
+                            if (chatMessages.contains(newItem)) {
+                                chatMessages.removeChild(newItem);
+                                totalMessages--;
+                                updateBadge();
+                            }
+                        }, 500); 
+                    }
+                }, Math.max(0, timeLeft));
             }
         });
     </script>
