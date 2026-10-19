@@ -132,7 +132,6 @@
         .video-dropdown { position: fixed; top: 80px; right: 5%; background: var(--card-bg); border: 1px solid var(--neon-green); border-radius: 12px; padding: 1rem; z-index: 99; width: 350px; max-height: 80vh; overflow-y: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.8); display: none; flex-direction: column; }
         .video-dropdown.show { display: flex; }
 
-        /* Floating Live Chat Parent Container */
         .floating-chat { position: fixed; bottom: 30px; right: 5%; width: 350px; background: var(--card-bg); border: 1px solid var(--neon-green); border-radius: 12px 12px 0 0; box-shadow: 0 10px 40px rgba(0,0,0,0.9); z-index: 1001; display: none; flex-direction: column; overflow: hidden; transition: all 0.3s ease; }
         .floating-chat.show { display: flex; }
         .floating-chat.minimized .floating-chat-body { display: none; }
@@ -147,6 +146,14 @@
         .social-links { display: flex; justify-content: center; gap: 1.5rem; margin-top: 1.5rem; }
         .social-icon { color: #fff; background: #222; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 1.3rem; transition: all 0.3s; text-decoration: none; }
         .social-icon:hover { background: var(--neon-green); color: #000; transform: translateY(-5px); }
+
+        /* Donation Specific Styles */
+        .donate-amounts { display: flex; justify-content: center; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+        .amount-btn { background: transparent; border: 1px solid #444; color: #fff; padding: 0.6rem 1.5rem; border-radius: 25px; cursor: pointer; font-size: 1rem; transition: all 0.2s; }
+        .amount-btn:hover, .amount-btn.active { border-color: var(--neon-green); color: var(--neon-green); }
+        .payment-method { display: none; background: rgba(57, 255, 20, 0.05); border: 1px solid var(--neon-green); padding: 2rem; border-radius: 12px; margin-top: 1rem; animation: fadeIn 0.3s ease-in-out; }
+        .payment-method.active-method { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
         @media (max-width: 900px) {
             .navbar { flex-direction: column; gap: 1rem; }
@@ -196,7 +203,6 @@
         </ul>
     </nav>
 
-    <!-- FLOATING LIVE CHAT OVERLAY -->
     <div id="floating-chat" class="floating-chat">
         <div class="floating-chat-header" onclick="minimizeChat()">
             <span><i class="fas fa-comments"></i> LOR Live Chat</span>
@@ -205,7 +211,6 @@
                 <i class="fas fa-times" onclick="closeChat(event)" title="Close" style="margin-left: 15px;"></i>
             </div>
         </div>
-        <!-- Chat logic moved to iframe -->
         <iframe src="chat.html" class="floating-chat-body" style="border: none; width: 100%;"></iframe>
     </div>
 
@@ -218,7 +223,6 @@
         <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 1rem; text-align: center;">Follow our live sessions on TikTok and Facebook.</p>
     </div>
 
-    <!-- Podcast Modal Overlay loads podcasts.html -->
     <div id="podcast-modal" class="modal">
         <div class="modal-content" style="max-width: 900px; padding: 1.5rem;">
             <span class="close-modal" onclick="togglePodcastModal(event)" style="z-index: 10; right: 1.5rem; top: 1.2rem;">&times;</span>
@@ -333,21 +337,46 @@
         </div>
     </section>
 
+    <!-- Restored Donate Section -->
     <section id="donate" class="section">
         <div style="background-color: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 3rem 2rem; max-width: 800px; margin: 0 auto;">
             <i class="far fa-heart" style="color: var(--neon-green); font-size: 3rem; margin-bottom: 1.5rem;"></i>
             <h2 style="font-size: 2rem; margin-bottom: 1rem;">Support the Station</h2>
             <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto 2.5rem; line-height: 1.6;">Your contributions help us maintain equipment, support local talent, and keep the music playing.</p>
             
-            <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
-                <div style="background: rgba(57, 255, 20, 0.05); border: 1px solid var(--neon-green); padding: 1.5rem; border-radius: 12px; flex: 1; min-width: 220px;">
-                    <h3 style="color: var(--neon-green); margin-bottom: 0.5rem;">Orange Money</h3>
-                    <strong>+267 72960417</strong>
-                </div>
-                <div style="background: rgba(57, 255, 20, 0.05); border: 1px solid var(--neon-green); padding: 1.5rem; border-radius: 12px; flex: 1; min-width: 220px;">
-                    <h3 style="color: var(--neon-green); margin-bottom: 0.5rem;">Mascom MyZaka</h3>
-                    <strong>+267 74547439</strong>
-                </div>
+            <div class="donate-amounts">
+                <button class="amount-btn active" onclick="showPayment('orange', this)">Orange Money</button>
+                <button class="amount-btn" onclick="showPayment('myzaka', this)">Mascom MyZaka</button>
+                <button class="amount-btn" onclick="showPayment('bank', this)">Bank Transfer</button>
+                <button class="amount-btn" onclick="showPayment('paypal', this)">PayPal</button>
+            </div>
+            
+            <div id="orange" class="payment-method active-method">
+                <h3 style="color: var(--neon-green); margin-bottom: 1rem;">Orange Money</h3>
+                <p>Send your contribution directly via Orange Money to:<br><strong style="font-size: 1.2rem; color: #fff; display: block; margin-top: 0.5rem;">+267 72960417</strong></p>
+                <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-muted);">Please use your name as the reference.</p>
+            </div>
+
+            <div id="myzaka" class="payment-method">
+                <h3 style="color: var(--neon-green); margin-bottom: 1rem;">Mascom MyZaka</h3>
+                <p>Send your contribution directly via MyZaka to:<br><strong style="font-size: 1.2rem; color: #fff; display: block; margin-top: 0.5rem;">+267 74547439</strong></p>
+                <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-muted);">Please use your name as the reference.</p>
+            </div>
+
+            <div id="bank" class="payment-method">
+                <h3 style="color: var(--neon-green); margin-bottom: 1rem;">Bank Transfer</h3>
+                <p style="line-height: 1.8;">
+                    <strong>Bank:</strong> FNB Botswana<br>
+                    <strong>Account Name:</strong> Lobatse Radio<br>
+                    <strong>Account Number:</strong> 625-122-697-64<br>
+                    <strong>Branch Code:</strong> 281767
+                </p>
+            </div>
+
+            <div id="paypal" class="payment-method">
+                <h3 style="color: var(--neon-green); margin-bottom: 1rem;">PayPal</h3>
+                <p>Support us globally via PayPal's secure network.</p>
+                <a href="#" class="btn-submit-song" style="display: inline-block; margin-top: 1rem; text-decoration: none;">Go to PayPal.me</a>
             </div>
         </div>
     </section>
@@ -424,6 +453,14 @@
         navVolumeSlider.addEventListener('input', (e) => {
             audio.volume = e.target.value;
         });
+
+        // Donation Tab Logic
+        function showPayment(methodId, btn) {
+            document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('active-method'));
+            document.getElementById(methodId).classList.add('active-method');
+        }
 
         function toggleAdForm() {
             const drawer = document.getElementById('ad-form-drawer');
