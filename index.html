@@ -92,7 +92,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.5rem 5%;
+            padding: 1.2rem 5%;
             background-color: rgba(10, 10, 10, 0.95);
             position: sticky;
             top: 0;
@@ -273,7 +273,7 @@
         .btn-submit-song { background-color: #ff8c00; color: #fff; border: none; padding: 0.8rem 1.5rem; border-radius: 25px; font-weight: bold; font-size: 1rem; cursor: pointer; transition: transform 0.2s; }
         .btn-submit-song:hover { background-color: #e67e00; transform: scale(1.05); }
 
-        /* Fixed Advertise Form Drawer */
+        /* Advertise Form Drawer */
         .form-drawer {
             display: none;
             background: var(--card-bg);
@@ -338,7 +338,7 @@
         .chat-header { font-size: 0.8rem; margin-bottom: 0.2rem; font-weight: bold; display: flex; gap: 0.5rem; align-items: center; }
         .chat-time { font-size: 0.65rem; color: #666; font-weight: normal; }
         .chat-bubble { background: #222; padding: 0.6rem 1rem; border-radius: 12px; border-top-left-radius: 2px; font-size: 0.9rem; color: #fff; max-width: 90%; word-wrap: break-word; line-height: 1.4; }
-        
+
         .color-1-text { color: var(--color-1); } .color-2-text { color: var(--color-2); } .color-3-text { color: var(--color-3); } .color-4-text { color: var(--color-4); } .color-5-text { color: var(--color-5); }
         
         .chat-input-area { display: flex; padding: 0.8rem; background: #111; border-top: 1px solid var(--card-border); gap: 0.5rem; }
@@ -416,7 +416,7 @@
         </div>
         <div class="floating-chat-body" id="chat-body">
             <div id="chat-messages" class="chat-messages">
-                <div style="color: #666; font-style: italic; text-align: center; padding: 2rem;">Connecting to live chat...</div>
+                <div id="chat-loading" style="color: #666; font-style: italic; text-align: center; padding: 2rem;">Connecting to live chat...</div>
             </div>
             <form id="chat-form" class="chat-input-area">
                 <input type="text" id="chat-name" class="chat-input-name" placeholder="Name" required>
@@ -439,49 +439,11 @@
         <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 1rem; text-align: center;">Follow our live sessions on TikTok and Facebook.</p>
     </div>
 
-    <!-- Podcast Modal Overlay -->
+    <!-- Podcasts Modal Overlay (Loading separate podcasts.html file) -->
     <div id="podcast-modal" class="modal">
-        <div class="modal-content" style="max-width: 900px; padding: 2rem;">
+        <div class="modal-content" style="max-width: 900px; padding: 1.5rem;">
             <span class="close-modal" onclick="togglePodcastModal(event)" style="z-index: 10; right: 1.5rem; top: 1.2rem;">&times;</span>
-            <div class="section-header" style="margin-bottom: 2rem;">Latest <span class="neon-text">Podcasts</span></div>
-            <div class="grid-container">
-                <div class="card">
-                    <div style="background: #222; height: 180px; border-radius: 8px; display:flex; align-items:center; justify-content:center; margin-bottom:1rem; position: relative;">
-                        <i class="fas fa-play-circle" style="font-size: 3rem; color: var(--neon-green); cursor: pointer;" onclick="alert('Playing Hurt & Heal Episode 12')"></i>
-                        <span style="position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.8); padding: 2px 6px; border-radius: 4px; font-size: 0.75rem;">45:20</span>
-                    </div>
-                    <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Hurt & Heal: Episode 12</h3>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">DJ Mo Gee discusses mental health and processing trauma.</p>
-                    <div style="display: flex; gap: 1rem; color: #888; font-size: 0.9rem; border-top: 1px solid #333; padding-top: 0.8rem;">
-                        <span style="cursor:pointer;" onclick="likePodcast(this)"><i class="far fa-heart"></i> Like</span>
-                        <span style="cursor:pointer;" onclick="commentPodcast()"><i class="far fa-comment"></i> Comment</span>
-                    </div>
-                </div>
-                <div class="card">
-                    <div style="background: #222; height: 180px; border-radius: 8px; display:flex; align-items:center; justify-content:center; margin-bottom:1rem; position: relative;">
-                        <i class="fas fa-play-circle" style="font-size: 3rem; color: var(--neon-green); cursor: pointer;" onclick="alert('Playing ChooseDay Live')"></i>
-                        <span style="position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.8); padding: 2px 6px; border-radius: 4px; font-size: 0.75rem;">1:12:05</span>
-                    </div>
-                    <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">ChooseDay Live Exclusives</h3>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Motswedi breaks down the latest trending youth culture topics.</p>
-                    <div style="display: flex; gap: 1rem; color: #888; font-size: 0.9rem; border-top: 1px solid #333; padding-top: 0.8rem;">
-                        <span style="cursor:pointer;" onclick="likePodcast(this)"><i class="far fa-heart"></i> Like</span>
-                        <span style="cursor:pointer;" onclick="commentPodcast()"><i class="far fa-comment"></i> Comment</span>
-                    </div>
-                </div>
-                <div class="card">
-                    <div style="background: #222; height: 180px; border-radius: 8px; display:flex; align-items:center; justify-content:center; margin-bottom:1rem; position: relative;">
-                        <i class="fas fa-play-circle" style="font-size: 3rem; color: var(--neon-green); cursor: pointer;" onclick="alert('Playing Afro Diamonds')"></i>
-                        <span style="position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.8); padding: 2px 6px; border-radius: 4px; font-size: 0.75rem;">58:30</span>
-                    </div>
-                    <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Afro Diamonds Interview</h3>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Leano Kgaswane sits down with a rising local star.</p>
-                    <div style="display: flex; gap: 1rem; color: #888; font-size: 0.9rem; border-top: 1px solid #333; padding-top: 0.8rem;">
-                        <span style="cursor:pointer;" onclick="likePodcast(this)"><i class="far fa-heart"></i> Like</span>
-                        <span style="cursor:pointer;" onclick="commentPodcast()"><i class="far fa-comment"></i> Comment</span>
-                    </div>
-                </div>
-            </div>
+            <iframe src="podcasts.html" style="width: 100%; height: 75vh; border: none; border-radius: 12px; background: transparent;"></iframe>
         </div>
     </div>
 
@@ -640,7 +602,6 @@
     <!-- JAVASCRIPT LOGIC                               -->
     <!-- ============================================== -->
     <script>
-        // --- LIVE VIDEO CONTROLS ---
         const isTikTokLive = false; 
         const isFacebookLive = false; 
 
@@ -700,16 +661,6 @@
         navVolumeSlider.addEventListener('input', (e) => {
             audio.volume = e.target.value;
         });
-
-        // Podcast Like & Comment Functions
-        window.likePodcast = function(btn) {
-            btn.style.color = 'var(--neon-green)';
-            btn.innerHTML = '<i class="fas fa-heart"></i> Liked';
-        };
-
-        window.commentPodcast = function() {
-            alert("Comment section will open in the next update!");
-        };
 
         // Modals & UI Toggles
         function toggleAdForm() {
@@ -857,11 +808,11 @@
     </script>
 
     <!-- ============================================== -->
-    <!-- FIREBASE LIVE CHAT LOGIC                       -->
+    <!-- FIREBASE LIVE CHAT LOGIC (24-Hour Expiration)  -->
     <!-- ============================================== -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-        import { getDatabase, ref, push, onChildAdded, serverTimestamp, query, limitToLast } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
+        import { getDatabase, ref, push, onChildAdded, query, limitToLast } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBdLuCGZWVKtyfLhr1vaB6bydGF7NiK29o",
@@ -880,33 +831,27 @@
         const chatForm = document.getElementById('chat-form');
         const chatMessages = document.getElementById('chat-messages');
         const chatNameInput = document.getElementById('chat-name');
+        const loadingIndicator = document.getElementById('chat-loading');
         
-        chatMessages.innerHTML = '';
         let colorIndex = 3; 
         let totalMessages = 0;
+        const retentionTime = 86400000; // 24 Hours in Milliseconds
 
         function applyNameLock() {
             const storedData = localStorage.getItem('lor_chat_user');
             if (storedData) {
                 const { name, timestamp } = JSON.parse(storedData);
-                const now = new Date().getTime();
+                const now = Date.now();
                 
-                if (now - timestamp < 1800000) {
+                // Name remains remembered for 24h
+                if (now - timestamp < retentionTime) {
                     chatNameInput.value = name;
-                    chatNameInput.setAttribute('readonly', 'true');
-                    chatNameInput.classList.add('locked');
-                    chatNameInput.title = "Your name is locked for 30 minutes after your last message.";
                 } else {
                     localStorage.removeItem('lor_chat_user');
-                    chatNameInput.removeAttribute('readonly');
-                    chatNameInput.classList.remove('locked');
-                    chatNameInput.title = "";
                 }
             }
         }
-        
         applyNameLock();
-        setInterval(applyNameLock, 60000);
 
         function updateBadge() {
             const badge = document.getElementById('chat-badge');
@@ -935,39 +880,43 @@
 
             if (!name || !message) return;
 
+            const now = Date.now();
+
             localStorage.setItem('lor_chat_user', JSON.stringify({ 
                 name: name, 
-                timestamp: new Date().getTime() 
+                timestamp: now 
             }));
-            applyNameLock(); 
 
+            // Push message with client epoch timestamp to prevent NaN glitches
             push(ref(db, 'shoutouts'), {
                 name: name,
                 message: message,
                 time: getCurrentTime(),
                 colorIndex: colorIndex,
-                timestamp: serverTimestamp()
+                timestamp: now
             });
 
             colorIndex = colorIndex >= 5 ? 1 : colorIndex + 1;
             document.getElementById('chat-message').value = '';
         });
 
-        const recentShoutouts = query(ref(db, 'shoutouts'), limitToLast(50));
+        // Query the last 100 messages from Firebase
+        const recentShoutouts = query(ref(db, 'shoutouts'), limitToLast(100));
         
         onChildAdded(recentShoutouts, (snapshot) => {
-            const data = snapshot.val();
-            const now = new Date().getTime();
-            
-            // Failsafe for timestamp
-            let msgTime = now;
-            if (data.timestamp && typeof data.timestamp === 'number') {
-                msgTime = data.timestamp;
+            if (loadingIndicator && loadingIndicator.parentNode) {
+                loadingIndicator.parentNode.removeChild(loadingIndicator);
             }
-            
+
+            const data = snapshot.val();
+            if (!data || !data.message) return;
+
+            const now = Date.now();
+            const msgTime = (typeof data.timestamp === 'number') ? data.timestamp : now;
             const messageAge = now - msgTime;
 
-            if (messageAge < 1800000 || isNaN(messageAge) || messageAge < 0) {
+            // Only display if posted within the last 24 hours
+            if (messageAge < retentionTime) {
                 const newItem = document.createElement('div');
                 newItem.className = 'chat-message';
                 
@@ -985,20 +934,15 @@
                 totalMessages++;
                 updateBadge();
 
-                const timeLeft = 1800000 - messageAge;
-                
+                // Auto-remove message when it completes 24 hours
+                const remainingTime = retentionTime - messageAge;
                 setTimeout(() => {
                     if (chatMessages.contains(newItem)) {
-                        newItem.classList.add('fade-out');
-                        setTimeout(() => {
-                            if (chatMessages.contains(newItem)) {
-                                chatMessages.removeChild(newItem);
-                                totalMessages--;
-                                updateBadge();
-                            }
-                        }, 500); 
+                        chatMessages.removeChild(newItem);
+                        totalMessages = Math.max(0, totalMessages - 1);
+                        updateBadge();
                     }
-                }, Math.max(0, timeLeft));
+                }, Math.max(1000, remainingTime));
             }
         });
     </script>
