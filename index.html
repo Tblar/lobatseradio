@@ -20,7 +20,7 @@
     <!-- Open Graph for Facebook & WhatsApp -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Lobatse Radio - Live Streaming Audio in Southern Africa">
-    <meta property="og:description" content="Tune in to Lobatse Online Radio for 24/7 live music, local talk shows, and the pulse of Botswana. Broadcasting to Gaborone, Namibia, Zimbabwe and beyond.">
+    <meta property="og:description" content="Tune in to Lobatse Online Radio for 24/7 live music, local talk shows, and the pulse of Botswana.">
     <meta property="og:image" content="Lradio1.jpeg"> 
     <meta property="og:url" content="https://lobatseradio.com/">
 
@@ -38,7 +38,7 @@
       "name": "Lobatse Online Radio",
       "url": "https://lobatseradio.com/",
       "image": "Lradio1.jpeg",
-      "description": "Lobatse Online Radio is a digital broadcasting platform offering 24/7 live streaming audio, amplifying the voice of Botswana and Southern Africa.",
+      "description": "Lobatse Online Radio is a digital broadcasting platform offering 24/7 live streaming audio.",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Lobatse",
@@ -49,9 +49,7 @@
         "Botswana", "Lobatse", "Gaborone", "Francistown",
         "Namibia", "Zambia", "Zimbabwe", "Eswatini", "Lesotho", "Mozambique"
       ],
-      "telephone": "+26772960417",
-      "genre": ["Afropop", "Amapiano", "RnB", "Afrobeat", "Talk", "News"],
-      "knowsAbout": ["Music", "Local Talent", "Southern Africa", "Entertainment"]
+      "telephone": "+26772960417"
     }
     </script>
     
@@ -77,8 +75,6 @@
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
-            padding-bottom: 90px;
-            overflow-x: hidden;
         }
 
         .neon-text {
@@ -86,7 +82,7 @@
             text-shadow: 0 0 10px rgba(57, 255, 20, 0.2);
         }
 
-        /* Navbar */
+        /* Navbar restored to original structural width */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -97,6 +93,7 @@
             top: 0;
             z-index: 100;
             border-bottom: 1px solid #222;
+            flex-wrap: wrap;
         }
 
         .logo {
@@ -117,11 +114,55 @@
             box-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
         }
 
+        /* Top Audio Player Styles */
+        .top-audio-player {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--card-bg);
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            border: 1px solid var(--neon-green);
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.1);
+        }
+        
+        .play-btn-nav {
+            background-color: var(--neon-green);
+            color: #000;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .play-btn-nav:hover { transform: scale(1.1); }
+
+        .live-indicator {
+            background-color: red;
+            color: white;
+            font-size: 0.6rem;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 4px;
+            animation: pulse 2s infinite;
+            display: inline-block;
+            margin-bottom: 2px;
+        }
+
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+
         .nav-links {
             list-style: none;
             display: flex;
             gap: 1.5rem;
             align-items: center;
+            margin-top: 0;
         }
 
         .nav-links a {
@@ -132,9 +173,7 @@
             cursor: pointer;
         }
 
-        .nav-links a:hover {
-            color: var(--neon-green);
-        }
+        .nav-links a:hover { color: var(--neon-green); }
 
         .btn-donate-nav {
             background-color: var(--neon-green);
@@ -160,12 +199,7 @@
             color: white !important;
         }
 
-        /* Chat Badge */
-        .chat-link-container {
-            position: relative;
-            display: inline-block;
-        }
-
+        .chat-link-container { position: relative; display: inline-block; }
         .chat-badge {
             position: absolute;
             top: -8px;
@@ -181,53 +215,9 @@
             pointer-events: none;
         }
 
-        /* Live Video Dropdown */
-        .video-dropdown {
-            position: fixed;
-            top: 80px;
-            right: 5%;
-            background: var(--card-bg);
-            border: 1px solid var(--neon-green);
-            border-radius: 12px;
-            padding: 1rem;
-            z-index: 99;
-            width: 350px;
-            max-height: 80vh;
-            overflow-y: auto;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-            display: none;
-            flex-direction: column;
-        }
-
-        .video-dropdown::-webkit-scrollbar { width: 6px; }
-        .video-dropdown::-webkit-scrollbar-track { background: var(--bg-darker); }
-        .video-dropdown::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
-        .video-dropdown.show { display: flex; }
-
-        /* Sections */
-        .section {
-            padding: 5rem 5%;
-            text-align: center;
-        }
-
-        .bg-darker {
-            background-color: var(--bg-darker);
-        }
-
-        .section-header {
-            font-size: 2rem;
-            margin-bottom: 3rem;
-            text-align: left;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
         /* Hero */
         .hero {
-            height: 60vh;
+            height: 65vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -235,512 +225,136 @@
             background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=2070&auto=format&fit=crop') center/cover;
         }
 
-        .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-        }
+        .hero h1 { font-size: 4rem; margin-bottom: 1rem; }
 
-        /* Weather Widget */
-        .weather-widget {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            max-width: 400px;
-            margin: -3rem auto 3rem auto;
-            position: relative;
-            z-index: 10;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            text-align: center;
-        }
-
-        .weather-header {
-            color: var(--neon-green);
-            font-size: 1.1rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        .weather-search {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .weather-search input {
-            flex: 1;
-            padding: 0.6rem;
-            background: var(--bg-darker);
-            border: 1px solid #444;
-            color: #fff;
-            border-radius: 6px;
-            outline: none;
-        }
-        
-        .weather-search input:focus { border-color: var(--neon-green); }
-
-        .weather-search button {
-            background: var(--neon-green);
+        /* Big Green Play Button in Hero */
+        .big-hero-play {
+            background-color: var(--neon-green);
             color: #000;
             border: none;
-            padding: 0.6rem 1rem;
-            border-radius: 6px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .weather-result-temp {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: var(--text-main);
-            margin: 0.5rem 0;
-        }
-
-        .weather-result-loc { color: var(--text-muted); font-size: 0.9rem; }
-
-        /* Stats Grid & Top 10 Chart Card */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            padding: 0 5% 3rem 5%;
-        }
-
-        .stat-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            text-align: left;
-            position: relative;
-        }
-
-        .clickable-card {
-            cursor: pointer;
-            transition: border-color 0.3s, transform 0.2s;
-        }
-
-        .clickable-card:hover {
-            border-color: var(--neon-green);
-            transform: translateY(-2px);
-        }
-
-        .stat-number {
-            color: var(--neon-green);
-            font-size: 2.5rem;
-            font-weight: 900;
-            font-style: italic;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-        }
-
-        /* Top 10 Chart Dropdown Drawer */
-        .chart-drawer {
-            display: none;
-            grid-column: 1 / -1;
-            background: var(--card-bg);
-            border: 1px solid var(--neon-green);
-            border-radius: 12px;
-            padding: 2rem;
-            animation: fadeIn 0.3s ease-in-out;
-            text-align: center;
-        }
-
-        .chart-drawer.show { display: block; }
-
-        .chart-image {
-            width: 100%;
-            max-width: 600px;
-            height: auto;
-            border-radius: 8px;
-            margin-top: 1rem;
-        }
-
-        /* Buttons & Forms */
-        .btn-submit-song {
-            background-color: #ff8c00;
-            color: #fff;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 25px;
-            font-weight: bold;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: transform 0.2s, background-color 0.2s;
-            box-shadow: 0 4px 10px rgba(255, 140, 0, 0.3);
-            white-space: nowrap;
-        }
-        .btn-submit-song:hover {
-            background-color: #e67e00;
-            transform: scale(1.05);
-        }
-
-        .form-drawer {
-            display: none;
-            background: var(--card-bg);
-            border: 1px solid var(--neon-green);
-            border-radius: 12px;
-            padding: 2rem;
-            animation: fadeIn 0.3s ease-in-out;
-            text-align: left;
-            margin-bottom: 2rem;
-        }
-        .form-drawer.show { display: block; }
-
-        .custom-input {
-            width: 100%;
-            padding: 0.8rem;
-            background: var(--bg-darker);
-            border: 1px solid #444;
-            color: #fff;
-            border-radius: 6px;
-            outline: none;
-            margin-bottom: 1rem;
-            font-family: inherit;
-        }
-        .custom-input:focus { border-color: var(--neon-green); }
-
-        /* Ad Slider */
-        .ad-slider-container {
-            max-width: 800px;
-            margin: 0 auto;
-            overflow: hidden;
-            border-radius: 12px;
-            border: 1px solid var(--card-border);
-            background: #000;
-            height: 500px;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        
-        .ad-slider {
-            display: flex;
-            height: 100%;
-            transition: transform 0.8s ease-in-out;
-        }
-        
-        .ad-slide {
-            min-width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-        /* Grids and Cards */
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 1.5rem;
-            border: 1px solid var(--card-border);
-            transition: transform 0.3s, border-color 0.3s;
-            text-align: left;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .card:hover { border-color: #333; }
-
-        .presenter-card {
-            cursor: pointer;
-            transition: border-color 0.3s, transform 0.3s;
-        }
-
-        .presenter-card:hover {
-            border-color: var(--neon-green);
-            transform: translateY(-4px);
-        }
-
-        .presenter-img {
-            width: 100px;
-            height: 100px;
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
-            object-fit: cover;
-            margin: 0 auto 1rem;
-            border: 2px solid var(--neon-green);
-            display: block;
-        }
-
-        /* Modal Base */
-        .modal {
-            display: none; 
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 2000;
-            overflow-y: auto;
-            padding: 2rem 5%;
+            font-size: 2.5rem;
+            cursor: pointer;
+            margin-bottom: 2rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.4);
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            backdrop-filter: blur(5px);
+        }
+        
+        .big-hero-play i { margin-left: 6px; /* center the play triangle */ }
+        .big-hero-play:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 40px rgba(57, 255, 20, 0.7);
         }
 
+        .section { padding: 5rem 5%; text-align: center; }
+        .bg-darker { background-color: var(--bg-darker); }
+        .section-header { font-size: 2rem; margin-bottom: 3rem; text-align: left; display: flex; align-items: center; gap: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; padding: 0 5% 3rem 5%; }
+        .stat-card { background-color: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 1.5rem; text-align: left; position: relative; }
+        .clickable-card { cursor: pointer; transition: border-color 0.3s, transform 0.2s; }
+        .clickable-card:hover { border-color: var(--neon-green); transform: translateY(-2px); }
+        .stat-number { color: var(--neon-green); font-size: 2.5rem; font-weight: 900; font-style: italic; margin-bottom: 0.5rem; }
+        .stat-label { color: var(--text-muted); font-size: 0.85rem; letter-spacing: 1px; }
+
+        .chart-drawer { display: none; grid-column: 1 / -1; background: var(--card-bg); border: 1px solid var(--neon-green); border-radius: 12px; padding: 2rem; animation: fadeIn 0.3s ease-in-out; text-align: center; }
+        .chart-drawer.show { display: block; }
+        .chart-image { width: 100%; max-width: 600px; height: auto; border-radius: 8px; margin-top: 1rem; }
+
+        .btn-submit-song { background-color: #ff8c00; color: #fff; border: none; padding: 0.8rem 1.5rem; border-radius: 25px; font-weight: bold; font-size: 1rem; cursor: pointer; transition: transform 0.2s, background-color 0.2s; box-shadow: 0 4px 10px rgba(255, 140, 0, 0.3); }
+        .btn-submit-song:hover { background-color: #e67e00; transform: scale(1.05); }
+
+        .ad-slider-container { max-width: 800px; margin: 0 auto; overflow: hidden; border-radius: 12px; border: 1px solid var(--card-border); background: #000; height: 500px; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .ad-slider { display: flex; height: 100%; transition: transform 0.8s ease-in-out; }
+        .ad-slide { min-width: 100%; height: 100%; object-fit: contain; }
+
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+        .card { background-color: var(--card-bg); border-radius: 12px; padding: 1.5rem; border: 1px solid var(--card-border); text-align: left; display: flex; flex-direction: column; }
+        .card:hover { border-color: #333; }
+        
+        .presenter-card { cursor: pointer; transition: border-color 0.3s, transform 0.3s; }
+        .presenter-card:hover { border-color: var(--neon-green); transform: translateY(-4px); }
+        .presenter-img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin: 0 auto 1rem; border: 2px solid var(--neon-green); display: block; }
+
+        /* Modals */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); z-index: 2000; overflow-y: auto; padding: 2rem 5%; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
         .modal.show { display: flex; }
-
-        .modal-content {
-            background: var(--bg-darker);
-            padding: 2.5rem;
-            border-radius: 16px;
-            border: 1px solid var(--neon-green);
-            max-width: 600px;
-            width: 100%;
-            position: relative;
-            box-shadow: 0 0 50px rgba(57, 255, 20, 0.15);
-            text-align: center;
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 1.2rem;
-            right: 1.5rem;
-            color: var(--text-main);
-            font-size: 2.2rem;
-            cursor: pointer;
-            transition: color 0.3s;
-            line-height: 1;
-        }
-
+        .modal-content { background: var(--bg-darker); padding: 2.5rem; border-radius: 16px; border: 1px solid var(--neon-green); max-width: 600px; width: 100%; position: relative; box-shadow: 0 0 50px rgba(57, 255, 20, 0.15); text-align: center; }
+        .close-modal { position: absolute; top: 1.2rem; right: 1.5rem; color: var(--text-main); font-size: 2.2rem; cursor: pointer; transition: color 0.3s; line-height: 1; }
         .close-modal:hover { color: var(--neon-green); }
-
-        .bio-avatar {
-            width: 130px;
-            height: 130px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin: 0 auto 1.2rem;
-            border: 3px solid var(--neon-green);
-        }
-
-        .bio-title {
-            color: var(--neon-green);
-            font-size: 1rem;
-            margin-bottom: 0.3rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .bio-text {
-            color: var(--text-muted);
-            line-height: 1.7;
-            margin: 1.5rem 0;
-            text-align: left;
-            font-size: 0.95rem;
-        }
-
-        .bio-socials {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
+        .bio-avatar { width: 130px; height: 130px; border-radius: 50%; object-fit: cover; margin: 0 auto 1.2rem; border: 3px solid var(--neon-green); }
 
         /* Floating Live Chat */
-        .floating-chat {
-            position: fixed;
-            bottom: 90px;
-            right: 5%;
-            width: 350px;
-            background: var(--card-bg);
-            border: 1px solid var(--neon-green);
-            border-radius: 12px 12px 0 0;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.9);
-            z-index: 1001;
-            display: none;
-            flex-direction: column;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
+        .floating-chat { position: fixed; bottom: 30px; right: 5%; width: 350px; background: var(--card-bg); border: 1px solid var(--neon-green); border-radius: 12px 12px 0 0; box-shadow: 0 10px 40px rgba(0,0,0,0.9); z-index: 1001; display: none; flex-direction: column; overflow: hidden; transition: all 0.3s ease; }
         .floating-chat.show { display: flex; }
         .floating-chat.minimized .floating-chat-body { display: none; }
+        .floating-chat-header { background: #151515; padding: 1rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--neon-green); cursor: pointer; color: var(--neon-green); font-weight: bold; }
+        .floating-chat-body { height: 400px; display: flex; flex-direction: column; background: var(--bg-darker); }
+        .chat-messages { flex: 1; overflow-y: auto; padding: 1rem; display: flex; flex-direction: column; gap: 0.8rem; scroll-behavior: smooth; }
+        .chat-message { display: flex; flex-direction: column; align-items: flex-start; animation: slideIn 0.3s ease-out; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .chat-header { font-size: 0.8rem; margin-bottom: 0.2rem; font-weight: bold; display: flex; gap: 0.5rem; align-items: center; }
+        .chat-time { font-size: 0.65rem; color: #666; font-weight: normal; }
+        .chat-bubble { background: #222; padding: 0.6rem 1rem; border-radius: 12px; border-top-left-radius: 2px; font-size: 0.9rem; color: #fff; max-width: 90%; word-wrap: break-word; line-height: 1.4; }
+        .chat-actions { font-size: 0.75rem; color: #666; margin-top: 0.3rem; display: flex; gap: 0.8rem; }
+        .chat-actions span { cursor: pointer; transition: color 0.2s; }
+        .chat-actions span:hover { color: var(--neon-green); }
 
-        .floating-chat-header {
-            background: #151515;
-            padding: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--neon-green);
-            cursor: pointer;
-            color: var(--neon-green);
-            font-weight: bold;
-        }
-
-        .floating-chat-header i:hover { color: #fff; }
-
-        .floating-chat-body {
-            height: 400px;
-            display: flex;
-            flex-direction: column;
-            background: var(--bg-darker);
-        }
-
-        .chat-messages {
-            flex: 1;
-            overflow-y: auto;
-            padding: 1rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-            scroll-behavior: smooth;
-        }
-
-        .chat-messages::-webkit-scrollbar { width: 6px; }
-        .chat-messages::-webkit-scrollbar-track { background: var(--bg-darker); }
-        .chat-messages::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
-        .chat-messages::-webkit-scrollbar-thumb:hover { background: var(--neon-green); }
-
-        .chat-message {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            animation: slideIn 0.3s ease-out;
-            transition: opacity 0.5s ease-out;
-        }
+        .color-1-text { color: var(--color-1); } .color-2-text { color: var(--color-2); } .color-3-text { color: var(--color-3); } .color-4-text { color: var(--color-4); } .color-5-text { color: var(--color-5); }
         
-        .chat-message.fade-out { opacity: 0; }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .chat-header {
-            font-size: 0.8rem;
-            margin-bottom: 0.2rem;
-            font-weight: bold;
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-        }
-
-        .chat-time {
-            font-size: 0.65rem;
-            color: #666;
-            font-weight: normal;
-        }
-
-        .chat-bubble {
-            background: #222;
-            padding: 0.6rem 1rem;
-            border-radius: 12px;
-            border-top-left-radius: 2px;
-            font-size: 0.9rem;
-            color: #fff;
-            max-width: 90%;
-            word-wrap: break-word;
-            line-height: 1.4;
-        }
-
-        .chat-actions {
-            font-size: 0.75rem; 
-            color: #666; 
-            margin-top: 0.3rem; 
-            display: flex; 
-            gap: 0.8rem;
-        }
-
-        .chat-actions span {
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-        .chat-actions span:hover {
-            color: var(--neon-green);
-        }
-
-        .color-1-text { color: var(--color-1); }
-        .color-2-text { color: var(--color-2); }
-        .color-3-text { color: var(--color-3); }
-        .color-4-text { color: var(--color-4); }
-        .color-5-text { color: var(--color-5); }
-
-        .chat-input-area {
-            display: flex;
-            padding: 0.8rem;
-            background: #111;
-            border-top: 1px solid var(--card-border);
-            gap: 0.5rem;
-        }
-
-        .chat-input-area input[type="text"] {
-            background: #222;
-            border: 1px solid #444;
-            color: #fff;
-            padding: 0.6rem 0.8rem;
-            border-radius: 20px;
-            outline: none;
-            font-size: 0.85rem;
-        }
-
-        .chat-input-area input[type="text"].locked {
-            background-color: #0a0a0a;
-            color: #666;
-            border-color: #222;
-            cursor: not-allowed;
-        }
-
-        .chat-input-area input[type="text"]:focus { border-color: var(--neon-green); }
+        .chat-input-area { display: flex; padding: 0.8rem; background: #111; border-top: 1px solid var(--card-border); gap: 0.5rem; }
+        .chat-input-area input[type="text"] { background: #222; border: 1px solid #444; color: #fff; padding: 0.6rem 0.8rem; border-radius: 20px; outline: none; font-size: 0.85rem; }
         .chat-input-name { width: 35%; }
         .chat-input-msg { flex: 1; }
+        .chat-btn { background: var(--neon-green); color: #000; border: none; width: 35px; height: 35px; border-radius: 50%; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 
-        .chat-btn {
-            background: var(--neon-green);
-            color: #000;
-            border: none;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        .btn-toggle { background-color: transparent; color: var(--neon-green); border: 1px solid var(--neon-green); padding: 0.6rem 2rem; border-radius: 25px; cursor: pointer; margin-top: 3rem; font-weight: bold; font-size: 0.9rem; transition: all 0.3s; }
+        .btn-toggle:hover { background-color: var(--neon-green); color: #000; }
+        .hidden-content { display: none !important; }
 
-        .chat-btn:hover { transform: scale(1.1); }
+        .footer { text-align: center; padding: 4rem 5% 4rem; border-top: 1px solid var(--card-border); }
+        .social-links { display: flex; justify-content: center; gap: 1.5rem; margin-top: 1.5rem; }
+        .social-icon { color: #fff; background: #222; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 1.3rem; transition: all 0.3s; text-decoration: none; }
+        .social-icon:hover { background: var(--neon-green); color: #000; transform: translateY(-5px); }
 
-        /* Mobile Fixes */
-        @media (max-width: 768px) {
-            .navbar { flex-direction: column; gap: 1rem; padding: 1rem 5%; }
+        /* Media Queries for layout fallback */
+        @media (max-width: 900px) {
+            .navbar { flex-direction: column; gap: 1rem; }
             .nav-links { flex-wrap: wrap; justify-content: center; gap: 0.8rem; }
-            .hero h1 { font-size: 2.5rem; }
-            .section-header { font-size: 1.6rem; flex-wrap: wrap; justify-content: center; text-align: center; }
-            .ad-slider-container { height: 250px; }
-            .video-dropdown { width: 90%; right: 5%; left: 5%; }
-            .floating-chat { width: 90%; right: 5%; bottom: 85px; }
-            .hidden-mobile { display: none !important; }
-            .volume-control { display: none; }
-            .now-playing { gap: 0.5rem; }
-            .audio-player { padding: 0.8rem 5%; }
-            .modal-content { padding: 1.5rem; width: 95%; }
+            .hero h1 { font-size: 3rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Navigation -->
+    <!-- Navigation with Integrated Player -->
     <nav class="navbar">
         <div class="logo">
             <img src="Lradio1.jpeg" alt="Lobatse Radio Logo" class="logo-img">
             <div>LOBATSE <span class="neon-text">RADIO</span></div>
         </div>
+
+        <!-- NEW: Top Audio Player -->
+        <div class="top-audio-player">
+            <button id="nav-play-btn" class="play-btn-nav">
+                <i class="fas fa-play" style="margin-left: 2px;"></i>
+            </button>
+            <div style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center;">
+                <span class="live-indicator">LIVE</span>
+                <span id="nav-zeno-text" style="font-size: 0.75rem; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px;">Lobatse Radio</span>
+            </div>
+            <!-- Volume Control in Nav -->
+            <div style="display: flex; align-items: center; gap: 0.3rem; margin-left: 0.5rem;">
+                <i class="fas fa-volume-up" style="color: #666; font-size: 0.7rem;"></i>
+                <input type="range" id="nav-volume-slider" min="0" max="1" step="0.01" value="0.8" style="width: 60px; accent-color: var(--neon-green);">
+            </div>
+        </div>
+
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
             <li><a href="#programs">Programs</a></li>
@@ -779,15 +393,14 @@
     </div>
 
     <!-- Live Video Dropdown Panel -->
-    <div id="live-video-dropdown" class="video-dropdown">
+    <div id="live-video-dropdown" class="video-dropdown" style="position: absolute; right: 5%; top: 90px; background: #111; z-index: 1000;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
             <h3 style="color: #fff; font-size: 1.1rem;"><span style="color: red;">🔴</span> Broadcasting Live</h3>
             <i class="fas fa-times" style="cursor: pointer; color: var(--text-muted);" onclick="toggleLiveVideo(event)"></i>
         </div>
         
-        <!-- Live Feed Container (Injected via JS) -->
         <div id="live-feed-container" style="background: #111; border-radius: 8px; overflow: hidden; text-align: center; min-height: 150px; display: flex; align-items: center; justify-content: center; flex-direction: column;">
-            <!-- Content populates here -->
+            <!-- Content populated by JS -->
         </div>
 
         <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 1rem; text-align: center;">Follow our live sessions on TikTok and Facebook.</p>
@@ -799,43 +412,40 @@
             <span class="close-modal" onclick="togglePodcastModal(event)" style="z-index: 10; right: 1.5rem; top: 1.2rem;">&times;</span>
             <div class="section-header" style="margin-bottom: 2rem;">Latest <span class="neon-text">Podcasts</span></div>
             <div class="grid-container">
-                <!-- Podcast 1 -->
                 <div class="card">
                     <div style="background: #222; height: 180px; border-radius: 8px; display:flex; align-items:center; justify-content:center; margin-bottom:1rem; position: relative;">
                         <i class="fas fa-play-circle" style="font-size: 3rem; color: var(--neon-green); cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"></i>
                         <span style="position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.8); padding: 2px 6px; border-radius: 4px; font-size: 0.75rem;">45:20</span>
                     </div>
                     <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Hurt & Heal: Episode 12</h3>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">DJ Mo Gee discusses mental health and processing trauma in this week's special.</p>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">DJ Mo Gee discusses mental health and processing trauma.</p>
                     <div style="display: flex; gap: 1rem; color: #888; font-size: 0.9rem; border-top: 1px solid #333; padding-top: 0.8rem;">
-                        <span style="cursor:pointer; transition:color 0.3s;" onmouseover="this.style.color='var(--neon-green)'" onmouseout="this.style.color='#888'" onclick="this.style.color='var(--neon-green)'; this.innerHTML='<i class=\\'fas fa-heart\\'></i> Liked'"><i class="far fa-heart"></i> Like</span>
-                        <span style="cursor:pointer; transition:color 0.3s;" onmouseover="this.style.color='var(--neon-green)'" onmouseout="this.style.color='#888'"><i class="far fa-comment"></i> Comment</span>
+                        <span style="cursor:pointer;" onclick="this.style.color='var(--neon-green)'; this.innerHTML='<i class=\\'fas fa-heart\\'></i> Liked'"><i class="far fa-heart"></i> Like</span>
+                        <span style="cursor:pointer;"><i class="far fa-comment"></i> Comment</span>
                     </div>
                 </div>
-                <!-- Podcast 2 -->
                 <div class="card">
                     <div style="background: #222; height: 180px; border-radius: 8px; display:flex; align-items:center; justify-content:center; margin-bottom:1rem; position: relative;">
                         <i class="fas fa-play-circle" style="font-size: 3rem; color: var(--neon-green); cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"></i>
                         <span style="position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.8); padding: 2px 6px; border-radius: 4px; font-size: 0.75rem;">1:12:05</span>
                     </div>
                     <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">ChooseDay Live Exclusives</h3>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Motswedi breaks down the latest trending youth culture topics in Botswana.</p>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Motswedi breaks down the latest trending youth culture topics.</p>
                     <div style="display: flex; gap: 1rem; color: #888; font-size: 0.9rem; border-top: 1px solid #333; padding-top: 0.8rem;">
-                        <span style="cursor:pointer; transition:color 0.3s;" onmouseover="this.style.color='var(--neon-green)'" onmouseout="this.style.color='#888'" onclick="this.style.color='var(--neon-green)'; this.innerHTML='<i class=\\'fas fa-heart\\'></i> Liked'"><i class="far fa-heart"></i> Like</span>
-                        <span style="cursor:pointer; transition:color 0.3s;" onmouseover="this.style.color='var(--neon-green)'" onmouseout="this.style.color='#888'"><i class="far fa-comment"></i> Comment</span>
+                        <span style="cursor:pointer;" onclick="this.style.color='var(--neon-green)'; this.innerHTML='<i class=\\'fas fa-heart\\'></i> Liked'"><i class="far fa-heart"></i> Like</span>
+                        <span style="cursor:pointer;"><i class="far fa-comment"></i> Comment</span>
                     </div>
                 </div>
-                <!-- Podcast 3 -->
                 <div class="card">
                     <div style="background: #222; height: 180px; border-radius: 8px; display:flex; align-items:center; justify-content:center; margin-bottom:1rem; position: relative;">
                         <i class="fas fa-play-circle" style="font-size: 3rem; color: var(--neon-green); cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"></i>
                         <span style="position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.8); padding: 2px 6px; border-radius: 4px; font-size: 0.75rem;">58:30</span>
                     </div>
                     <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Afro Diamonds Interview</h3>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Leano Kgaswane sits down with a rising star changing the local business game.</p>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Leano Kgaswane sits down with a rising local star.</p>
                     <div style="display: flex; gap: 1rem; color: #888; font-size: 0.9rem; border-top: 1px solid #333; padding-top: 0.8rem;">
-                        <span style="cursor:pointer; transition:color 0.3s;" onmouseover="this.style.color='var(--neon-green)'" onmouseout="this.style.color='#888'" onclick="this.style.color='var(--neon-green)'; this.innerHTML='<i class=\\'fas fa-heart\\'></i> Liked'"><i class="far fa-heart"></i> Like</span>
-                        <span style="cursor:pointer; transition:color 0.3s;" onmouseover="this.style.color='var(--neon-green)'" onmouseout="this.style.color='#888'"><i class="far fa-comment"></i> Comment</span>
+                        <span style="cursor:pointer;" onclick="this.style.color='var(--neon-green)'; this.innerHTML='<i class=\\'fas fa-heart\\'></i> Liked'"><i class="far fa-heart"></i> Like</span>
+                        <span style="cursor:pointer;"><i class="far fa-comment"></i> Comment</span>
                     </div>
                 </div>
             </div>
@@ -867,37 +477,25 @@
             <div id="bio-show" class="bio-title"></div>
             <div id="bio-time" style="color: var(--text-muted); font-size: 0.9rem;"></div>
             <p id="bio-desc" class="bio-text"></p>
-            <div class="bio-socials" id="bio-socials">
-                <!-- Social links injected via JS -->
-            </div>
+            <div class="bio-socials" id="bio-socials"></div>
         </div>
     </div>
 
     <!-- Hero Section -->
     <header id="home" class="hero">
         <div class="hero-content">
+            <!-- NEW: Big Green Hero Play Button -->
+            <button id="hero-play-btn" class="big-hero-play">
+                <i class="fas fa-play"></i>
+            </button>
+            
             <h1>Where Talent <span class="neon-text">Lives</span></h1>
             <p>Broadcasting the best sounds, news, and entertainment.</p>
         </div>
     </header>
 
-    <!-- Weather Widget -->
-    <div class="weather-widget">
-        <div class="weather-header">
-            <i class="fas fa-cloud-sun"></i> Botswana Weather Forecast
-        </div>
-        <div class="weather-search">
-            <input type="text" id="weather-input" placeholder="Enter city (e.g. Lobatse, Gaborone)" value="Lobatse">
-            <button onclick="fetchWeather()">Search</button>
-        </div>
-        <div id="weather-result">
-            <div class="weather-result-loc" id="weather-loc">Loading...</div>
-            <div class="weather-result-temp" id="weather-temp">--°C</div>
-        </div>
-    </div>
-
     <!-- Stats & Top 10 Chart Section -->
-    <div class="stats-grid">
+    <div class="stats-grid" style="margin-top: 3rem;">
         <div class="stat-card">
             <div class="stat-number">24/7</div>
             <div class="stat-label">LIVE STREAMING</div>
@@ -910,7 +508,6 @@
             <div class="stat-label">OFFICIAL WEEKLY CHART (CLICK TO VIEW)</div>
         </div>
 
-        <!-- Top 10 Chart Image Dropdown -->
         <div id="chart-drawer" class="chart-drawer">
             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; padding-bottom: 0.8rem;">
                 <h3 style="color: #fff; font-size: 1.2rem;"><i class="fas fa-fire" style="color: var(--neon-green);"></i> Kasi 2 Kasi Top 10</h3>
@@ -921,19 +518,15 @@
     </div>
 
     <!-- Advertise With Us Auto-Slider & Contact Forms -->
-    <section id="advertise" class="section">
-        
+    <section id="advertise" class="section bg-darker">
         <div class="section-header" style="justify-content: space-between; display: flex; align-items: center; flex-wrap: wrap; gap: 1rem;">
-            
             <div style="cursor: pointer; display: flex; align-items: center; gap: 0.8rem;" onclick="toggleAdForm()">
                 <span>Advertise <span class="neon-text">With Us</span></span>
                 <i id="ad-form-arrow" class="fas fa-chevron-down" style="font-size: 1.2rem; color: var(--neon-green);"></i>
             </div>
-            
             <button class="btn-submit-song" onclick="toggleSongModal(event)">Submit Your Song</button>
         </div>
 
-        <!-- Ad Inquiry Form Dropdown -->
         <div id="ad-form-drawer" class="form-drawer">
             <h3 style="margin-top: 0; color: #fff; margin-bottom: 1.5rem;">Advertise Inquiry</h3>
             <form id="ad-contact-form" onsubmit="sendAdEmail(event)">
@@ -951,9 +544,7 @@
             </form>
         </div>
         
-        <p style="text-align:left; color:var(--text-muted); margin-top:-1rem; margin-bottom:2rem;">Support local business. Hover over an ad to pause the slide.</p>
-        
-       <div class="ad-slider-container" id="ad-slider-container">
+        <div class="ad-slider-container" id="ad-slider-container">
             <div class="ad-slider" id="ad-slider">
                 <img src="ad1.jpeg" alt="A Touch of Karamel" class="ad-slide">
                 <img src="ad2.jpeg" alt="Inhouse Media" class="ad-slide">
@@ -963,7 +554,7 @@
     </section>
 
     <!-- Programs Section -->
-    <section id="programs" class="section bg-darker">
+    <section id="programs" class="section">
         <div class="section-header">Our <span class="neon-text">Programs</span></div>
         <div class="grid-container" id="program-grid">
             <!-- Programs injected via JavaScript -->
@@ -971,72 +562,22 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="section">
+    <section id="about" class="section bg-darker">
         <div class="section-header">About <span class="neon-text">Us</span></div>
         <div class="about-text">
             <h3 style="text-align: center; font-size: 1.8rem; margin-top: 0; color: #fff;">The Pulse of Lobatse, Broadcasting to the World.</h3>
             <p style="text-align: center; color: #a0a0a0; margin-bottom: 2.5rem; font-style: italic;">Bringing local culture, breaking music, and community voices to your screens and speakers, wherever you are.</p>
             
-            <p>Lobatse Online Radio is a digital broadcasting platform dedicated to amplifying the voice of our community. We bridge the gap between traditional radio and modern streaming, proving that you don't need an FM license to deliver a high-quality, professional, and deeply local radio experience.</p>
-            
-            <div id="about-more" class="hidden-content">
-                <h3>What We Do</h3>
-                <ul>
-                    <li><strong>Champion Local Talent:</strong> We are an incubator for rising broadcasters, DJs, and artists. From Afropop to underground beats, we give creators the platform they deserve to be heard.</li>
-                    <li><strong>Connect the Community:</strong> We go beyond music. LOR is a hub for local stories, cultural pride, and conversations that matter to the people of Lobatse and our diaspora.</li>
-                    <li><strong>Global Reach, Local Heart:</strong> Through accessible online streaming, our listeners can tune in from a smartphone or computer anywhere in the world, staying connected to home.</li>
-                </ul>
-                
-                <h3>Partner With Us</h3>
-                <p>Reach a highly engaged, loyal audience that supports local. We offer accessible, modern advertising and sponsorship packages for businesses looking to grow their brand alongside ours.</p>
-            </div>
-            
             <div style="text-align: center;">
                 <button id="about-toggle-btn" class="btn-toggle" onclick="toggleAbout()">Read More <i class="fas fa-chevron-down"></i></button>
             </div>
-        </div>
-    </section>
-
-    <!-- Donate Section -->
-    <section id="donate" class="section bg-darker">
-        <div class="donate-container">
-            <i class="far fa-heart donate-icon"></i>
-            <h2 class="donate-title">Support the Station</h2>
-            <p class="donate-text">Your contributions help us maintain equipment, support local talent, and keep the music playing completely ad-free.</p>
             
-            <div class="donate-amounts">
-                <button class="amount-btn active" onclick="showPayment('orange', this)">Orange Money</button>
-                <button class="amount-btn" onclick="showPayment('myzaka', this)">MyZaka</button>
-                <button class="amount-btn" onclick="showPayment('bank', this)">Bank Transfer</button>
-                <button class="amount-btn" onclick="showPayment('paypal', this)">PayPal</button>
-            </div>
-            
-            <div id="orange" class="payment-method active-method">
-                <h3 style="color: var(--neon-green); margin-bottom: 1rem;">Orange Money</h3>
-                <p>Send your contribution directly via Orange Money to:<br><strong style="font-size: 1.2rem; color: #fff; display: block; margin-top: 0.5rem;">+267 72960417</strong></p>
-                <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-muted);">Please use your name as the reference.</p>
-            </div>
-
-            <div id="myzaka" class="payment-method">
-                <h3 style="color: var(--neon-green); margin-bottom: 1rem;">Mascom MyZaka</h3>
-                <p>Send your contribution directly via MyZaka to:<br><strong style="font-size: 1.2rem; color: #fff; display: block; margin-top: 0.5rem;">+267 74547439</strong></p>
-                <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-muted);">Please use your name as the reference.</p>
-            </div>
-
-            <div id="bank" class="payment-method">
-                <h3 style="color: var(--neon-green); margin-bottom: 1rem;">Bank Transfer</h3>
-                <p style="line-height: 1.8;">
-                    <strong>Bank:</strong> FNB Botswana<br>
-                    <strong>Account Name:</strong> Lobatse Radio<br>
-                    <strong>Account Number:</strong> 625-122-697-64<br>
-                    <strong>Branch Code:</strong> 281767
-                </p>
-            </div>
-
-            <div id="paypal" class="payment-method">
-                <h3 style="color: var(--neon-green); margin-bottom: 1rem;">PayPal</h3>
-                <p>Support us globally via PayPal's secure network.</p>
-                <a href="#" class="btn-submit-song" style="display: inline-block; margin-top: 1rem; text-decoration: none;">Go to PayPal.me</a>
+            <div id="about-more" class="hidden-content" style="margin-top: 2rem;">
+                <p>Lobatse Online Radio is a digital broadcasting platform dedicated to amplifying the voice of our community. We bridge the gap between traditional radio and modern streaming, proving that you don't need an FM license to deliver a high-quality, professional, and deeply local radio experience.</p>
+                <ul>
+                    <li><strong>Champion Local Talent:</strong> We are an incubator for rising broadcasters, DJs, and artists.</li>
+                    <li><strong>Connect the Community:</strong> We go beyond music to tell stories that matter to Lobatse and our diaspora.</li>
+                </ul>
             </div>
         </div>
     </section>
@@ -1048,44 +589,17 @@
             <a href="https://www.facebook.com/profile.php?id=100093615780700" target="_blank" class="social-icon" title="Facebook"><i class="fab fa-facebook-f"></i></a>
             <a href="https://www.tiktok.com/@lobatse.online.ra" target="_blank" class="social-icon" title="TikTok"><i class="fab fa-tiktok"></i></a>
             <a href="https://www.instagram.com/lobatseonlineradio?utm_source=ig_web_button_share_sheet&cplk=ZDNlZDc0MzIxNw==" target="_blank" class="social-icon" title="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="https://wa.me/26772960417" target="_blank" class="social-icon whatsapp-icon" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://wa.me/26772960417" target="_blank" class="social-icon" style="background:#25D366" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
             <a href="mailto:lobatseonlineradio@gmail.com" class="social-icon" title="Email Us"><i class="fas fa-envelope"></i></a>
         </div>
         <p style="margin-top: 2rem; color: var(--text-muted); font-size: 0.9rem;">&copy; 2026 Lobatse Radio. All rights reserved.</p>
     </footer>
-
-    <!-- Persistent Bottom Audio Player -->
-    <div class="audio-player">
-        <div class="now-playing">
-            <div class="live-indicator">LIVE</div>
-            <div>
-                <h4 id="player-show-title" style="margin: 0; font-size: 0.9rem;">Lobatse Radio</h4>
-                <p id="player-presenter" style="margin: 0; font-size: 0.8rem; color: var(--neon-green);">Non-Stop Music</p>
-                <p id="zeno-text" style="margin: 0; font-size: 0.75rem; color: var(--text-muted); font-style: italic; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 250px;"></p>
-            </div>
-        </div>
-        
-        <div class="listener-count hidden-mobile" style="margin-right: auto; padding-left: 2rem; border-left: none;">
-            <i class="fas fa-headphones"></i> <span id="listener-number">1,024</span>
-        </div>
-
-        <div class="controls">
-            <button id="play-pause-btn" class="play-btn">
-                <i class="fas fa-play"></i>
-            </button>
-        </div>
-        <div class="volume-control">
-            <i class="fas fa-volume-up" style="color: #666; font-size: 0.8rem;"></i>
-            <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.8">
-        </div>
-    </div>
 
     <!-- ============================================== -->
     <!-- STANDARD JAVASCRIPT LOGIC                      -->
     <!-- ============================================== -->
     <script>
         // --- LIVE FEED CONTROLS ---
-        // Change these to 'true' or 'false' depending on where you are broadcasting video
         const isTikTokLive = false; 
         const isFacebookLive = false; 
 
@@ -1104,6 +618,50 @@
         }
         renderLiveFeed();
 
+        // Audio & Play Button Syncing
+        const audio = new Audio('https://stream.zeno.fm/yhspijyzxp8vv');
+        const navPlayBtn = document.getElementById('nav-play-btn');
+        const heroPlayBtn = document.getElementById('hero-play-btn');
+        const navVolumeSlider = document.getElementById('nav-volume-slider');
+        let isPlaying = false;
+
+        function setupMediaSession() {
+            if ('mediaSession' in navigator) {
+                navigator.mediaSession.metadata = new MediaMetadata({
+                    title: 'Lobatse Radio Live',
+                    artist: 'Where Talent Lives',
+                    album: 'Lobatse Online Radio',
+                    artwork: [
+                        { src: 'Lradio1.jpeg', sizes: '512x512', type: 'image/jpeg' }
+                    ]
+                });
+                navigator.mediaSession.setActionHandler('play', togglePlay);
+                navigator.mediaSession.setActionHandler('pause', togglePlay);
+            }
+        }
+
+        function togglePlay() {
+            if (isPlaying) {
+                audio.pause();
+                navPlayBtn.innerHTML = '<i class="fas fa-play" style="margin-left: 2px;"></i>';
+                heroPlayBtn.innerHTML = '<i class="fas fa-play" style="margin-left: 6px;"></i>';
+                isPlaying = false;
+            } else {
+                audio.play();
+                navPlayBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                heroPlayBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                setupMediaSession();
+                isPlaying = true;
+            }
+        }
+
+        navPlayBtn.addEventListener('click', togglePlay);
+        heroPlayBtn.addEventListener('click', togglePlay);
+
+        navVolumeSlider.addEventListener('input', (e) => {
+            audio.volume = e.target.value;
+        });
+
         // Modals & Triggers
         function toggleAdForm() {
             const drawer = document.getElementById('ad-form-drawer');
@@ -1111,55 +669,22 @@
             drawer.classList.toggle('show');
             arrow.className = drawer.classList.contains('show') ? 'fas fa-chevron-up' : 'fas fa-chevron-down';
         }
-
-        function toggleSongModal(e) {
-            if (e) e.preventDefault();
-            document.getElementById('song-modal').classList.toggle('show');
-        }
-
-        function togglePodcastModal(e) {
-            if (e) e.preventDefault();
-            document.getElementById('podcast-modal').classList.toggle('show');
-        }
-
-        function toggleShopModal(e) {
-            if (e) e.preventDefault();
-            document.getElementById('shop-modal').classList.toggle('show');
-        }
-
-        function toggleLiveVideo(e) {
-            e.preventDefault();
-            document.getElementById('live-video-dropdown').classList.toggle('show');
-        }
+        function toggleSongModal(e) { if (e) e.preventDefault(); document.getElementById('song-modal').classList.toggle('show'); }
+        function togglePodcastModal(e) { if (e) e.preventDefault(); document.getElementById('podcast-modal').classList.toggle('show'); }
+        function toggleShopModal(e) { if (e) e.preventDefault(); document.getElementById('shop-modal').classList.toggle('show'); }
+        function toggleLiveVideo(e) { e.preventDefault(); document.getElementById('live-video-dropdown').classList.toggle('show'); }
 
         function sendAdEmail(e) {
             e.preventDefault();
             const email = document.getElementById('ad-email').value;
-            const phone = document.getElementById('ad-phone').value;
-            const subj = document.getElementById('ad-subject').value;
             const msg = document.getElementById('ad-message').value;
-            
-            const body = encodeURIComponent("From: " + email + "\nPhone: " + phone + "\n\n" + msg);
-            window.location.href = "mailto:lobatseonlineradio@gmail.com?subject=" + encodeURIComponent(subj) + "&body=" + body;
+            window.location.href = "mailto:lobatseonlineradio@gmail.com?subject=Ad Inquiry&body=" + encodeURIComponent(msg);
             toggleAdForm(); 
         }
 
-        // Floating Chat Controls
-        function toggleChat(e) {
-            if(e) e.preventDefault();
-            const chat = document.getElementById('floating-chat');
-            chat.classList.toggle('show');
-            chat.classList.remove('minimized');
-        }
-
-        function minimizeChat() {
-            document.getElementById('floating-chat').classList.toggle('minimized');
-        }
-
-        function closeChat(e) {
-            e.stopPropagation(); 
-            document.getElementById('floating-chat').classList.remove('show');
-        }
+        function toggleChat(e) { if(e) e.preventDefault(); const chat = document.getElementById('floating-chat'); chat.classList.toggle('show'); chat.classList.remove('minimized'); }
+        function minimizeChat() { document.getElementById('floating-chat').classList.toggle('minimized'); }
+        function closeChat(e) { e.stopPropagation(); document.getElementById('floating-chat').classList.remove('show'); }
 
         // Ad Slider Logic
         const adSlider = document.getElementById('ad-slider');
@@ -1174,11 +699,7 @@
                 adSlider.style.transform = `translateX(-${currentAdIndex * 100}%)`;
             }, 10000); 
         }
-
-        function stopAdSlider() {
-            clearInterval(adInterval);
-        }
-
+        function stopAdSlider() { clearInterval(adInterval); }
         adContainer.addEventListener('mouseenter', stopAdSlider);
         adContainer.addEventListener('mouseleave', startAdSlider);
         startAdSlider();
@@ -1187,138 +708,11 @@
             const drawer = document.getElementById('chart-drawer');
             const arrow = document.getElementById('chart-arrow');
             drawer.classList.toggle('show');
-            if (drawer.classList.contains('show')) {
-                arrow.className = 'fas fa-chevron-up';
-            } else {
-                arrow.className = 'fas fa-chevron-down';
-            }
+            arrow.className = drawer.classList.contains('show') ? 'fas fa-chevron-up' : 'fas fa-chevron-down';
         }
 
-        const programs = [
-            { 
-                title: "Ease Hour", 
-                time: "Sundays 5pm-7pm", 
-                presenter: "Temo", 
-                image: "WhatsApp Image 2026-10-05 at 14.23.54.jpeg",
-                bio: "Temo brings an effortlessly smooth, unwinding vibe to close off your weekend with the finest soulful selections and heartwarming chats.",
-                socials: { ig: "#", fb: "#", wa: "26772960417" },
-                day: 0, startHour: 17, endHour: 19 
-            },
-            { 
-                title: "Sowing Seeds", 
-                time: "Saturdays 11am-1pm", 
-                presenter: "Nosipho", 
-                image: "WhatsApp Image 2026-10-05 at 14.25.21.jpeg",
-                bio: "Dedicated to community stories, agriculture, growth, and empowerment across Botswana's southern communities.",
-                socials: { ig: "#", fb: "#", wa: "26772960417" },
-                day: 6, startHour: 11, endHour: 13 
-            },
-            { 
-                title: "Hurt & Heal", 
-                time: "Sundays 12pm-2pm", 
-                presenter: "DJ Mo Gee", 
-                image: "WhatsApp Image 2026-10-05 at 15.47.38 (1).jpeg",
-                bio: "DJ Mo Gee takes you through emotional musical therapy and candid discussions that help listeners process, reflect, and recover.",
-                socials: { ig: "#", fb: "#", wa: "26772960417" },
-                day: 0, startHour: 12, endHour: 14
-            },
-            { 
-                title: "Bumpy Cruise", 
-                time: "Saturdays 3pm-5pm", 
-                presenter: "MC SPONKIE", 
-                image: "WhatsApp Image 2026-10-05 at 15.47.38.jpeg",
-                bio: "The high-energy afternoon party starter! Non-stop beats, laughs, and pure weekend road-trip atmosphere with MC SPONKIE.",
-                socials: { ig: "#", fb: "#", wa: "26772960417" },
-                day: 6, startHour: 15, endHour: 17
-            },
-            { 
-                title: "ChooseDay Live", 
-                time: "Tuesdays 1pm-3pm", 
-                presenter: "Motswedi", 
-                image: "WhatsApp Image 2026-10-05 at 14.27.13.jpeg",
-                bio: "Spotlighting midweek local entertainment, lifestyle choices, youth culture, and trending community topics.",
-                socials: { ig: "#", fb: "#", wa: "26772960417" },
-                day: 2, startHour: 13, endHour: 15
-            },
-            { 
-                title: "Afro Diamonds", 
-                time: "Thursdays 2pm-4pm", 
-                presenter: "LEANO KGASWANE", 
-                image: "WhatsApp Image 2026-10-05 at 15.43.16.jpeg",
-                bio: "Celebrating Africa's gems in sound, fashion, and business with LEANO KGASWANE's signature poise and elegance.",
-                socials: { ig: "#", fb: "#", wa: "26772960417" },
-                day: 4, startHour: 14, endHour: 16
-            },
-            { 
-                title: "Voice Up", 
-                time: "Mondays 10am-12pm", 
-                presenter: "Mpheme Mmolai", 
-                image: "mondays.jpeg",
-                bio: "Kickstarting the week by giving listeners an unfiltered voice on social issues, community justice, and progress.",
-                socials: { ig: "#", fb: "#", wa: "26772960417" },
-                day: 1, startHour: 10, endHour: 12
-            },
-            { 
-                title: "Kasi 2 Kasi Top10", 
-                time: "Wednesdays 4pm-6pm", 
-                presenter: "DJ Vic", 
-                image: "wednesday.jpeg",
-                bio: "Street hits straight from every township and ward. DJ Vic counts down the bangers dominating the streets.",
-                socials: { ig: "#", fb: "#", wa: "26772960417" },
-                day: 3, startHour: 16, endHour: 18
-            },
-            { 
-                title: "Prayer Walk / Southern Africa Sound", 
-                time: "Various Times", 
-                presenter: "TT", 
-                image: "TT.jpg",
-                bio: "Spiritual upliftment and the deep roots of indigenous Southern African musical melodies hosted by TT.",
-                socials: { ig: "#", fb: "#", wa: "26772960417" },
-                day: -1, startHour: 0, endHour: 0
-            },
-            { 
-                title: "Stand-in Presenter", 
-                time: "Various Times", 
-                presenter: "Guest / Stand-in", 
-                image: "WhatsApp Image 2026-10-05 at 14.26.24.jpeg",
-                bio: "Our dynamic on-call presenter keeping the airwaves buzzing and holding it down whenever called upon ko bofellong!",
-                socials: { ig: "#", fb: "#", wa: "26772960417" },
-                day: -1, startHour: 0, endHour: 0
-            }
-        ];
-
-        function updateCurrentShow() {
-            const botTimeString = new Date().toLocaleString("en-US", {timeZone: "Africa/Gaborone"});
-            const localTime = new Date(botTimeString);
-            
-            const currentDay = localTime.getDay();
-            const currentHour = localTime.getHours();
-
-            let activeShow = null;
-
-            for (let i = 0; i < programs.length; i++) {
-                if (programs[i].day === currentDay && currentHour >= programs[i].startHour && currentHour < programs[i].endHour) {
-                    activeShow = programs[i];
-                    break;
-                }
-            }
-
-            const titleEl = document.getElementById('player-show-title');
-            const presenterEl = document.getElementById('player-presenter');
-
-            if (activeShow) {
-                titleEl.innerText = activeShow.title;
-                presenterEl.innerText = "Hosted by: " + activeShow.presenter;
-            } else {
-                titleEl.innerText = "Lobatse Radio";
-                presenterEl.innerText = "Non-Stop Music";
-            }
-        }
-        
-        updateCurrentShow();
-        setInterval(updateCurrentShow, 60000);
-
-        const zenoTextEl = document.getElementById('zeno-text');
+        // Zeno Metadata Fetch
+        const zenoTextEl = document.getElementById('nav-zeno-text');
         try {
             const zenoSource = new EventSource('https://api.zeno.fm/mounts/metadata/subscribe/yhspijyzxp8vv');
             zenoSource.onmessage = function(event) {
@@ -1326,9 +720,9 @@
                     try {
                         const data = JSON.parse(event.data);
                         if (data && data.streamTitle) {
-                            zenoTextEl.innerText = "🎵 Playing: " + data.streamTitle;
+                            zenoTextEl.innerText = data.streamTitle;
                         } else {
-                            zenoTextEl.innerText = "";
+                            zenoTextEl.innerText = "Lobatse Radio Live";
                         }
                     } catch (e) {}
                 }
@@ -1336,6 +730,19 @@
         } catch (e) {
             console.log("Could not load Zeno metadata");
         }
+
+        const programs = [
+            { title: "Ease Hour", time: "Sundays 5pm-7pm", presenter: "Temo", image: "WhatsApp Image 2026-10-05 at 14.23.54.jpeg", bio: "Temo brings an effortlessly smooth, unwinding vibe.", socials: { wa: "26772960417" }},
+            { title: "Sowing Seeds", time: "Saturdays 11am-1pm", presenter: "Nosipho", image: "WhatsApp Image 2026-10-05 at 14.25.21.jpeg", bio: "Dedicated to community stories and agriculture.", socials: { wa: "26772960417" }},
+            { title: "Hurt & Heal", time: "Sundays 12pm-2pm", presenter: "DJ Mo Gee", image: "WhatsApp Image 2026-10-05 at 15.47.38 (1).jpeg", bio: "Emotional musical therapy and candid discussions.", socials: { wa: "26772960417" }},
+            { title: "Bumpy Cruise", time: "Saturdays 3pm-5pm", presenter: "MC SPONKIE", image: "WhatsApp Image 2026-10-05 at 15.47.38.jpeg", bio: "The high-energy afternoon party starter!", socials: { wa: "26772960417" }},
+            { title: "ChooseDay Live", time: "Tuesdays 1pm-3pm", presenter: "Motswedi", image: "WhatsApp Image 2026-10-05 at 14.27.13.jpeg", bio: "Spotlighting midweek local entertainment.", socials: { wa: "26772960417" }},
+            { title: "Afro Diamonds", time: "Thursdays 2pm-4pm", presenter: "LEANO KGASWANE", image: "WhatsApp Image 2026-10-05 at 15.43.16.jpeg", bio: "Celebrating Africa's gems in sound.", socials: { wa: "26772960417" }},
+            { title: "Voice Up", time: "Mondays 10am-12pm", presenter: "Mpheme Mmolai", image: "mondays.jpeg", bio: "Giving listeners an unfiltered voice on social issues.", socials: { wa: "26772960417" }},
+            { title: "Kasi 2 Kasi Top10", time: "Wednesdays 4pm-6pm", presenter: "DJ Vic", image: "wednesday.jpeg", bio: "Street hits straight from every township.", socials: { wa: "26772960417" }},
+            { title: "Prayer Walk", time: "Various Times", presenter: "TT", image: "TT.jpg", bio: "Spiritual upliftment and the deep roots of indigenous melodies.", socials: { wa: "26772960417" }},
+            { title: "Stand-in Presenter", time: "Various Times", presenter: "Guest / Stand-in", image: "WhatsApp Image 2026-10-05 at 14.26.24.jpeg", bio: "Our dynamic on-call presenter.", socials: { wa: "26772960417" }}
+        ];
 
         const programGrid = document.getElementById('program-grid');
         programs.forEach((prog, index) => {
@@ -1357,20 +764,10 @@
             document.getElementById('bio-show').innerText = p.title;
             document.getElementById('bio-time').innerText = p.time;
             document.getElementById('bio-desc').innerText = p.bio;
-            
-            const socialsContainer = document.getElementById('bio-socials');
-            socialsContainer.innerHTML = `
-                <a href="https://wa.me/${p.socials.wa}" target="_blank" class="social-icon whatsapp-icon" title="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
-                <a href="https://www.instagram.com/lobatseonlineradio?utm_source=ig_web_button_share_sheet&cplk=ZDNlZDc0MzIxNw==" target="_blank" class="social-icon" title="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.facebook.com/profile.php?id=100093615780700" target="_blank" class="social-icon" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-            `;
-            
             document.getElementById('bio-modal').classList.add('show');
         }
 
-        function closeBioModal() {
-            document.getElementById('bio-modal').classList.remove('show');
-        }
+        function closeBioModal() { document.getElementById('bio-modal').classList.remove('show'); }
 
         function toggleAbout() {
             const aboutMore = document.getElementById('about-more');
@@ -1379,110 +776,10 @@
             btn.innerHTML = aboutMore.classList.contains('hidden-content') ? 'Read More <i class="fas fa-chevron-down"></i>' : 'Read Less <i class="fas fa-chevron-up"></i>';
         }
 
-        function showPayment(methodId, btn) {
-            document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('active-method'));
-            document.getElementById(methodId).classList.add('active-method');
-        }
-
-        const listenerElement = document.getElementById('listener-number');
-        let currentListeners = 1012; 
-        listenerElement.innerText = currentListeners.toLocaleString();
-
-        setInterval(() => {
-            const change = Math.floor(Math.random() * 8) - 3;
-            currentListeners += change;
-            if (currentListeners < 1000) currentListeners = 1000; 
-            listenerElement.innerText = currentListeners.toLocaleString();
-        }, 6000); 
-
-        async function fetchWeather() {
-            const cityInput = document.getElementById('weather-input').value || 'Lobatse';
-            const locText = document.getElementById('weather-loc');
-            const tempText = document.getElementById('weather-temp');
-            locText.innerHTML = 'Searching...';
-            tempText.innerHTML = '--°C';
-            try {
-                const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cityInput)}&count=1&format=json`);
-                const geoData = await geoRes.json();
-                if (!geoData.results || geoData.results.length === 0) {
-                    locText.innerHTML = 'City not found.';
-                    return;
-                }
-                const { latitude, longitude, name, country } = geoData.results[0];
-                const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`);
-                const weatherData = await weatherRes.json();
-                locText.innerHTML = `${name}, ${country}`;
-                tempText.innerHTML = `${weatherData.current_weather.temperature}°C`;
-            } catch (err) {
-                locText.innerHTML = 'Error loading weather.';
-            }
-        }
-        fetchWeather(); 
-
-        const audio = new Audio('https://stream.zeno.fm/yhspijyzxp8vv');
-        const playBtn = document.getElementById('play-pause-btn');
-        const volumeSlider = document.getElementById('volume-slider');
-        let isPlaying = false;
-
-        // Apply Media Session API for mobile lock screens
-        function setupMediaSession() {
-            if ('mediaSession' in navigator) {
-                navigator.mediaSession.metadata = new MediaMetadata({
-                    title: 'Lobatse Radio Live',
-                    artist: 'Where Talent Lives',
-                    album: 'Lobatse Online Radio',
-                    artwork: [
-                        { src: 'Lradio1.jpeg', sizes: '96x96', type: 'image/jpeg' },
-                        { src: 'Lradio1.jpeg', sizes: '128x128', type: 'image/jpeg' },
-                        { src: 'Lradio1.jpeg', sizes: '192x192', type: 'image/jpeg' },
-                        { src: 'Lradio1.jpeg', sizes: '256x256', type: 'image/jpeg' },
-                        { src: 'Lradio1.jpeg', sizes: '384x384', type: 'image/jpeg' },
-                        { src: 'Lradio1.jpeg', sizes: '512x512', type: 'image/jpeg' }
-                    ]
-                });
-
-                navigator.mediaSession.setActionHandler('play', () => {
-                    audio.play();
-                    playBtn.innerHTML = '<i class="fas fa-pause"></i>';
-                    isPlaying = true;
-                });
-
-                navigator.mediaSession.setActionHandler('pause', () => {
-                    audio.pause();
-                    playBtn.innerHTML = '<i class="fas fa-play"></i>';
-                    isPlaying = false;
-                });
-            }
-        }
-
-        playBtn.addEventListener('click', () => {
-            if (isPlaying) {
-                audio.pause();
-                playBtn.innerHTML = '<i class="fas fa-play"></i>';
-            } else {
-                audio.play();
-                playBtn.innerHTML = '<i class="fas fa-pause"></i>';
-                setupMediaSession();
-            }
-            isPlaying = !isPlaying;
-        });
-
-        volumeSlider.addEventListener('input', (e) => {
-            audio.volume = e.target.value;
-        });
-
         window.addEventListener('click', (e) => {
-            const bioModal = document.getElementById('bio-modal');
-            const shopModal = document.getElementById('shop-modal');
-            const songModal = document.getElementById('song-modal');
-            const podcastModal = document.getElementById('podcast-modal');
-
-            if (e.target === bioModal) bioModal.classList.remove('show');
-            if (e.target === shopModal) shopModal.classList.remove('show');
-            if (e.target === songModal) songModal.classList.remove('show');
-            if (e.target === podcastModal) podcastModal.classList.remove('show');
+            if (e.target.classList.contains('modal')) {
+                e.target.classList.remove('show');
+            }
         });
     </script>
 
@@ -1615,7 +912,6 @@
                 const newItem = document.createElement('div');
                 newItem.className = 'chat-message';
                 
-                // Added like and reply buttons
                 newItem.innerHTML = `
                     <div class="chat-header">
                         <span class="color-${data.colorIndex}-text">${data.name}</span>
