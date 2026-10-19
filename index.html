@@ -65,12 +65,6 @@
             --text-muted: #a0a0a0;
             --card-bg: #111111;
             --card-border: #222222;
-            
-            --color-1: #FF1D58;
-            --color-2: #F75990;
-            --color-3: #FFF685;
-            --color-4: #00DDFF;
-            --color-5: #0049B7;
         }
 
         * {
@@ -654,6 +648,22 @@
             line-height: 1.4;
         }
 
+        .chat-actions {
+            font-size: 0.75rem; 
+            color: #666; 
+            margin-top: 0.3rem; 
+            display: flex; 
+            gap: 0.8rem;
+        }
+
+        .chat-actions span {
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .chat-actions span:hover {
+            color: var(--neon-green);
+        }
+
         .color-1-text { color: var(--color-1); }
         .color-2-text { color: var(--color-2); }
         .color-3-text { color: var(--color-3); }
@@ -678,7 +688,6 @@
             font-size: 0.85rem;
         }
 
-        /* Locked state styling for the name input */
         .chat-input-area input[type="text"].locked {
             background-color: #0a0a0a;
             color: #666;
@@ -706,59 +715,6 @@
         }
 
         .chat-btn:hover { transform: scale(1.1); }
-
-        /* News Card Styles */
-        .news-date { color: var(--neon-green); font-size: 0.9rem; font-family: monospace; margin-bottom: 1rem; }
-        .news-title { font-size: 1.3rem; margin-bottom: 1rem; line-height: 1.4; }
-        .news-excerpt { color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; margin-bottom: 2rem; flex-grow: 1; }
-        .news-read-more { color: #fff; text-decoration: none; font-weight: bold; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; transition: color 0.3s; }
-        .news-read-more:hover { color: var(--neon-green); }
-
-        .item-img { width: 100%; height: 200px; object-fit: contain; background: #fff; border-radius: 5px; margin-bottom: 1rem; }
-        .btn-buy { background-color: transparent; color: var(--neon-green); border: 1px solid var(--neon-green); padding: 0.4rem 1rem; border-radius: 15px; cursor: pointer; margin-top: 1rem; transition: all 0.3s; font-weight: bold; align-self: flex-start; }
-        .btn-buy:hover { background-color: var(--neon-green); color: #000; }
-
-        /* Donate Section Styles */
-        .donate-container { background-color: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 4rem 2rem; max-width: 800px; margin: 0 auto; }
-        .donate-icon { color: var(--neon-green); font-size: 3rem; margin-bottom: 1.5rem; }
-        .donate-title { font-size: 2rem; margin-bottom: 1rem; }
-        .donate-text { color: var(--text-muted); max-width: 600px; margin: 0 auto 2.5rem; line-height: 1.6; }
-        .donate-amounts { display: flex; justify-content: center; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
-        .amount-btn { background: transparent; border: 1px solid #444; color: #fff; padding: 0.6rem 1.5rem; border-radius: 25px; cursor: pointer; font-size: 1rem; transition: all 0.2s; }
-        .amount-btn:hover, .amount-btn.active { border-color: var(--neon-green); color: var(--neon-green); }
-        .payment-method { display: none; background: rgba(57, 255, 20, 0.05); border: 1px solid var(--neon-green); padding: 2rem; border-radius: 12px; margin-top: 1rem; animation: fadeIn 0.3s ease-in-out; }
-        .payment-method.active-method { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Toggle Buttons */
-        .hidden-content { display: none !important; }
-        .btn-toggle { background-color: transparent; color: var(--neon-green); border: 1px solid var(--neon-green); padding: 0.6rem 2rem; border-radius: 25px; cursor: pointer; margin-top: 3rem; font-weight: bold; font-size: 0.9rem; transition: all 0.3s; }
-        .btn-toggle:hover { background-color: var(--neon-green); color: #000; }
-
-        /* About Section Styles */
-        .about-text { max-width: 800px; margin: 0 auto; text-align: left; line-height: 1.8; font-size: 1.1rem; }
-        .about-text h3 { color: var(--neon-green); margin-top: 2rem; margin-bottom: 1rem; font-size: 1.5rem; }
-        .about-text ul { margin-left: 1.5rem; margin-bottom: 1.5rem; }
-        .about-text li { margin-bottom: 0.8rem; }
-
-        /* Footer & Socials */
-        .footer { text-align: center; padding: 4rem 5% 7rem; border-top: 1px solid var(--card-border); }
-        .social-links { display: flex; justify-content: center; gap: 1.5rem; margin-top: 1.5rem; }
-        .social-icon { color: #fff; background: #222; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 1.3rem; transition: all 0.3s; text-decoration: none; }
-        .social-icon:hover { background: var(--neon-green); color: #000; transform: translateY(-5px); }
-        .whatsapp-icon { background: #25D366; color: #fff; }
-        .whatsapp-icon:hover { background: #1ebe57; color: #fff; }
-
-        /* Persistent Audio Player */
-        .audio-player { position: fixed; bottom: 0; left: 0; width: 100%; background-color: #000; border-top: 1px solid #222; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; }
-        .now-playing { display: flex; align-items: center; gap: 1rem; }
-        .live-indicator { background-color: var(--neon-green); color: black; font-size: 0.7rem; font-weight: bold; padding: 2px 6px; border-radius: 4px; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
-        .listener-count { display: flex; align-items: center; gap: 0.4rem; color: var(--neon-green); font-size: 0.85rem; margin-left: 1.5rem; border-left: 1px solid #333; padding-left: 1.5rem; }
-        .play-btn { background-color: transparent; color: #fff; border: 1px solid #444; width: 45px; height: 45px; border-radius: 50%; font-size: 1rem; cursor: pointer; transition: all 0.2s; }
-        .play-btn:hover { border-color: var(--neon-green); color: var(--neon-green); }
-        .volume-control { display: flex; align-items: center; gap: 0.5rem; }
-        input[type=range] { accent-color: var(--neon-green); }
 
         /* Mobile Fixes */
         @media (max-width: 768px) {
@@ -788,13 +744,13 @@
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
             <li><a href="#programs">Programs</a></li>
+            <li><a onclick="togglePodcastModal(event)">Podcasts</a></li>
             <li>
                 <a onclick="toggleChat(event)" class="chat-link-container">
                     Live Chat
                     <span id="chat-badge" class="chat-badge">0</span>
                 </a>
             </li>
-            <li><a href="#news">News</a></li>
             <li><a onclick="toggleShopModal(event)">Shop</a></li>
             <li><a href="#donate" class="btn-donate-nav">Donate</a></li>
             <li><a href="#" onclick="toggleLiveVideo(event)" class="btn-live-video">🔴 Live Video</a></li>
@@ -828,18 +784,65 @@
             <h3 style="color: #fff; font-size: 1.1rem;"><span style="color: red;">🔴</span> Broadcasting Live</h3>
             <i class="fas fa-times" style="cursor: pointer; color: var(--text-muted);" onclick="toggleLiveVideo(event)"></i>
         </div>
-        <div style="background: #fff; border-radius: 8px; overflow: hidden;">
-            <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@lobatse.online.ra" data-unique-id="lobatse.online.ra" data-embed-type="creator" style="max-width: 780px; min-width: 288px;" > 
-                <section> 
-                    <a target="_blank" href="https://www.tiktok.com/@lobatse.online.ra?refer=creator_embed">@lobatse.online.ra</a> 
-                </section> 
-            </blockquote> 
-            <script async src="https://www.tiktok.com/embed.js"></script>
+        
+        <!-- Live Feed Container (Injected via JS) -->
+        <div id="live-feed-container" style="background: #111; border-radius: 8px; overflow: hidden; text-align: center; min-height: 150px; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+            <!-- Content populates here -->
         </div>
+
         <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 1rem; text-align: center;">Follow our live sessions on TikTok and Facebook.</p>
     </div>
 
-    <!-- Shop Modal Overlay (Loads separate shop.html file) -->
+    <!-- Podcast Modal Overlay -->
+    <div id="podcast-modal" class="modal">
+        <div class="modal-content" style="max-width: 900px; padding: 2rem;">
+            <span class="close-modal" onclick="togglePodcastModal(event)" style="z-index: 10; right: 1.5rem; top: 1.2rem;">&times;</span>
+            <div class="section-header" style="margin-bottom: 2rem;">Latest <span class="neon-text">Podcasts</span></div>
+            <div class="grid-container">
+                <!-- Podcast 1 -->
+                <div class="card">
+                    <div style="background: #222; height: 180px; border-radius: 8px; display:flex; align-items:center; justify-content:center; margin-bottom:1rem; position: relative;">
+                        <i class="fas fa-play-circle" style="font-size: 3rem; color: var(--neon-green); cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"></i>
+                        <span style="position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.8); padding: 2px 6px; border-radius: 4px; font-size: 0.75rem;">45:20</span>
+                    </div>
+                    <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Hurt & Heal: Episode 12</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">DJ Mo Gee discusses mental health and processing trauma in this week's special.</p>
+                    <div style="display: flex; gap: 1rem; color: #888; font-size: 0.9rem; border-top: 1px solid #333; padding-top: 0.8rem;">
+                        <span style="cursor:pointer; transition:color 0.3s;" onmouseover="this.style.color='var(--neon-green)'" onmouseout="this.style.color='#888'" onclick="this.style.color='var(--neon-green)'; this.innerHTML='<i class=\\'fas fa-heart\\'></i> Liked'"><i class="far fa-heart"></i> Like</span>
+                        <span style="cursor:pointer; transition:color 0.3s;" onmouseover="this.style.color='var(--neon-green)'" onmouseout="this.style.color='#888'"><i class="far fa-comment"></i> Comment</span>
+                    </div>
+                </div>
+                <!-- Podcast 2 -->
+                <div class="card">
+                    <div style="background: #222; height: 180px; border-radius: 8px; display:flex; align-items:center; justify-content:center; margin-bottom:1rem; position: relative;">
+                        <i class="fas fa-play-circle" style="font-size: 3rem; color: var(--neon-green); cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"></i>
+                        <span style="position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.8); padding: 2px 6px; border-radius: 4px; font-size: 0.75rem;">1:12:05</span>
+                    </div>
+                    <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">ChooseDay Live Exclusives</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Motswedi breaks down the latest trending youth culture topics in Botswana.</p>
+                    <div style="display: flex; gap: 1rem; color: #888; font-size: 0.9rem; border-top: 1px solid #333; padding-top: 0.8rem;">
+                        <span style="cursor:pointer; transition:color 0.3s;" onmouseover="this.style.color='var(--neon-green)'" onmouseout="this.style.color='#888'" onclick="this.style.color='var(--neon-green)'; this.innerHTML='<i class=\\'fas fa-heart\\'></i> Liked'"><i class="far fa-heart"></i> Like</span>
+                        <span style="cursor:pointer; transition:color 0.3s;" onmouseover="this.style.color='var(--neon-green)'" onmouseout="this.style.color='#888'"><i class="far fa-comment"></i> Comment</span>
+                    </div>
+                </div>
+                <!-- Podcast 3 -->
+                <div class="card">
+                    <div style="background: #222; height: 180px; border-radius: 8px; display:flex; align-items:center; justify-content:center; margin-bottom:1rem; position: relative;">
+                        <i class="fas fa-play-circle" style="font-size: 3rem; color: var(--neon-green); cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"></i>
+                        <span style="position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.8); padding: 2px 6px; border-radius: 4px; font-size: 0.75rem;">58:30</span>
+                    </div>
+                    <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Afro Diamonds Interview</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Leano Kgaswane sits down with a rising star changing the local business game.</p>
+                    <div style="display: flex; gap: 1rem; color: #888; font-size: 0.9rem; border-top: 1px solid #333; padding-top: 0.8rem;">
+                        <span style="cursor:pointer; transition:color 0.3s;" onmouseover="this.style.color='var(--neon-green)'" onmouseout="this.style.color='#888'" onclick="this.style.color='var(--neon-green)'; this.innerHTML='<i class=\\'fas fa-heart\\'></i> Liked'"><i class="far fa-heart"></i> Like</span>
+                        <span style="cursor:pointer; transition:color 0.3s;" onmouseover="this.style.color='var(--neon-green)'" onmouseout="this.style.color='#888'"><i class="far fa-comment"></i> Comment</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shop Modal Overlay -->
     <div id="shop-modal" class="modal">
         <div class="modal-content" style="max-width: 1100px; padding: 1.5rem;">
             <span class="close-modal" onclick="toggleShopModal(event)" style="z-index: 10; right: 2rem; top: 1.5rem;">&times;</span>
@@ -847,7 +850,7 @@
         </div>
     </div>
 
-    <!-- Song Submission Modal Overlay (Loads separate submit.html file) -->
+    <!-- Song Submission Modal Overlay -->
     <div id="song-modal" class="modal">
         <div class="modal-content" style="max-width: 500px; padding: 1.5rem;">
             <span class="close-modal" onclick="toggleSongModal(event)" style="z-index: 10; right: 1.5rem; top: 1.2rem;">&times;</span>
@@ -922,17 +925,15 @@
         
         <div class="section-header" style="justify-content: space-between; display: flex; align-items: center; flex-wrap: wrap; gap: 1rem;">
             
-            <!-- Clickable "Advertise With Us" Title -->
             <div style="cursor: pointer; display: flex; align-items: center; gap: 0.8rem;" onclick="toggleAdForm()">
                 <span>Advertise <span class="neon-text">With Us</span></span>
                 <i id="ad-form-arrow" class="fas fa-chevron-down" style="font-size: 1.2rem; color: var(--neon-green);"></i>
             </div>
             
-            <!-- Submit Your Song Button (Now triggers modal) -->
             <button class="btn-submit-song" onclick="toggleSongModal(event)">Submit Your Song</button>
         </div>
 
-        <!-- Ad Inquiry Form Dropdown (Hidden by default) -->
+        <!-- Ad Inquiry Form Dropdown -->
         <div id="ad-form-drawer" class="form-drawer">
             <h3 style="margin-top: 0; color: #fff; margin-bottom: 1.5rem;">Advertise Inquiry</h3>
             <form id="ad-contact-form" onsubmit="sendAdEmail(event)">
@@ -946,7 +947,7 @@
                 </div>
                 <input type="text" id="ad-subject" class="custom-input" placeholder="Subject" required>
                 <textarea id="ad-message" class="custom-input" placeholder="Compose your message..." rows="4" required></textarea>
-                <button type="submit" class="btn-buy" style="margin-top:0; padding: 0.8rem 2rem;">Send via Email</button>
+                <button type="submit" class="btn-submit-song" style="margin-top:0; padding: 0.8rem 2rem; width: auto;">Send via Email</button>
             </form>
         </div>
         
@@ -969,19 +970,8 @@
         </div>
     </section>
 
-    <!-- News Section -->
-    <section id="news" class="section">
-        <div class="section-header" style="color: var(--neon-green);">
-            <i class="far fa-newspaper"></i> LATEST NEWS
-        </div>
-        <div class="grid-container" id="news-grid">
-            <!-- News injected via JavaScript -->
-        </div>
-        <button id="news-toggle-btn" class="btn-toggle" onclick="toggleSection('news-item', 'news-toggle-btn')">See More <i class="fas fa-chevron-down"></i></button>
-    </section>
-
     <!-- About Section -->
-    <section id="about" class="section bg-darker">
+    <section id="about" class="section">
         <div class="section-header">About <span class="neon-text">Us</span></div>
         <div class="about-text">
             <h3 style="text-align: center; font-size: 1.8rem; margin-top: 0; color: #fff;">The Pulse of Lobatse, Broadcasting to the World.</h3>
@@ -1008,7 +998,7 @@
     </section>
 
     <!-- Donate Section -->
-    <section id="donate" class="section">
+    <section id="donate" class="section bg-darker">
         <div class="donate-container">
             <i class="far fa-heart donate-icon"></i>
             <h2 class="donate-title">Support the Station</h2>
@@ -1046,13 +1036,13 @@
             <div id="paypal" class="payment-method">
                 <h3 style="color: var(--neon-green); margin-bottom: 1rem;">PayPal</h3>
                 <p>Support us globally via PayPal's secure network.</p>
-                <a href="#" class="btn-buy" style="display: inline-block; margin-top: 1rem; text-decoration: none;">Go to PayPal.me</a>
+                <a href="#" class="btn-submit-song" style="display: inline-block; margin-top: 1rem; text-decoration: none;">Go to PayPal.me</a>
             </div>
         </div>
     </section>
 
     <!-- Footer & Socials -->
-    <footer class="footer bg-darker">
+    <footer class="footer">
         <h2>Connect With <span class="neon-text">Us</span></h2>
         <div class="social-links">
             <a href="https://www.facebook.com/profile.php?id=100093615780700" target="_blank" class="social-icon" title="Facebook"><i class="fab fa-facebook-f"></i></a>
@@ -1094,7 +1084,27 @@
     <!-- STANDARD JAVASCRIPT LOGIC                      -->
     <!-- ============================================== -->
     <script>
-        // Form & Button Toggle Actions
+        // --- LIVE FEED CONTROLS ---
+        // Change these to 'true' or 'false' depending on where you are broadcasting video
+        const isTikTokLive = false; 
+        const isFacebookLive = false; 
+
+        function renderLiveFeed() {
+            const container = document.getElementById('live-feed-container');
+            if (isTikTokLive) {
+                container.innerHTML = `<blockquote class="tiktok-embed" cite="https://www.tiktok.com/@lobatse.online.ra" data-unique-id="lobatse.online.ra" data-embed-type="creator" style="max-width: 780px; min-width: 288px;" > <section> <a target="_blank" href="https://www.tiktok.com/@lobatse.online.ra?refer=creator_embed">@lobatse.online.ra</a> </section> </blockquote> <script async src="https://www.tiktok.com/embed.js"><\/script>`;
+            } else if (isFacebookLive) {
+                container.innerHTML = `<p style="padding: 2rem; color: var(--neon-green);"><i class="fab fa-facebook-f"></i> Facebook Live Feed Active</p>`;
+            } else {
+                container.innerHTML = `
+                    <i class="fas fa-video-slash" style="font-size: 2.5rem; color: #333; margin-bottom: 1rem;"></i>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">No live video feed currently active.</p>
+                `;
+            }
+        }
+        renderLiveFeed();
+
+        // Modals & Triggers
         function toggleAdForm() {
             const drawer = document.getElementById('ad-form-drawer');
             const arrow = document.getElementById('ad-form-arrow');
@@ -1105,6 +1115,21 @@
         function toggleSongModal(e) {
             if (e) e.preventDefault();
             document.getElementById('song-modal').classList.toggle('show');
+        }
+
+        function togglePodcastModal(e) {
+            if (e) e.preventDefault();
+            document.getElementById('podcast-modal').classList.toggle('show');
+        }
+
+        function toggleShopModal(e) {
+            if (e) e.preventDefault();
+            document.getElementById('shop-modal').classList.toggle('show');
+        }
+
+        function toggleLiveVideo(e) {
+            e.preventDefault();
+            document.getElementById('live-video-dropdown').classList.toggle('show');
         }
 
         function sendAdEmail(e) {
@@ -1347,43 +1372,6 @@
             document.getElementById('bio-modal').classList.remove('show');
         }
 
-        const newsData = [
-            { title: "Local Talent Showcase this Weekend", date: "Oct 12, 2026", excerpt: "Join us at the town square as we broadcast live from the annual local talent showcase." },
-            { title: "New Studio Upgrades", date: "Oct 10, 2026", excerpt: "We are thrilled to announce state-of-the-art upgrades to the Lobatse Radio broadcastin..." },
-            { title: "Top 10 Countdown Resumes", date: "Oct 08, 2026", excerpt: "Your favorite weekly countdown is back! Tune in this Friday to hear who made the number on..." },
-            { title: "Community Drive Success", date: "Oct 05, 2026", excerpt: "Thanks to all who donated to the recent local shelter initiative. We raised a record amount." },
-            { title: "DJ Competition Winners", date: "Oct 02, 2026", excerpt: "Meet the new talent joining our late-night roster after an intense weekend of mixing." },
-            { title: "Cultural Festival Highlights", date: "Sep 28, 2026", excerpt: "A look back at the amazing performances and cultural displays from last week's festival." }
-        ];
-
-        const newsGrid = document.getElementById('news-grid');
-        newsData.forEach((item, index) => {
-            let hideClass = index > 2 ? "hidden-content news-item" : "news-item";
-            newsGrid.innerHTML += `
-                <div class="card ${hideClass}">
-                    <div class="news-date">${item.date}</div>
-                    <h3 class="news-title">${item.title}</h3>
-                    <p class="news-excerpt">${item.excerpt}</p>
-                    <a href="#" class="news-read-more">Read More <i class="fas fa-chevron-right" style="font-size: 0.8rem;"></i></a>
-                </div>
-            `;
-        });
-
-        function toggleSection(itemClass, btnId) {
-            const items = document.querySelectorAll(`.${itemClass}`);
-            const btn = document.getElementById(btnId);
-            let isHidden = false;
-            
-            items.forEach((item, index) => {
-                if (index > 2) {
-                    item.classList.toggle('hidden-content');
-                    if (item.classList.contains('hidden-content')) isHidden = true;
-                }
-            });
-
-            btn.innerHTML = isHidden ? 'See More <i class="fas fa-chevron-down"></i>' : 'See Less <i class="fas fa-chevron-up"></i>';
-        }
-
         function toggleAbout() {
             const aboutMore = document.getElementById('about-more');
             const btn = document.getElementById('about-toggle-btn');
@@ -1433,19 +1421,6 @@
         }
         fetchWeather(); 
 
-        function toggleShopModal(e) {
-            if (e) e.preventDefault();
-            document.getElementById('shop-modal').classList.toggle('show');
-        }
-
-        function toggleLiveVideo(e) {
-            e.preventDefault();
-            document.getElementById('live-video-dropdown').classList.toggle('show');
-        }
-
-        // ============================================
-        // AUDIO PLAYER + MEDIA SESSION (LOCK SCREEN)
-        // ============================================
         const audio = new Audio('https://stream.zeno.fm/yhspijyzxp8vv');
         const playBtn = document.getElementById('play-pause-btn');
         const volumeSlider = document.getElementById('volume-slider');
@@ -1468,7 +1443,6 @@
                     ]
                 });
 
-                // Sync lock screen play/pause buttons with the site
                 navigator.mediaSession.setActionHandler('play', () => {
                     audio.play();
                     playBtn.innerHTML = '<i class="fas fa-pause"></i>';
@@ -1490,7 +1464,7 @@
             } else {
                 audio.play();
                 playBtn.innerHTML = '<i class="fas fa-pause"></i>';
-                setupMediaSession(); // Initialize lock screen data when play is pressed
+                setupMediaSession();
             }
             isPlaying = !isPlaying;
         });
@@ -1499,18 +1473,16 @@
             audio.volume = e.target.value;
         });
 
-        // Keep the lock screen play/pause state in sync with the audio element
-        audio.addEventListener('play',  () => { if ('mediaSession' in navigator) navigator.mediaSession.playbackState = 'playing'; });
-        audio.addEventListener('pause', () => { if ('mediaSession' in navigator) navigator.mediaSession.playbackState = 'paused'; });
-
         window.addEventListener('click', (e) => {
             const bioModal = document.getElementById('bio-modal');
             const shopModal = document.getElementById('shop-modal');
             const songModal = document.getElementById('song-modal');
+            const podcastModal = document.getElementById('podcast-modal');
 
             if (e.target === bioModal) bioModal.classList.remove('show');
             if (e.target === shopModal) shopModal.classList.remove('show');
             if (e.target === songModal) songModal.classList.remove('show');
+            if (e.target === podcastModal) podcastModal.classList.remove('show');
         });
     </script>
 
@@ -1544,6 +1516,9 @@
         chatMessages.innerHTML = '';
         let colorIndex = 3; 
         let totalMessages = 0;
+        
+        // Timer upgraded to 24 hours (86,400,000 milliseconds)
+        const retentionTime = 86400000; 
 
         function applyNameLock() {
             const storedData = localStorage.getItem('lor_chat_user');
@@ -1551,11 +1526,11 @@
                 const { name, timestamp } = JSON.parse(storedData);
                 const now = new Date().getTime();
                 
-                if (now - timestamp < 1800000) {
+                if (now - timestamp < retentionTime) {
                     chatNameInput.value = name;
                     chatNameInput.setAttribute('readonly', 'true');
                     chatNameInput.classList.add('locked');
-                    chatNameInput.title = "Your name is locked for 30 minutes after your last message.";
+                    chatNameInput.title = "Your name is locked for 24 hours to prevent spam.";
                 } else {
                     localStorage.removeItem('lor_chat_user');
                     chatNameInput.removeAttribute('readonly');
@@ -1588,6 +1563,20 @@
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
+        // Global functions for inline HTML buttons
+        window.likeChatMsg = function(element) {
+            const countSpan = element.querySelector('.like-count');
+            let count = parseInt(countSpan.innerText);
+            countSpan.innerText = count + 1;
+            element.style.color = "var(--neon-green)";
+        };
+
+        window.replyChatMsg = function(name) {
+            const msgInput = document.getElementById('chat-message');
+            msgInput.value = `@${name} ` + msgInput.value;
+            msgInput.focus();
+        };
+
         chatForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const name = chatNameInput.value.trim();
@@ -1613,7 +1602,7 @@
             document.getElementById('chat-message').value = '';
         });
 
-        const recentShoutouts = query(ref(db, 'shoutouts'), limitToLast(50));
+        const recentShoutouts = query(ref(db, 'shoutouts'), limitToLast(100));
         
         onChildAdded(recentShoutouts, (snapshot) => {
             const data = snapshot.val();
@@ -1622,15 +1611,21 @@
             const msgTime = data.timestamp || now; 
             const messageAge = now - msgTime;
 
-            if (messageAge < 1800000) {
+            if (messageAge < retentionTime) {
                 const newItem = document.createElement('div');
                 newItem.className = 'chat-message';
+                
+                // Added like and reply buttons
                 newItem.innerHTML = `
                     <div class="chat-header">
                         <span class="color-${data.colorIndex}-text">${data.name}</span>
                         <span class="chat-time">${data.time}</span>
                     </div>
                     <div class="chat-bubble">${data.message}</div>
+                    <div class="chat-actions">
+                        <span onclick="likeChatMsg(this)"><i class="fas fa-thumbs-up"></i> <span class="like-count">0</span></span>
+                        <span onclick="replyChatMsg('${data.name}')"><i class="fas fa-reply"></i> Reply</span>
+                    </div>
                 `;
 
                 chatMessages.appendChild(newItem);
@@ -1639,7 +1634,7 @@
                 totalMessages++;
                 updateBadge();
 
-                const timeLeft = 1800000 - messageAge;
+                const timeLeft = retentionTime - messageAge;
                 
                 setTimeout(() => {
                     if (chatMessages.contains(newItem)) {
