@@ -61,12 +61,13 @@
             justify-content: center;
             transition: all 0.3s ease;
         }
-        .video-container video {
+        .video-container video, .video-container iframe {
             width: 100%;
             height: 100%;
             border-radius: 8px;
             outline: none;
             background: #000;
+            border: none;
         }
         
         .expand-btn {
@@ -104,7 +105,7 @@
             padding: 2rem;
             margin: 0;
         }
-        .video-container.expanded video {
+        .video-container.expanded video, .video-container.expanded iframe {
             height: 100%;
             object-fit: contain;
         }
@@ -132,10 +133,10 @@
     <div class="section-header">Latest <span class="neon-text">Podcasts</span></div>
     <div class="grid-container">
 
-        <!-- New Video: Voice Up -->
+        <!-- Voice Up - YouTube Embed -->
         <div class="card">
             <div class="video-container" id="vc-1">
-                <video src="voice up.mp4" controls preload="metadata"></video>
+                <iframe src="https://www.youtube.com/embed/p2Bpqgbl3ew?rel=0" title="Voice Up" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 <button class="expand-btn" onclick="toggleExpand('vc-1', this)">
                     <i class="fas fa-expand"></i> Expand
                 </button>
