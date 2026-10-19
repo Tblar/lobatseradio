@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lobatse Radio Podcasts</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-darker: #050505;
+            --neon-green: #39ff14;
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            --card-bg: #111111;
+            --card-border: #222222;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: var(--bg-darker);
+            color: var(--text-main);
+            padding: 1.5rem;
+        }
+        .section-header {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .neon-text {
+            color: var(--neon-green);
+            text-shadow: 0 0 10px rgba(57, 255, 20, 0.2);
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+        }
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.2rem;
+            border: 1px solid var(--card-border);
+            display: flex;
+            flex-direction: column;
+        }
+        .video-placeholder {
+            background: #1c1c1c;
+            height: 160px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        .video-placeholder i {
+            font-size: 2.8rem;
+            color: var(--neon-green);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .video-placeholder i:hover {
+            transform: scale(1.15);
+        }
+        .duration {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            background: rgba(0,0,0,0.85);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            color: #fff;
+        }
+        h3 {
+            font-size: 1.05rem;
+            margin-bottom: 0.4rem;
+        }
+        p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            line-height: 1.4;
+            flex-grow: 1;
+        }
+        .actions {
+            display: flex;
+            gap: 1.2rem;
+            color: #888;
+            font-size: 0.85rem;
+            border-top: 1px solid #282828;
+            padding-top: 0.8rem;
+        }
+        .actions span {
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .actions span:hover {
+            color: var(--neon-green);
+        }
+        .liked {
+            color: var(--neon-green) !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="section-header">Latest <span class="neon-text">Podcasts</span></div>
+    <div class="grid-container">
+        <!-- Episode 1 -->
+        <div class="card">
+            <div class="video-placeholder">
+                <i class="fas fa-play-circle" onclick="playEpisode('Hurt & Heal: Episode 12')"></i>
+                <span class="duration">45:20</span>
+            </div>
+            <h3>Hurt & Heal: Episode 12</h3>
+            <p>DJ Mo Gee discusses emotional therapy and community mental health recovery.</p>
+            <div class="actions">
+                <span onclick="toggleLove(this)"><i class="far fa-heart"></i> <span class="label">Love</span></span>
+                <span onclick="triggerComment('Hurt & Heal: Episode 12')"><i class="far fa-comment"></i> Comment</span>
+            </div>
+        </div>
+
+        <!-- Episode 2 -->
+        <div class="card">
+            <div class="video-placeholder">
+                <i class="fas fa-play-circle" onclick="playEpisode('ChooseDay Live Highlights')"></i>
+                <span class="duration">1:12:05</span>
+            </div>
+            <h3>ChooseDay Live Highlights</h3>
+            <p>Motswedi breaks down trending youth culture, fashion, and southern entertainment.</p>
+            <div class="actions">
+                <span onclick="toggleLove(this)"><i class="far fa-heart"></i> <span class="label">Love</span></span>
+                <span onclick="triggerComment('ChooseDay Live Highlights')"><i class="far fa-comment"></i> Comment</span>
+            </div>
+        </div>
+
+        <!-- Episode 3 -->
+        <div class="card">
+            <div class="video-placeholder">
+                <i class="fas fa-play-circle" onclick="playEpisode('Afro Diamonds Spotlight')"></i>
+                <span class="duration">58:30</span>
+            </div>
+            <h3>Afro Diamonds Spotlight</h3>
+            <p>Leano Kgaswane interviews rising regional talent pushing Southern African beats.</p>
+            <div class="actions">
+                <span onclick="toggleLove(this)"><i class="far fa-heart"></i> <span class="label">Love</span></span>
+                <span onclick="triggerComment('Afro Diamonds Spotlight')"><i class="far fa-comment"></i> Comment</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleLove(btn) {
+            const icon = btn.querySelector('i');
+            const label = btn.querySelector('.label');
+            if (icon.classList.contains('far')) {
+                icon.className = 'fas fa-heart';
+                btn.classList.add('liked');
+                label.innerText = 'Loved';
+            } else {
+                icon.className = 'far fa-heart';
+                btn.classList.remove('liked');
+                label.innerText = 'Love';
+            }
+        }
+
+        function triggerComment(title) {
+            const comment = prompt(`Leave a comment for "${title}":`);
+            if (comment && comment.trim() !== '') {
+                alert('Thank you! Your comment has been received.');
+            }
+        }
+
+        function playEpisode(title) {
+            alert(`Loading video stream for "${title}"...`);
+        }
+    </script>
+</body>
+</html>
