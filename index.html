@@ -245,7 +245,7 @@
             justify-content: center;
         }
         
-        .big-hero-play i { margin-left: 6px; /* center the play triangle */ }
+        .big-hero-play i { margin-left: 6px; }
         .big-hero-play:hover {
             transform: scale(1.1);
             box-shadow: 0 0 40px rgba(57, 255, 20, 0.7);
@@ -289,6 +289,10 @@
         .close-modal:hover { color: var(--neon-green); }
         .bio-avatar { width: 130px; height: 130px; border-radius: 50%; object-fit: cover; margin: 0 auto 1.2rem; border: 3px solid var(--neon-green); }
 
+        /* Live Video Dropdown */
+        .video-dropdown { position: fixed; top: 80px; right: 5%; background: var(--card-bg); border: 1px solid var(--neon-green); border-radius: 12px; padding: 1rem; z-index: 99; width: 350px; max-height: 80vh; overflow-y: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.8); display: none; flex-direction: column; }
+        .video-dropdown.show { display: flex; }
+
         /* Floating Live Chat */
         .floating-chat { position: fixed; bottom: 30px; right: 5%; width: 350px; background: var(--card-bg); border: 1px solid var(--neon-green); border-radius: 12px 12px 0 0; box-shadow: 0 10px 40px rgba(0,0,0,0.9); z-index: 1001; display: none; flex-direction: column; overflow: hidden; transition: all 0.3s ease; }
         .floating-chat.show { display: flex; }
@@ -301,6 +305,7 @@
         .chat-header { font-size: 0.8rem; margin-bottom: 0.2rem; font-weight: bold; display: flex; gap: 0.5rem; align-items: center; }
         .chat-time { font-size: 0.65rem; color: #666; font-weight: normal; }
         .chat-bubble { background: #222; padding: 0.6rem 1rem; border-radius: 12px; border-top-left-radius: 2px; font-size: 0.9rem; color: #fff; max-width: 90%; word-wrap: break-word; line-height: 1.4; }
+        
         .chat-actions { font-size: 0.75rem; color: #666; margin-top: 0.3rem; display: flex; gap: 0.8rem; }
         .chat-actions span { cursor: pointer; transition: color 0.2s; }
         .chat-actions span:hover { color: var(--neon-green); }
@@ -339,7 +344,6 @@
             <div>LOBATSE <span class="neon-text">RADIO</span></div>
         </div>
 
-        <!-- NEW: Top Audio Player -->
         <div class="top-audio-player">
             <button id="nav-play-btn" class="play-btn-nav">
                 <i class="fas fa-play" style="margin-left: 2px;"></i>
@@ -348,7 +352,6 @@
                 <span class="live-indicator">LIVE</span>
                 <span id="nav-zeno-text" style="font-size: 0.75rem; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px;">Lobatse Radio</span>
             </div>
-            <!-- Volume Control in Nav -->
             <div style="display: flex; align-items: center; gap: 0.3rem; margin-left: 0.5rem;">
                 <i class="fas fa-volume-up" style="color: #666; font-size: 0.7rem;"></i>
                 <input type="range" id="nav-volume-slider" min="0" max="1" step="0.01" value="0.8" style="width: 60px; accent-color: var(--neon-green);">
@@ -393,10 +396,11 @@
     </div>
 
     <!-- Live Video Dropdown Panel -->
-    <div id="live-video-dropdown" class="video-dropdown" style="position: absolute; right: 5%; top: 90px; background: #111; z-index: 1000;">
+    <div id="live-video-dropdown" class="video-dropdown">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
             <h3 style="color: #fff; font-size: 1.1rem;"><span style="color: red;">🔴</span> Broadcasting Live</h3>
-            <i class="fas fa-times" style="cursor: pointer; color: var(--text-muted);" onclick="toggleLiveVideo(event)"></i>
+            <!-- Cleaned up close button event -->
+            <i class="fas fa-times" style="cursor: pointer; color: var(--text-muted);" onclick="closeLiveVideo(event)"></i>
         </div>
         
         <div id="live-feed-container" style="background: #111; border-radius: 8px; overflow: hidden; text-align: center; min-height: 150px; display: flex; align-items: center; justify-content: center; flex-direction: column;">
@@ -420,8 +424,9 @@
                     <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Hurt & Heal: Episode 12</h3>
                     <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">DJ Mo Gee discusses mental health and processing trauma.</p>
                     <div style="display: flex; gap: 1rem; color: #888; font-size: 0.9rem; border-top: 1px solid #333; padding-top: 0.8rem;">
-                        <span style="cursor:pointer;" onclick="this.style.color='var(--neon-green)'; this.innerHTML='<i class=\\'fas fa-heart\\'></i> Liked'"><i class="far fa-heart"></i> Like</span>
-                        <span style="cursor:pointer;"><i class="far fa-comment"></i> Comment</span>
+                        <!-- Clean JS function for likes and comments -->
+                        <span style="cursor:pointer;" onclick="likePodcast(this)"><i class="far fa-heart"></i> Like</span>
+                        <span style="cursor:pointer;" onclick="commentPodcast()"><i class="far fa-comment"></i> Comment</span>
                     </div>
                 </div>
                 <div class="card">
@@ -432,8 +437,8 @@
                     <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">ChooseDay Live Exclusives</h3>
                     <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Motswedi breaks down the latest trending youth culture topics.</p>
                     <div style="display: flex; gap: 1rem; color: #888; font-size: 0.9rem; border-top: 1px solid #333; padding-top: 0.8rem;">
-                        <span style="cursor:pointer;" onclick="this.style.color='var(--neon-green)'; this.innerHTML='<i class=\\'fas fa-heart\\'></i> Liked'"><i class="far fa-heart"></i> Like</span>
-                        <span style="cursor:pointer;"><i class="far fa-comment"></i> Comment</span>
+                        <span style="cursor:pointer;" onclick="likePodcast(this)"><i class="far fa-heart"></i> Like</span>
+                        <span style="cursor:pointer;" onclick="commentPodcast()"><i class="far fa-comment"></i> Comment</span>
                     </div>
                 </div>
                 <div class="card">
@@ -444,8 +449,8 @@
                     <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Afro Diamonds Interview</h3>
                     <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Leano Kgaswane sits down with a rising local star.</p>
                     <div style="display: flex; gap: 1rem; color: #888; font-size: 0.9rem; border-top: 1px solid #333; padding-top: 0.8rem;">
-                        <span style="cursor:pointer;" onclick="this.style.color='var(--neon-green)'; this.innerHTML='<i class=\\'fas fa-heart\\'></i> Liked'"><i class="far fa-heart"></i> Like</span>
-                        <span style="cursor:pointer;"><i class="far fa-comment"></i> Comment</span>
+                        <span style="cursor:pointer;" onclick="likePodcast(this)"><i class="far fa-heart"></i> Like</span>
+                        <span style="cursor:pointer;" onclick="commentPodcast()"><i class="far fa-comment"></i> Comment</span>
                     </div>
                 </div>
             </div>
@@ -484,7 +489,6 @@
     <!-- Hero Section -->
     <header id="home" class="hero">
         <div class="hero-content">
-            <!-- NEW: Big Green Hero Play Button -->
             <button id="hero-play-btn" class="big-hero-play">
                 <i class="fas fa-play"></i>
             </button>
@@ -582,6 +586,50 @@
         </div>
     </section>
 
+    <!-- Donate Section -->
+    <section id="donate" class="section bg-darker">
+        <div class="donate-container">
+            <i class="far fa-heart donate-icon"></i>
+            <h2 class="donate-title">Support the Station</h2>
+            <p class="donate-text">Your contributions help us maintain equipment, support local talent, and keep the music playing completely ad-free.</p>
+            
+            <div class="donate-amounts">
+                <button class="amount-btn active" onclick="showPayment('orange', this)">Orange Money</button>
+                <button class="amount-btn" onclick="showPayment('myzaka', this)">MyZaka</button>
+                <button class="amount-btn" onclick="showPayment('bank', this)">Bank Transfer</button>
+                <button class="amount-btn" onclick="showPayment('paypal', this)">PayPal</button>
+            </div>
+            
+            <div id="orange" class="payment-method active-method">
+                <h3 style="color: var(--neon-green); margin-bottom: 1rem;">Orange Money</h3>
+                <p>Send your contribution directly via Orange Money to:<br><strong style="font-size: 1.2rem; color: #fff; display: block; margin-top: 0.5rem;">+267 72960417</strong></p>
+                <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-muted);">Please use your name as the reference.</p>
+            </div>
+
+            <div id="myzaka" class="payment-method">
+                <h3 style="color: var(--neon-green); margin-bottom: 1rem;">Mascom MyZaka</h3>
+                <p>Send your contribution directly via MyZaka to:<br><strong style="font-size: 1.2rem; color: #fff; display: block; margin-top: 0.5rem;">+267 74547439</strong></p>
+                <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-muted);">Please use your name as the reference.</p>
+            </div>
+
+            <div id="bank" class="payment-method">
+                <h3 style="color: var(--neon-green); margin-bottom: 1rem;">Bank Transfer</h3>
+                <p style="line-height: 1.8;">
+                    <strong>Bank:</strong> FNB Botswana<br>
+                    <strong>Account Name:</strong> Lobatse Radio<br>
+                    <strong>Account Number:</strong> 625-122-697-64<br>
+                    <strong>Branch Code:</strong> 281767
+                </p>
+            </div>
+
+            <div id="paypal" class="payment-method">
+                <h3 style="color: var(--neon-green); margin-bottom: 1rem;">PayPal</h3>
+                <p>Support us globally via PayPal's secure network.</p>
+                <a href="#" class="btn-submit-song" style="display: inline-block; margin-top: 1rem; text-decoration: none;">Go to PayPal.me</a>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer & Socials -->
     <footer class="footer">
         <h2>Connect With <span class="neon-text">Us</span></h2>
@@ -631,9 +679,7 @@
                     title: 'Lobatse Radio Live',
                     artist: 'Where Talent Lives',
                     album: 'Lobatse Online Radio',
-                    artwork: [
-                        { src: 'Lradio1.jpeg', sizes: '512x512', type: 'image/jpeg' }
-                    ]
+                    artwork: [{ src: 'Lradio1.jpeg', sizes: '512x512', type: 'image/jpeg' }]
                 });
                 navigator.mediaSession.setActionHandler('play', togglePlay);
                 navigator.mediaSession.setActionHandler('pause', togglePlay);
@@ -662,6 +708,16 @@
             audio.volume = e.target.value;
         });
 
+        // Podcast Like & Comment Functions
+        window.likePodcast = function(btn) {
+            btn.style.color = 'var(--neon-green)';
+            btn.innerHTML = '<i class="fas fa-heart"></i> Liked';
+        };
+
+        window.commentPodcast = function() {
+            alert("Comment feature will be available in the next update!");
+        };
+
         // Modals & Triggers
         function toggleAdForm() {
             const drawer = document.getElementById('ad-form-drawer');
@@ -672,7 +728,15 @@
         function toggleSongModal(e) { if (e) e.preventDefault(); document.getElementById('song-modal').classList.toggle('show'); }
         function togglePodcastModal(e) { if (e) e.preventDefault(); document.getElementById('podcast-modal').classList.toggle('show'); }
         function toggleShopModal(e) { if (e) e.preventDefault(); document.getElementById('shop-modal').classList.toggle('show'); }
-        function toggleLiveVideo(e) { e.preventDefault(); document.getElementById('live-video-dropdown').classList.toggle('show'); }
+        
+        function toggleLiveVideo(e) { 
+            e.preventDefault(); 
+            document.getElementById('live-video-dropdown').classList.toggle('show'); 
+        }
+        function closeLiveVideo(e) {
+            if(e) e.stopPropagation();
+            document.getElementById('live-video-dropdown').classList.remove('show');
+        }
 
         function sendAdEmail(e) {
             e.preventDefault();
@@ -777,8 +841,14 @@
         }
 
         window.addEventListener('click', (e) => {
+            // Close standard modals
             if (e.target.classList.contains('modal')) {
                 e.target.classList.remove('show');
+            }
+            // Close live video dropdown if clicked outside
+            const liveVideoDropdown = document.getElementById('live-video-dropdown');
+            if (liveVideoDropdown.classList.contains('show') && !e.target.closest('.video-dropdown') && !e.target.closest('.btn-live-video')) {
+                liveVideoDropdown.classList.remove('show');
             }
         });
     </script>
@@ -905,7 +975,12 @@
             const data = snapshot.val();
             const now = new Date().getTime();
             
-            const msgTime = data.timestamp || now; 
+            // Failsafe for pending serverTimestamps so new messages don't disappear
+            let msgTime = now;
+            if (data.timestamp && typeof data.timestamp === 'number') {
+                msgTime = data.timestamp;
+            }
+            
             const messageAge = now - msgTime;
 
             if (messageAge < retentionTime) {
@@ -914,7 +989,7 @@
                 
                 newItem.innerHTML = `
                     <div class="chat-header">
-                        <span class="color-${data.colorIndex}-text">${data.name}</span>
+                        <span class="color-${data.colorIndex || 1}-text">${data.name}</span>
                         <span class="chat-time">${data.time}</span>
                     </div>
                     <div class="chat-bubble">${data.message}</div>
