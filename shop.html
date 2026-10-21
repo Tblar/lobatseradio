@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lobatse Radio Shop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --bg-darker: #050505;
@@ -12,87 +13,330 @@
             --card-bg: #111111;
             --card-border: #222222;
         }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body {
             background-color: var(--bg-darker);
             color: var(--text-main);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 1rem;
+            padding: 1.5rem;
         }
-        .section-header {
-            font-size: 2rem;
+        
+        /* Top Navigation for Shop */
+        .shop-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 2rem;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 1rem;
+        }
+        .shop-title {
+            font-size: 1.8rem;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-        .neon-text { 
-            color: var(--neon-green); 
-            text-shadow: 0 0 10px rgba(57, 255, 20, 0.2); 
-        }
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-        .card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 1.5rem;
-            border: 1px solid var(--card-border);
-            text-align: left;
+        .neon-text { color: var(--neon-green); text-shadow: 0 0 10px rgba(57, 255, 20, 0.2); }
+        
+        .header-actions { display: flex; gap: 1rem; align-items: center; }
+        
+        .btn {
+            background-color: transparent;
+            color: var(--neon-green);
+            border: 1px solid var(--neon-green);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
         }
-        .item-img { 
-            width: 100%; 
-            height: 200px; 
-            object-fit: contain; 
-            background: #fff; 
-            border-radius: 5px; 
-            margin-bottom: 1rem; 
+        .btn:hover { background-color: var(--neon-green); color: #000; }
+        
+        .cart-btn { position: relative; }
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -8px;
+            background: red;
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 50%;
         }
-        .btn-buy { 
-            background-color: transparent; 
-            color: var(--neon-green); 
-            border: 1px solid var(--neon-green); 
-            padding: 0.4rem 1rem; 
-            border-radius: 15px; 
-            cursor: pointer; 
-            margin-top: 1rem; 
-            font-weight: bold; 
-            align-self: flex-start; 
-            transition: 0.3s; 
+
+        /* Products Grid */
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+        .card { background-color: var(--card-bg); border-radius: 12px; padding: 1.5rem; border: 1px solid var(--card-border); text-align: left; display: flex; flex-direction: column; }
+        .item-img { width: 100%; height: 180px; object-fit: contain; background: #fff; border-radius: 8px; margin-bottom: 1rem; }
+        
+        /* Modals (Login & Cart) */
+        .modal {
+            display: none; 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.9); z-index: 100;
+            align-items: center; justify-content: center;
         }
-        .btn-buy:hover { 
-            background-color: var(--neon-green); 
-            color: #000; 
+        .modal.show { display: flex; }
+        .modal-content {
+            background: var(--card-bg);
+            padding: 2rem; border-radius: 12px; border: 1px solid var(--neon-green);
+            width: 90%; max-width: 400px; position: relative;
         }
+        .close-modal { position: absolute; top: 1rem; right: 1.5rem; font-size: 1.5rem; cursor: pointer; color: #fff; }
+        .close-modal:hover { color: var(--neon-green); }
+        
+        .custom-input { width: 100%; padding: 0.8rem; background: var(--bg-darker); border: 1px solid #444; color: #fff; border-radius: 6px; outline: none; margin-bottom: 1rem; }
+        .custom-input:focus { border-color: var(--neon-green); }
+        
+        .btn-full { width: 100%; justify-content: center; margin-bottom: 0.5rem; }
+        .auth-toggle { font-size: 0.85rem; color: var(--text-muted); text-align: center; cursor: pointer; margin-top: 1rem; }
+        .auth-toggle:hover { color: var(--neon-green); }
+
+        /* Cart Items */
+        .cart-list { max-height: 300px; overflow-y: auto; margin-bottom: 1rem; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; padding: 0.8rem 0; }
+        .cart-item-title { font-size: 0.9rem; font-weight: bold; }
+        .cart-item-price { color: var(--neon-green); font-size: 0.9rem; }
+        .remove-btn { color: red; cursor: pointer; font-size: 0.8rem; margin-left: 10px; }
+        .cart-total { font-size: 1.2rem; font-weight: bold; text-align: right; margin-bottom: 1rem; border-top: 1px solid var(--neon-green); padding-top: 1rem; }
     </style>
 </head>
 <body>
-    <div class="section-header">Mini <span class="neon-text">Shop</span></div>
-    <div class="grid-container" id="shop-grid">
-        <!-- Items are injected here -->
+
+    <div class="shop-header">
+        <div class="shop-title">Mini <span class="neon-text">Shop</span></div>
+        <div class="header-actions">
+            <span id="user-display" style="font-size: 0.9rem; color: var(--text-muted); display: none;"></span>
+            <button class="btn" id="login-trigger-btn" onclick="openLogin()"><i class="fas fa-user"></i> Log In</button>
+            <button class="btn cart-btn" onclick="openCart()">
+                <i class="fas fa-shopping-cart"></i> Cart
+                <span class="cart-badge" id="cart-badge">0</span>
+            </button>
+        </div>
     </div>
 
-    <script>
-        // ADD OR CHANGE YOUR SHOP ITEMS HERE
+    <div class="grid-container" id="shop-grid">
+        <!-- Items injected via JS -->
+    </div>
+
+    <!-- Login/Register Modal -->
+    <div id="auth-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModals()">&times;</span>
+            <h2 id="auth-title" style="margin-bottom: 1.5rem; color: var(--neon-green);">Log In</h2>
+            <form id="auth-form">
+                <input type="email" id="auth-email" class="custom-input" placeholder="Email Address" required>
+                <input type="password" id="auth-password" class="custom-input" placeholder="Password" required>
+                <div id="auth-error" style="color: red; font-size: 0.8rem; margin-bottom: 1rem; display: none;"></div>
+                <button type="submit" class="btn btn-full" id="auth-submit-btn">Log In</button>
+            </form>
+            <div class="auth-toggle" id="auth-toggle-btn">Don't have an account? <b>Sign Up</b></div>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="modal">
+        <div class="modal-content" style="max-width: 500px;">
+            <span class="close-modal" onclick="closeModals()">&times;</span>
+            <h2 style="margin-bottom: 1.5rem; color: var(--neon-green);"><i class="fas fa-shopping-cart"></i> Your Cart</h2>
+            
+            <div class="cart-list" id="cart-items-container">
+                <!-- Cart items injected here -->
+            </div>
+            
+            <div class="cart-total" id="cart-total-display">Total: P0.00</div>
+            
+            <button class="btn btn-full" onclick="checkout()" style="background-color: var(--neon-green); color: #000;">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- FIREBASE AND APP LOGIC -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+
+        // 1. Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBdLuCGZWVKtyfLhr1vaB6bydGF7NiK29o",
+            authDomain: "lobatse-radio.firebaseapp.com",
+            projectId: "lobatse-radio",
+            storageBucket: "lobatse-radio.firebasestorage.app",
+            messagingSenderId: "136141473716",
+            appId: "1:136141473716:web:7e1c4dee78c5939ac894e1"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // 2. Shop Data & Cart State
         const shopData = [
-            { name: "Lobatse Radio Cup", price: "P35.00", image: "IMG_3420.JPG" },
-            { name: "Lobatse Radio T-Shirt", price: "P170.00", image: "IMG_3422.JPG" },
-            { name: "Lobatse Radio Hoody", price: "P200.00", image: "Gemini_Generated_Image (3).jpeg" }
+            { id: "lor-cup", name: "Lobatse Radio Cup", price: 35.00, image: "IMG_3420.JPG" },
+            { id: "lor-tshirt", name: "Lobatse Radio T-Shirt", price: 170.00, image: "IMG_3422.JPG" },
+            { id: "lor-hoody", name: "Lobatse Radio Hoody", price: 200.00, image: "Gemini_Generated_Image (3).jpeg" }
         ];
 
+        let cart = JSON.parse(localStorage.getItem('lor_shop_cart')) || [];
+        let currentUser = null;
+
+        // 3. Render Shop Items
         const shopGrid = document.getElementById('shop-grid');
         shopData.forEach(item => {
             shopGrid.innerHTML += `
                 <div class="card">
-                    <img src="${item.image}" alt="${item.name}" class="item-img">
-                    <h3 style="margin: 1rem 0 0.5rem; font-size: 1.1rem;">${item.name}</h3>
-                    <div style="color: #39ff14; font-weight: bold; font-size: 1.1rem;">${item.price}</div>
-                    <button class="btn-buy">Buy Now</button>
+                    <img src="${item.image}" alt="${item.name}" class="item-img" onerror="this.src='https://via.placeholder.com/150/ffffff/000000?text=No+Image'">
+                    <h3 style="margin-bottom: 0.5rem; font-size: 1.1rem;">${item.name}</h3>
+                    <div style="color: #39ff14; font-weight: bold; font-size: 1.1rem; margin-bottom: 1rem;">P${item.price.toFixed(2)}</div>
+                    <button class="btn" onclick="window.addToCart('${item.id}')"><i class="fas fa-cart-plus"></i> Add to Cart</button>
                 </div>
             `;
+        });
+
+        // 4. Cart Functions (Exposed to window so inline HTML onclick can see them)
+        window.addToCart = function(itemId) {
+            const product = shopData.find(p => p.id === itemId);
+            if(product) {
+                cart.push(product);
+                saveCart();
+                updateCartUI();
+                alert(`${product.name} added to cart!`);
+            }
+        };
+
+        window.removeFromCart = function(index) {
+            cart.splice(index, 1);
+            saveCart();
+            updateCartUI();
+        };
+
+        function saveCart() {
+            localStorage.setItem('lor_shop_cart', JSON.stringify(cart));
+        }
+
+        function updateCartUI() {
+            // Update Badge
+            document.getElementById('cart-badge').innerText = cart.length;
+            
+            // Update Modal List
+            const container = document.getElementById('cart-items-container');
+            container.innerHTML = '';
+            
+            if(cart.length === 0) {
+                container.innerHTML = '<p style="color: #666; text-align: center;">Your cart is empty.</p>';
+            } else {
+                cart.forEach((item, index) => {
+                    container.innerHTML += `
+                        <div class="cart-item">
+                            <div>
+                                <div class="cart-item-title">${item.name}</div>
+                                <div class="cart-item-price">P${item.price.toFixed(2)}</div>
+                            </div>
+                            <span class="remove-btn" onclick="window.removeFromCart(${index})"><i class="fas fa-trash"></i> Remove</span>
+                        </div>
+                    `;
+                });
+            }
+
+            // Update Total
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            document.getElementById('cart-total-display').innerText = `Total: P${total.toFixed(2)}`;
+        }
+
+        window.checkout = function() {
+            if(cart.length === 0) {
+                alert("Your cart is empty!");
+                return;
+            }
+            if(!currentUser) {
+                alert("Please Log In to proceed to checkout.");
+                openLogin();
+                return;
+            }
+            // Real checkout integration would go here (e.g. Orange Money / PayGate API)
+            alert(`Proceeding to checkout with ${cart.length} items.\nTotal: P${cart.reduce((s, i) => s + i.price, 0).toFixed(2)}\n\nThis feature will connect to the payment gateway in the next update!`);
+        };
+
+        // Initialize Cart UI on load
+        updateCartUI();
+
+        // 5. Auth UI Logic
+        let isLoginMode = true;
+        const authTitle = document.getElementById('auth-title');
+        const authSubmitBtn = document.getElementById('auth-submit-btn');
+        const authToggleBtn = document.getElementById('auth-toggle-btn');
+        const authError = document.getElementById('auth-error');
+
+        authToggleBtn.addEventListener('click', () => {
+            isLoginMode = !isLoginMode;
+            authError.style.display = 'none';
+            if(isLoginMode) {
+                authTitle.innerText = "Log In";
+                authSubmitBtn.innerText = "Log In";
+                authToggleBtn.innerHTML = "Don't have an account? <b>Sign Up</b>";
+            } else {
+                authTitle.innerText = "Create Account";
+                authSubmitBtn.innerText = "Sign Up";
+                authToggleBtn.innerHTML = "Already have an account? <b>Log In</b>";
+            }
+        });
+
+        // 6. Firebase Auth Listeners & Submissions
+        onAuthStateChanged(auth, (user) => {
+            const loginBtn = document.getElementById('login-trigger-btn');
+            const userDisplay = document.getElementById('user-display');
+            
+            if (user) {
+                currentUser = user;
+                loginBtn.innerHTML = '<i class="fas fa-sign-out-alt"></i> Log Out';
+                loginBtn.onclick = () => signOut(auth);
+                userDisplay.style.display = 'block';
+                userDisplay.innerText = `Hello, ${user.email.split('@')[0]}`;
+            } else {
+                currentUser = null;
+                loginBtn.innerHTML = '<i class="fas fa-user"></i> Log In';
+                loginBtn.onclick = openLogin;
+                userDisplay.style.display = 'none';
+                userDisplay.innerText = '';
+            }
+        });
+
+        document.getElementById('auth-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('auth-email').value;
+            const password = document.getElementById('auth-password').value;
+            authError.style.display = 'none';
+
+            if(isLoginMode) {
+                signInWithEmailAndPassword(auth, email, password)
+                    .then(() => { closeModals(); })
+                    .catch((error) => {
+                        authError.style.display = 'block';
+                        authError.innerText = error.message.replace('Firebase: ', '');
+                    });
+            } else {
+                createUserWithEmailAndPassword(auth, email, password)
+                    .then(() => { closeModals(); })
+                    .catch((error) => {
+                        authError.style.display = 'block';
+                        authError.innerText = error.message.replace('Firebase: ', '');
+                    });
+            }
+        });
+
+        // Modal triggers
+        window.openLogin = () => document.getElementById('auth-modal').classList.add('show');
+        window.openCart = () => document.getElementById('cart-modal').classList.add('show');
+        window.closeModals = () => {
+            document.getElementById('auth-modal').classList.remove('show');
+            document.getElementById('cart-modal').classList.remove('show');
+            document.getElementById('auth-error').style.display = 'none';
+        };
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal')) {
+                closeModals();
+            }
         });
     </script>
 </body>
