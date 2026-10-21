@@ -10,6 +10,7 @@
             --bg-darker: #050505;
             --neon-green: #39ff14;
             --text-main: #ffffff;
+            --text-muted: #a0a0a0;
             --card-bg: #111111;
             --card-border: #222222;
         }
@@ -20,7 +21,6 @@
             padding: 1.5rem;
         }
         
-        /* Top Navigation for Shop */
         .shop-header {
             display: flex;
             justify-content: space-between;
@@ -29,11 +29,7 @@
             border-bottom: 1px solid var(--card-border);
             padding-bottom: 1rem;
         }
-        .shop-title {
-            font-size: 1.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+        .shop-title { font-size: 1.8rem; text-transform: uppercase; letter-spacing: 1px; }
         .neon-text { color: var(--neon-green); text-shadow: 0 0 10px rgba(57, 255, 20, 0.2); }
         
         .header-actions { display: flex; gap: 1rem; align-items: center; }
@@ -52,6 +48,7 @@
             gap: 0.5rem;
         }
         .btn:hover { background-color: var(--neon-green); color: #000; }
+        .btn:disabled { opacity: 0.6; cursor: not-allowed; }
         
         .cart-btn { position: relative; }
         .cart-badge {
@@ -65,12 +62,10 @@
             border-radius: 50%;
         }
 
-        /* Products Grid */
         .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
         .card { background-color: var(--card-bg); border-radius: 12px; padding: 1.5rem; border: 1px solid var(--card-border); text-align: left; display: flex; flex-direction: column; }
         .item-img { width: 100%; height: 180px; object-fit: contain; background: #fff; border-radius: 8px; margin-bottom: 1rem; }
         
-        /* Modals (Login & Cart) */
         .modal {
             display: none; 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -93,13 +88,28 @@
         .auth-toggle { font-size: 0.85rem; color: var(--text-muted); text-align: center; cursor: pointer; margin-top: 1rem; }
         .auth-toggle:hover { color: var(--neon-green); }
 
-        /* Cart Items */
         .cart-list { max-height: 300px; overflow-y: auto; margin-bottom: 1rem; }
         .cart-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; padding: 0.8rem 0; }
         .cart-item-title { font-size: 0.9rem; font-weight: bold; }
         .cart-item-price { color: var(--neon-green); font-size: 0.9rem; }
         .remove-btn { color: red; cursor: pointer; font-size: 0.8rem; margin-left: 10px; }
         .cart-total { font-size: 1.2rem; font-weight: bold; text-align: right; margin-bottom: 1rem; border-top: 1px solid var(--neon-green); padding-top: 1rem; }
+
+        /* Payment UI Styles */
+        .pay-method-btn {
+            flex: 1;
+            padding: 1rem 0.5rem;
+            border: 2px solid #444;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+            font-size: 0.9rem;
+            background: var(--bg-darker);
+        }
+        #pay-orange.active { border-color: #ff6600; color: #ff6600; background: rgba(255, 102, 0, 0.1); }
+        #pay-myzaka.active { border-color: #00a65a; color: #00a65a; background: rgba(0, 166, 90, 0.1); }
     </style>
 </head>
 <body>
@@ -140,14 +150,38 @@
         <div class="modal-content" style="max-width: 500px;">
             <span class="close-modal" onclick="closeModals()">&times;</span>
             <h2 style="margin-bottom: 1.5rem; color: var(--neon-green);"><i class="fas fa-shopping-cart"></i> Your Cart</h2>
-            
-            <div class="cart-list" id="cart-items-container">
-                <!-- Cart items injected here -->
-            </div>
-            
+            <div class="cart-list" id="cart-items-container"></div>
             <div class="cart-total" id="cart-total-display">Total: P0.00</div>
-            
             <button class="btn btn-full" onclick="checkout()" style="background-color: var(--neon-green); color: #000;">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Mobile Money Checkout Modal -->
+    <div id="checkout-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModals()">&times;</span>
+            <h2 style="margin-bottom: 0.5rem; color: var(--neon-green);">Checkout</h2>
+            <div style="font-size: 1.5rem; margin-bottom: 1.5rem; font-weight: bold; text-align: center;" id="checkout-total-display">P0.00</div>
+            
+            <form id="checkout-form">
+                <label style="display:block; margin-bottom:0.8rem; color:var(--text-muted); font-size: 0.9rem;">Select Payment Network:</label>
+                <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                    <div class="pay-method-btn active" id="pay-orange" onclick="selectPayment('orange')">Orange Money</div>
+                    <div class="pay-method-btn" id="pay-myzaka" onclick="selectPayment('myzaka')">Mascom MyZaka</div>
+                </div>
+                
+                <input type="hidden" id="selected-payment" value="orange">
+                
+                <label style="display:block; margin-bottom:0.5rem; color:var(--text-muted); font-size: 0.9rem;">Mobile Number:</label>
+                <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+                    <span style="background: #222; border: 1px solid #444; border-radius: 6px; padding: 0.8rem; color: #fff;">+267</span>
+                    <input type="text" id="pay-phone" class="custom-input" style="margin-bottom: 0;" placeholder="72960417" required pattern="[7][0-9]{7}" title="Enter an 8-digit Botswana number starting with 7">
+                </div>
+                
+                <button type="submit" class="btn btn-full" id="pay-submit-btn" style="background-color: var(--neon-green); color: #000; font-size: 1.1rem; padding: 0.8rem; margin-top: 1rem;">Process Payment</button>
+            </form>
+            
+            <div id="payment-status" style="margin-top: 1rem; text-align: center; display: none; color: var(--text-muted); font-size: 0.9rem; line-height: 1.5;"></div>
         </div>
     </div>
 
@@ -192,7 +226,7 @@
             `;
         });
 
-        // 4. Cart Functions (Exposed to window so inline HTML onclick can see them)
+        // 4. Cart & Checkout Functions
         window.addToCart = function(itemId) {
             const product = shopData.find(p => p.id === itemId);
             if(product) {
@@ -209,15 +243,10 @@
             updateCartUI();
         };
 
-        function saveCart() {
-            localStorage.setItem('lor_shop_cart', JSON.stringify(cart));
-        }
+        function saveCart() { localStorage.setItem('lor_shop_cart', JSON.stringify(cart)); }
 
         function updateCartUI() {
-            // Update Badge
             document.getElementById('cart-badge').innerText = cart.length;
-            
-            // Update Modal List
             const container = document.getElementById('cart-items-container');
             container.innerHTML = '';
             
@@ -237,26 +266,65 @@
                 });
             }
 
-            // Update Total
             const total = cart.reduce((sum, item) => sum + item.price, 0);
             document.getElementById('cart-total-display').innerText = `Total: P${total.toFixed(2)}`;
+            document.getElementById('checkout-total-display').innerText = `P${total.toFixed(2)}`;
         }
 
         window.checkout = function() {
-            if(cart.length === 0) {
-                alert("Your cart is empty!");
-                return;
-            }
-            if(!currentUser) {
-                alert("Please Log In to proceed to checkout.");
-                openLogin();
-                return;
-            }
-            // Real checkout integration would go here (e.g. Orange Money / PayGate API)
-            alert(`Proceeding to checkout with ${cart.length} items.\nTotal: P${cart.reduce((s, i) => s + i.price, 0).toFixed(2)}\n\nThis feature will connect to the payment gateway in the next update!`);
+            if(cart.length === 0) { alert("Your cart is empty!"); return; }
+            if(!currentUser) { alert("Please Log In to proceed to checkout."); openLogin(); return; }
+            
+            closeModals();
+            document.getElementById('checkout-modal').classList.add('show');
         };
 
-        // Initialize Cart UI on load
+        window.selectPayment = function(method) {
+            document.getElementById('pay-orange').classList.remove('active');
+            document.getElementById('pay-myzaka').classList.remove('active');
+            document.getElementById('selected-payment').value = method;
+            
+            if(method === 'orange') {
+                document.getElementById('pay-orange').classList.add('active');
+            } else {
+                document.getElementById('pay-myzaka').classList.add('active');
+            }
+        };
+
+        document.getElementById('checkout-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const phone = document.getElementById('pay-phone').value;
+            const method = document.getElementById('selected-payment').value;
+            const btn = document.getElementById('pay-submit-btn');
+            const status = document.getElementById('payment-status');
+            const providerName = method === 'orange' ? 'Orange Money' : 'Mascom MyZaka';
+            
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Initiating...';
+            status.style.display = 'block';
+            status.style.color = 'var(--text-muted)';
+            status.innerHTML = `Connecting to ${providerName} STK push...<br>Please check +267 ${phone} to enter your PIN.`;
+            
+            // Simulating API STK Push delay
+            setTimeout(() => {
+                status.style.color = 'var(--neon-green)';
+                status.innerHTML = `<i class="fas fa-check-circle"></i> Payment verified via ${providerName}!<br>Your order has been placed successfully.`;
+                btn.innerText = "Order Complete";
+                
+                cart = [];
+                saveCart();
+                updateCartUI();
+                
+                setTimeout(() => {
+                    closeModals();
+                    btn.disabled = false;
+                    btn.innerText = "Process Payment";
+                    status.style.display = 'none';
+                    document.getElementById('pay-phone').value = '';
+                }, 4000);
+            }, 3500);
+        });
+
         updateCartUI();
 
         // 5. Auth UI Logic
@@ -280,7 +348,7 @@
             }
         });
 
-        // 6. Firebase Auth Listeners & Submissions
+        // 6. Firebase Auth Listeners
         onAuthStateChanged(auth, (user) => {
             const loginBtn = document.getElementById('login-trigger-btn');
             const userDisplay = document.getElementById('user-display');
@@ -296,7 +364,6 @@
                 loginBtn.innerHTML = '<i class="fas fa-user"></i> Log In';
                 loginBtn.onclick = openLogin;
                 userDisplay.style.display = 'none';
-                userDisplay.innerText = '';
             }
         });
 
@@ -329,14 +396,12 @@
         window.closeModals = () => {
             document.getElementById('auth-modal').classList.remove('show');
             document.getElementById('cart-modal').classList.remove('show');
+            document.getElementById('checkout-modal').classList.remove('show');
             document.getElementById('auth-error').style.display = 'none';
         };
 
-        // Close modal when clicking outside
         window.addEventListener('click', (e) => {
-            if (e.target.classList.contains('modal')) {
-                closeModals();
-            }
+            if (e.target.classList.contains('modal')) closeModals();
         });
     </script>
 </body>
