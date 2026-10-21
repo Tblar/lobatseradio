@@ -150,8 +150,11 @@
         <div class="modal-content" style="max-width: 500px;">
             <span class="close-modal" onclick="closeModals()">&times;</span>
             <h2 style="margin-bottom: 1.5rem; color: var(--neon-green);"><i class="fas fa-shopping-cart"></i> Your Cart</h2>
+            
             <div class="cart-list" id="cart-items-container"></div>
+            
             <div class="cart-total" id="cart-total-display">Total: P0.00</div>
+            
             <button class="btn btn-full" onclick="checkout()" style="background-color: var(--neon-green); color: #000;">Proceed to Checkout</button>
         </div>
     </div>
@@ -178,10 +181,10 @@
                     <input type="text" id="pay-phone" class="custom-input" style="margin-bottom: 0;" placeholder="72960417" required pattern="[7][0-9]{7}" title="Enter an 8-digit Botswana number starting with 7">
                 </div>
                 
-                <button type="submit" class="btn btn-full" id="pay-submit-btn" style="background-color: var(--neon-green); color: #000; font-size: 1.1rem; padding: 0.8rem; margin-top: 1rem;">Process Payment</button>
+                <button type="submit" class="btn btn-full" id="pay-submit-btn" style="background-color: var(--neon-green); color: #000; font-size: 1.1rem; padding: 0.8rem; margin-top: 1rem;">Open Mobile App</button>
             </form>
             
-            <div id="payment-status" style="margin-top: 1rem; text-align: center; display: none; color: var(--text-muted); font-size: 0.9rem; line-height: 1.5;"></div>
+            <div id="payment-status" style="margin-top: 1rem; text-align: center; display: none; font-size: 0.9rem; line-height: 1.5;"></div>
         </div>
     </div>
 
@@ -212,6 +215,7 @@
 
         let cart = JSON.parse(localStorage.getItem('lor_shop_cart')) || [];
         let currentUser = null;
+        let cartTotal = 0;
 
         // 3. Render Shop Items
         const shopGrid = document.getElementById('shop-grid');
@@ -266,9 +270,9 @@
                 });
             }
 
-            const total = cart.reduce((sum, item) => sum + item.price, 0);
-            document.getElementById('cart-total-display').innerText = `Total: P${total.toFixed(2)}`;
-            document.getElementById('checkout-total-display').innerText = `P${total.toFixed(2)}`;
+            cartTotal = cart.reduce((sum, item) => sum + item.price, 0);
+            document.getElementById('cart-total-display').innerText = `Total: P${cartTotal.toFixed(2)}`;
+            document.getElementById('checkout-total-display').innerText = `P${cartTotal.toFixed(2)}`;
         }
 
         window.checkout = function() {
@@ -291,38 +295,34 @@
             }
         };
 
+        // DEEP LINKING TO MOBILE MONEY APPS / USSD
         document.getElementById('checkout-form').addEventListener('submit', (e) => {
             e.preventDefault();
-            const phone = document.getElementById('pay-phone').value;
             const method = document.getElementById('selected-payment').value;
             const btn = document.getElementById('pay-submit-btn');
             const status = document.getElementById('payment-status');
-            const providerName = method === 'orange' ? 'Orange Money' : 'Mascom MyZaka';
             
-            btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Initiating...';
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Opening App...';
+            
+            // Assign the correct Botswana Mobile Money USSD code
+            const ussdCode = method === 'orange' ? '*145%23' : '*167%23'; 
+            
             status.style.display = 'block';
-            status.style.color = 'var(--text-muted)';
-            status.innerHTML = `Connecting to ${providerName} STK push...<br>Please check +267 ${phone} to enter your PIN.`;
+            status.style.color = 'var(--neon-green)';
+            status.innerHTML = `<i class="fas fa-external-link-alt"></i> Redirecting to your phone's payment app...`;
             
-            // Simulating API STK Push delay
+            // Triggers the phone's native dialer or mobile money app
+            window.location.href = `tel:${ussdCode}`;
+
+            // Reset cart assuming they follow through on their device
             setTimeout(() => {
-                status.style.color = 'var(--neon-green)';
-                status.innerHTML = `<i class="fas fa-check-circle"></i> Payment verified via ${providerName}!<br>Your order has been placed successfully.`;
-                btn.innerText = "Order Complete";
-                
                 cart = [];
                 saveCart();
                 updateCartUI();
-                
-                setTimeout(() => {
-                    closeModals();
-                    btn.disabled = false;
-                    btn.innerText = "Process Payment";
-                    status.style.display = 'none';
-                    document.getElementById('pay-phone').value = '';
-                }, 4000);
-            }, 3500);
+                closeModals();
+                btn.innerText = "Open Mobile App";
+                status.style.display = 'none';
+            }, 3000);
         });
 
         updateCartUI();
