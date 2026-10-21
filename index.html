@@ -84,9 +84,74 @@
 
         .hero { height: 65vh; display: flex; align-items: center; justify-content: center; text-align: center; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=2070&auto=format&fit=crop') center/cover; }
         .hero h1 { font-size: 4rem; margin-bottom: 1rem; }
-        .big-hero-play { background-color: var(--neon-green); color: #000; border: none; width: 90px; height: 90px; border-radius: 50%; font-size: 2.5rem; cursor: pointer; margin-bottom: 2rem; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 0 20px rgba(57, 255, 20, 0.4); display: inline-flex; align-items: center; justify-content: center; }
+        
+        .hero-play-area { display: flex; align-items: center; justify-content: center; gap: 2rem; margin-bottom: 2rem; flex-wrap: wrap; }
+        .big-hero-play { background-color: var(--neon-green); color: #000; border: none; width: 90px; height: 90px; border-radius: 50%; font-size: 2.5rem; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 0 20px rgba(57, 255, 20, 0.4); display: inline-flex; align-items: center; justify-content: center; z-index: 5; }
         .big-hero-play i { margin-left: 6px; }
         .big-hero-play:hover { transform: scale(1.1); box-shadow: 0 0 40px rgba(57, 255, 20, 0.7); }
+
+        /* Vinyl Record Metadata Styles */
+        .metadata-vinyl-container {
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: rgba(0, 0, 0, 0.65);
+            padding: 10px 25px 10px 10px;
+            border-radius: 12px;
+            border: 1px solid #333;
+            backdrop-filter: blur(8px);
+            text-align: left;
+            animation: slideInVinyl 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes slideInVinyl {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .vinyl-case {
+            width: 75px;
+            height: 75px;
+            background: #111;
+            border-radius: 4px;
+            position: relative;
+            z-index: 3;
+            box-shadow: 4px 0 15px rgba(0,0,0,0.9);
+            border: 1px solid #444;
+            overflow: hidden;
+        }
+        .vinyl-case img { width: 100%; height: 100%; object-fit: cover; }
+        .vinyl-record {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: repeating-radial-gradient(#111, #111 3px, #222 4px, #111 5px);
+            position: absolute;
+            left: 45px;
+            z-index: 2;
+            box-shadow: 0 0 10px rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: spinRecord 4s linear infinite;
+            animation-play-state: paused;
+        }
+        .vinyl-record::after {
+            content: '';
+            width: 22px;
+            height: 22px;
+            background: var(--neon-green);
+            border-radius: 50%;
+            border: 2px solid #000;
+        }
+        .vinyl-record.spinning { animation-play-state: running; }
+        @keyframes spinRecord { 100% { transform: rotate(360deg); } }
+        
+        .metadata-text {
+            margin-left: 50px;
+            z-index: 4;
+            max-width: 250px;
+        }
+        .now-playing-label { font-size: 0.65rem; color: var(--neon-green); letter-spacing: 2px; margin-bottom: 3px; font-weight: bold; }
+        .track-name { font-size: 1rem; color: #fff; font-weight: bold; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
         .section { padding: 4rem 5%; text-align: center; }
         .bg-darker { background-color: var(--bg-darker); }
@@ -147,18 +212,11 @@
         .social-icon { color: #fff; background: #222; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 1.3rem; transition: all 0.3s; text-decoration: none; }
         .social-icon:hover { background: var(--neon-green); color: #000; transform: translateY(-5px); }
 
-        /* Donation Specific Styles */
-        .donate-amounts { display: flex; justify-content: center; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
-        .amount-btn { background: transparent; border: 1px solid #444; color: #fff; padding: 0.6rem 1.5rem; border-radius: 25px; cursor: pointer; font-size: 1rem; transition: all 0.2s; }
-        .amount-btn:hover, .amount-btn.active { border-color: var(--neon-green); color: var(--neon-green); }
-        .payment-method { display: none; background: rgba(57, 255, 20, 0.05); border: 1px solid var(--neon-green); padding: 2rem; border-radius: 12px; margin-top: 1rem; animation: fadeIn 0.3s ease-in-out; }
-        .payment-method.active-method { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-
         @media (max-width: 900px) {
             .navbar { flex-direction: column; gap: 1rem; }
             .nav-links { flex-wrap: wrap; justify-content: center; gap: 0.8rem; }
             .hero h1 { font-size: 2.8rem; }
+            .hero-play-area { flex-direction: column; gap: 1rem; }
             .ad-slider-container { height: 260px; }
             .video-dropdown { width: 90%; right: 5%; }
             .floating-chat { width: 90%; right: 5%; bottom: 20px; }
@@ -257,9 +315,24 @@
 
     <header id="home" class="hero">
         <div class="hero-content">
-            <button id="hero-play-btn" class="big-hero-play" type="button">
-                <i class="fas fa-play"></i>
-            </button>
+            <div class="hero-play-area">
+                <button id="hero-play-btn" class="big-hero-play" type="button">
+                    <i class="fas fa-play"></i>
+                </button>
+                
+                <!-- Dynamic Vinyl Record Metadata Display -->
+                <div id="hero-metadata-display" class="metadata-vinyl-container" style="display: none;">
+                    <div class="vinyl-case">
+                        <img src="Lradio1.jpeg" alt="Lobatse Radio Sleeve">
+                    </div>
+                    <div class="vinyl-record" id="vinyl-record"></div>
+                    <div class="metadata-text">
+                        <div class="now-playing-label">NOW PLAYING</div>
+                        <div id="hero-track-name" class="track-name">Track Name</div>
+                    </div>
+                </div>
+            </div>
+            
             <h1>Where Talent <span class="neon-text">Lives</span></h1>
             <p>Broadcasting the best sounds, news, and entertainment.</p>
         </div>
@@ -337,46 +410,21 @@
         </div>
     </section>
 
-    <!-- Restored Donate Section -->
     <section id="donate" class="section">
         <div style="background-color: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 3rem 2rem; max-width: 800px; margin: 0 auto;">
             <i class="far fa-heart" style="color: var(--neon-green); font-size: 3rem; margin-bottom: 1.5rem;"></i>
             <h2 style="font-size: 2rem; margin-bottom: 1rem;">Support the Station</h2>
             <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto 2.5rem; line-height: 1.6;">Your contributions help us maintain equipment, support local talent, and keep the music playing.</p>
             
-            <div class="donate-amounts">
-                <button class="amount-btn active" onclick="showPayment('orange', this)">Orange Money</button>
-                <button class="amount-btn" onclick="showPayment('myzaka', this)">Mascom MyZaka</button>
-                <button class="amount-btn" onclick="showPayment('bank', this)">Bank Transfer</button>
-                <button class="amount-btn" onclick="showPayment('paypal', this)">PayPal</button>
-            </div>
-            
-            <div id="orange" class="payment-method active-method">
-                <h3 style="color: var(--neon-green); margin-bottom: 1rem;">Orange Money</h3>
-                <p>Send your contribution directly via Orange Money to:<br><strong style="font-size: 1.2rem; color: #fff; display: block; margin-top: 0.5rem;">+267 72960417</strong></p>
-                <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-muted);">Please use your name as the reference.</p>
-            </div>
-
-            <div id="myzaka" class="payment-method">
-                <h3 style="color: var(--neon-green); margin-bottom: 1rem;">Mascom MyZaka</h3>
-                <p>Send your contribution directly via MyZaka to:<br><strong style="font-size: 1.2rem; color: #fff; display: block; margin-top: 0.5rem;">+267 74547439</strong></p>
-                <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-muted);">Please use your name as the reference.</p>
-            </div>
-
-            <div id="bank" class="payment-method">
-                <h3 style="color: var(--neon-green); margin-bottom: 1rem;">Bank Transfer</h3>
-                <p style="line-height: 1.8;">
-                    <strong>Bank:</strong> FNB Botswana<br>
-                    <strong>Account Name:</strong> Lobatse Radio<br>
-                    <strong>Account Number:</strong> 625-122-697-64<br>
-                    <strong>Branch Code:</strong> 281767
-                </p>
-            </div>
-
-            <div id="paypal" class="payment-method">
-                <h3 style="color: var(--neon-green); margin-bottom: 1rem;">PayPal</h3>
-                <p>Support us globally via PayPal's secure network.</p>
-                <a href="#" class="btn-submit-song" style="display: inline-block; margin-top: 1rem; text-decoration: none;">Go to PayPal.me</a>
+            <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                <div style="background: rgba(57, 255, 20, 0.05); border: 1px solid var(--neon-green); padding: 1.5rem; border-radius: 12px; flex: 1; min-width: 220px;">
+                    <h3 style="color: var(--neon-green); margin-bottom: 0.5rem;">Orange Money</h3>
+                    <strong>+267 72960417</strong>
+                </div>
+                <div style="background: rgba(57, 255, 20, 0.05); border: 1px solid var(--neon-green); padding: 1.5rem; border-radius: 12px; flex: 1; min-width: 220px;">
+                    <h3 style="color: var(--neon-green); margin-bottom: 0.5rem;">Mascom MyZaka</h3>
+                    <strong>+267 74547439</strong>
+                </div>
             </div>
         </div>
     </section>
@@ -417,6 +465,7 @@
         const navPlayBtn = document.getElementById('nav-play-btn');
         const heroPlayBtn = document.getElementById('hero-play-btn');
         const navVolumeSlider = document.getElementById('nav-volume-slider');
+        const vinylRecord = document.getElementById('vinyl-record');
         let isPlaying = false;
 
         function setupMediaSession() {
@@ -437,11 +486,13 @@
                 audio.pause();
                 navPlayBtn.innerHTML = '<i class="fas fa-play" style="margin-left: 2px;"></i>';
                 heroPlayBtn.innerHTML = '<i class="fas fa-play" style="margin-left: 6px;"></i>';
+                vinylRecord.classList.remove('spinning');
                 isPlaying = false;
             } else {
                 audio.play();
                 navPlayBtn.innerHTML = '<i class="fas fa-pause"></i>';
                 heroPlayBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                vinylRecord.classList.add('spinning');
                 setupMediaSession();
                 isPlaying = true;
             }
@@ -453,14 +504,6 @@
         navVolumeSlider.addEventListener('input', (e) => {
             audio.volume = e.target.value;
         });
-
-        // Donation Tab Logic
-        function showPayment(methodId, btn) {
-            document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('active-method'));
-            document.getElementById(methodId).classList.add('active-method');
-        }
 
         function toggleAdForm() {
             const drawer = document.getElementById('ad-form-drawer');
@@ -517,17 +560,27 @@
             arrow.className = drawer.classList.contains('show') ? 'fas fa-chevron-up' : 'fas fa-chevron-down';
         }
 
+        // ZENO METADATA AND VINYL DISPLAY LOGIC
         const zenoTextEl = document.getElementById('nav-zeno-text');
+        const heroMetadataDisplay = document.getElementById('hero-metadata-display');
+        const heroTrackName = document.getElementById('hero-track-name');
+        
         try {
             const zenoSource = new EventSource('https://api.zeno.fm/mounts/metadata/subscribe/yhspijyzxp8vv');
             zenoSource.onmessage = function(event) {
                 if (event.data) {
                     try {
                         const data = JSON.parse(event.data);
-                        if (data && data.streamTitle) {
-                            zenoTextEl.innerText = data.streamTitle;
+                        const title = data.streamTitle || "";
+                        
+                        // If it's a real song (not blank and not the generic station default)
+                        if (title && title.trim() !== "" && !title.toLowerCase().includes("lobatse radio live")) {
+                            zenoTextEl.innerText = title;
+                            heroTrackName.innerText = title;
+                            heroMetadataDisplay.style.display = "flex";
                         } else {
                             zenoTextEl.innerText = "Lobatse Radio Live";
+                            heroMetadataDisplay.style.display = "none";
                         }
                     } catch (e) {}
                 }
@@ -543,8 +596,8 @@
             { title: "Afro Diamonds", time: "Thursdays 2pm-4pm", presenter: "LEANO KGASWANE", image: "WhatsApp Image 2026-10-05 at 15.43.16.jpeg", bio: "Celebrating Africa's gems in sound." },
             { title: "Voice Up", time: "Mondays 10am-12pm", presenter: "Mpheme Mmolai", image: "mondays.jpeg", bio: "Giving listeners an unfiltered voice on social issues." },
             { title: "Kasi 2 Kasi Top10", time: "Wednesdays 4pm-6pm", presenter: "DJ Vic", image: "wednesday.jpeg", bio: "Street hits straight from every township." },
-            { title: "Prayer Walk", time: "Various Times", presenter: "TT", image: "TT.jpeg", bio: "Spiritual upliftment and indigenous melodies." },
-            { title: "Stand-in Presenter", time: "Various Times", presenter: "Tjifu", image: "WhatsApp Image 2026-10-05 at 14.26.24.jpeg", bio: "Our dynamic on-call presenter." }
+            { title: "Prayer Walk", time: "Various Times", presenter: "TT", image: "TT.jpg", bio: "Spiritual upliftment and indigenous melodies." },
+            { title: "Stand-in Presenter", time: "Various Times", presenter: "Guest / Stand-in", image: "WhatsApp Image 2026-10-05 at 14.26.24.jpeg", bio: "Our dynamic on-call presenter." }
         ];
 
         const programGrid = document.getElementById('program-grid');
