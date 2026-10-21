@@ -76,9 +76,10 @@
         .modal-content {
             background: var(--card-bg);
             padding: 2rem; border-radius: 12px; border: 1px solid var(--neon-green);
-            width: 90%; max-width: 400px; position: relative;
+            width: 90%; max-width: 450px; position: relative;
+            max-height: 90vh; overflow-y: auto;
         }
-        .close-modal { position: absolute; top: 1rem; right: 1.5rem; font-size: 1.5rem; cursor: pointer; color: #fff; }
+        .close-modal { position: absolute; top: 1rem; right: 1.5rem; font-size: 1.5rem; cursor: pointer; color: #fff; z-index: 10; }
         .close-modal:hover { color: var(--neon-green); }
         
         .custom-input { width: 100%; padding: 0.8rem; background: var(--bg-darker); border: 1px solid #444; color: #fff; border-radius: 6px; outline: none; margin-bottom: 1rem; }
@@ -88,14 +89,13 @@
         .auth-toggle { font-size: 0.85rem; color: var(--text-muted); text-align: center; cursor: pointer; margin-top: 1rem; }
         .auth-toggle:hover { color: var(--neon-green); }
 
-        .cart-list { max-height: 300px; overflow-y: auto; margin-bottom: 1rem; }
+        .cart-list { max-height: 250px; overflow-y: auto; margin-bottom: 1rem; }
         .cart-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; padding: 0.8rem 0; }
         .cart-item-title { font-size: 0.9rem; font-weight: bold; }
         .cart-item-price { color: var(--neon-green); font-size: 0.9rem; }
         .remove-btn { color: red; cursor: pointer; font-size: 0.8rem; margin-left: 10px; }
         .cart-total { font-size: 1.2rem; font-weight: bold; text-align: right; margin-bottom: 1rem; border-top: 1px solid var(--neon-green); padding-top: 1rem; }
 
-        /* Payment UI Styles */
         .pay-method-btn {
             flex: 1;
             padding: 1rem 0.5rem;
@@ -110,6 +110,11 @@
         }
         #pay-orange.active { border-color: #ff6600; color: #ff6600; background: rgba(255, 102, 0, 0.1); }
         #pay-myzaka.active { border-color: #00a65a; color: #00a65a; background: rgba(0, 166, 90, 0.1); }
+        
+        /* Scrollbar styles for modal */
+        .modal-content::-webkit-scrollbar { width: 6px; }
+        .modal-content::-webkit-scrollbar-track { background: var(--bg-darker); border-radius: 12px; }
+        .modal-content::-webkit-scrollbar-thumb { background: #444; border-radius: 12px; }
     </style>
 </head>
 <body>
@@ -130,7 +135,6 @@
         <!-- Items injected via JS -->
     </div>
 
-    <!-- Login/Register Modal -->
     <div id="auth-modal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModals()">&times;</span>
@@ -145,9 +149,8 @@
         </div>
     </div>
 
-    <!-- Cart Modal -->
     <div id="cart-modal" class="modal">
-        <div class="modal-content" style="max-width: 500px;">
+        <div class="modal-content">
             <span class="close-modal" onclick="closeModals()">&times;</span>
             <h2 style="margin-bottom: 1.5rem; color: var(--neon-green);"><i class="fas fa-shopping-cart"></i> Your Cart</h2>
             
@@ -159,7 +162,6 @@
         </div>
     </div>
 
-    <!-- Mobile Money Checkout Modal -->
     <div id="checkout-modal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModals()">&times;</span>
@@ -167,6 +169,13 @@
             <div style="font-size: 1.5rem; margin-bottom: 1.5rem; font-weight: bold; text-align: center;" id="checkout-total-display">P0.00</div>
             
             <form id="checkout-form">
+                <!-- Delivery Address Section -->
+                <label style="display:block; margin-bottom:0.5rem; color:var(--text-muted); font-size: 0.9rem;">Delivery Address:</label>
+                <input type="text" id="checkout-country" class="custom-input" value="Botswana" readonly style="color: #888; cursor: not-allowed; margin-bottom: 0.5rem;" title="Currently restricted to Botswana">
+                <input type="text" id="checkout-city" class="custom-input" placeholder="City / Village (e.g., Gaborone, Lobatse)" required style="margin-bottom: 0.5rem;">
+                <input type="text" id="checkout-address" class="custom-input" placeholder="Street Address or Plot Number" required style="margin-bottom: 1.5rem;">
+
+                <!-- Payment Selection -->
                 <label style="display:block; margin-bottom:0.8rem; color:var(--text-muted); font-size: 0.9rem;">Select Payment Network:</label>
                 <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
                     <div class="pay-method-btn active" id="pay-orange" onclick="selectPayment('orange')">Orange Money</div>
@@ -193,7 +202,6 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
 
-        // 1. Firebase Configuration
         const firebaseConfig = {
             apiKey: "AIzaSyBdLuCGZWVKtyfLhr1vaB6bydGF7NiK29o",
             authDomain: "lobatse-radio.firebaseapp.com",
@@ -206,7 +214,6 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // 2. Shop Data & Cart State
         const shopData = [
             { id: "lor-cup", name: "Lobatse Radio Cup", price: 35.00, image: "IMG_3420.JPG" },
             { id: "lor-tshirt", name: "Lobatse Radio T-Shirt", price: 170.00, image: "IMG_3422.JPG" },
@@ -217,7 +224,6 @@
         let currentUser = null;
         let cartTotal = 0;
 
-        // 3. Render Shop Items
         const shopGrid = document.getElementById('shop-grid');
         shopData.forEach(item => {
             shopGrid.innerHTML += `
@@ -230,7 +236,6 @@
             `;
         });
 
-        // 4. Cart & Checkout Functions
         window.addToCart = function(itemId) {
             const product = shopData.find(p => p.id === itemId);
             if(product) {
@@ -295,26 +300,27 @@
             }
         };
 
-        // DEEP LINKING TO MOBILE MONEY APPS / USSD
+        // CHECKOUT SUBMISSION WITH PICKUP ALERT AND USSD REDIRECT
         document.getElementById('checkout-form').addEventListener('submit', (e) => {
             e.preventDefault();
+            
+            // Pickup notification pop-up
+            alert("Pick up in person at the studio in Woodhall, Lobatse.");
+
             const method = document.getElementById('selected-payment').value;
             const btn = document.getElementById('pay-submit-btn');
             const status = document.getElementById('payment-status');
             
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Opening App...';
             
-            // Assign the correct Botswana Mobile Money USSD code
             const ussdCode = method === 'orange' ? '*145%23' : '*167%23'; 
             
             status.style.display = 'block';
             status.style.color = 'var(--neon-green)';
             status.innerHTML = `<i class="fas fa-external-link-alt"></i> Redirecting to your phone's payment app...`;
             
-            // Triggers the phone's native dialer or mobile money app
             window.location.href = `tel:${ussdCode}`;
 
-            // Reset cart assuming they follow through on their device
             setTimeout(() => {
                 cart = [];
                 saveCart();
@@ -327,7 +333,6 @@
 
         updateCartUI();
 
-        // 5. Auth UI Logic
         let isLoginMode = true;
         const authTitle = document.getElementById('auth-title');
         const authSubmitBtn = document.getElementById('auth-submit-btn');
@@ -348,7 +353,6 @@
             }
         });
 
-        // 6. Firebase Auth Listeners
         onAuthStateChanged(auth, (user) => {
             const loginBtn = document.getElementById('login-trigger-btn');
             const userDisplay = document.getElementById('user-display');
@@ -390,7 +394,6 @@
             }
         });
 
-        // Modal triggers
         window.openLogin = () => document.getElementById('auth-modal').classList.add('show');
         window.openCart = () => document.getElementById('cart-modal').classList.add('show');
         window.closeModals = () => {
